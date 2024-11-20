@@ -21,7 +21,7 @@ const LayoutPage = ({children}) => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  const storedKey = localStorage.getItem('selectedKey');
+  const storedKey = sessionStorage.getItem('selectedKey');
   const [selectedKey, setSelectedKey] = useState(storedKey? storedKey : '1');
   useEffect(() => {
     if (storedKey) {
@@ -32,7 +32,7 @@ const LayoutPage = ({children}) => {
 
   const handleSelect = (key) => {
     setSelectedKey(key.key);
-    localStorage.setItem('selectedKey', key.key);
+    sessionStorage.setItem('selectedKey', key.key);
   };
 
     const items=[
