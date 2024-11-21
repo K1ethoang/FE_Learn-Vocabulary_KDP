@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Card } from "antd";
 import './FlipCard.css'
 
-const FlipCard = () => {
+const FlipCard = (item) => {
   const [isFlipped, setIsFlipped] = useState(false);
-
+  const {word, meaning, phonetic} = item.item
   const handleFlip = () => {
     setIsFlipped(!isFlipped);
   };
@@ -14,11 +14,11 @@ const FlipCard = () => {
       <Card className={`flip-card ${isFlipped ? "flipped" : ""}`}>
         {!isFlipped ? (
           <div className="front">
-            <p>above (prep., adv). /əˈbʌv/</p>
+            <p>{word} {phonetic}</p>
           </div>
         ) : (
           <div className="back">
-            <p>ở trên, lên trên</p>
+            <p>{meaning}</p>
           </div>
         )}
       </Card>
