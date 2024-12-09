@@ -1,10 +1,11 @@
+import { Result } from 'antd'
 import React from 'react'
 
 const ExceptionScreen = () => {
   return (
-    <div>
-      Ban chua tao ....
-    </div>
+    <Result
+    title="Page is building..."
+  />
   )
 }
 

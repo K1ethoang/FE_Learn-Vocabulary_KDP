@@ -1,8 +1,10 @@
 import React from 'react';
 import { Avatar, Dropdown, } from 'antd';
 import {UserOutlined, TrophyOutlined, SettingOutlined } from '@ant-design/icons';
+import { useAuth } from '../../providers/AuthProvider';
 
 const MenuProfileExpend = () => {
+    const { logout } = useAuth();
 
   const items = [
   {
@@ -31,7 +33,7 @@ const MenuProfileExpend = () => {
   },
   {
     key: '4',
-    label:<span className='w-36 h-8 flex items-center justify-start'>Đăng xuất</span>,
+    label:<span className='w-36 h-8 flex items-center justify-start' onClick={logout}>Đăng xuất</span>,
   },
   {
     type: 'divider',

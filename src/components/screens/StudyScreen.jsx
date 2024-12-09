@@ -24,8 +24,11 @@ const StudyScreen = () => {
     }
   };
 
-  const accessFlashCard = () => {
-    navigate('/flashcard/'+id)
+  const accessFlashcard = () => {
+    navigate(`/flashcard/${id}`)
+  }
+   const accessLearn = () => {
+    navigate(`/learn/${id}`)
   }
     return (
         <div className='m-6'>
@@ -34,8 +37,8 @@ const StudyScreen = () => {
             </div>
 
             <div className='m-5  flex items-center justify-between'>
-                <Button onClick={accessFlashCard} icon={<SnippetsOutlined style={{color:'#0b1de0'}}/>} style={{width:200, height:100, backgroundColor:'#f0f0f894', fontSize:18, fontWeight:600}}>Thẻ ghi nhớ</Button>
-                <Button icon={<FormOutlined  style={{color:'#0b1de0'}}/>} style={{width:200, height:100, backgroundColor:'#f0f0f894', fontSize:18, fontWeight:600}}>Học</Button>
+                <Button onClick={accessFlashcard} icon={<SnippetsOutlined style={{color:'#0b1de0'}}/>} style={{width:200, height:100, backgroundColor:'#f0f0f894', fontSize:18, fontWeight:600}}>Thẻ ghi nhớ</Button>
+                <Button onClick={accessLearn} icon={<FormOutlined  style={{color:'#0b1de0'}}/>} style={{width:200, height:100, backgroundColor:'#f0f0f894', fontSize:18, fontWeight:600}}>Học</Button>
                 <Button icon={<ReadOutlined style={{color:'#0b1de0'}} />} style={{width:200, height:100, backgroundColor:'#f0f0f894', fontSize:18, fontWeight:600}}>Kiểm tra</Button>
                 <Button icon = {<BlockOutlined style={{color:'#0b1de0'}}/>} style={{width:200, height:100, backgroundColor:'#f0f0f894', fontSize:18, fontWeight:600}}>Ghép thẻ</Button>
             </div>
