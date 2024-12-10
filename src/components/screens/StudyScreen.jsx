@@ -11,24 +11,28 @@ const StudyScreen = () => {
     const { id } = useParams();
     const carouselRef = useRef(null);
     const navigate = useNavigate()
-  const handleNext = () => {
-    // Call the next method of the Carousel
-    if (carouselRef.current) {
-      carouselRef.current.next();
-    }
-  };
-  const handlePrev = () => {
-    // Call the next method of the Carousel
-    if (carouselRef.current) {
-      carouselRef.current.prev();
-    }
-  };
+    const handleNext = () => {
+        // Call the next method of the Carousel
+        if (carouselRef.current) {
+        carouselRef.current.next();
+        }
+    };
+    const handlePrev = () => {
+        // Call the next method of the Carousel
+        if (carouselRef.current) {
+        carouselRef.current.prev();
+        }
+    };
 
-  const accessFlashcard = () => {
-    navigate(`/flashcard/${id}`)
-  }
-   const accessLearn = () => {
-    navigate(`/learn/${id}`)
+    const accessFlashcard = () => {
+        navigate(`/flashcard/${id}`)
+    }
+    const accessLearn = () => {
+        navigate(`/learn/${id}`)
+    }
+
+  const accessTest = () => {
+    navigate(`/test/${id}`,)
   }
     return (
         <div className='m-6'>
@@ -39,7 +43,7 @@ const StudyScreen = () => {
             <div className='m-5  flex items-center justify-between'>
                 <Button onClick={accessFlashcard} icon={<SnippetsOutlined style={{color:'#0b1de0'}}/>} style={{width:200, height:100, backgroundColor:'#f0f0f894', fontSize:18, fontWeight:600}}>Thẻ ghi nhớ</Button>
                 <Button onClick={accessLearn} icon={<FormOutlined  style={{color:'#0b1de0'}}/>} style={{width:200, height:100, backgroundColor:'#f0f0f894', fontSize:18, fontWeight:600}}>Học</Button>
-                <Button icon={<ReadOutlined style={{color:'#0b1de0'}} />} style={{width:200, height:100, backgroundColor:'#f0f0f894', fontSize:18, fontWeight:600}}>Kiểm tra</Button>
+                <Button onClick={accessTest} icon={<ReadOutlined style={{color:'#0b1de0'}} />} style={{width:200, height:100, backgroundColor:'#f0f0f894', fontSize:18, fontWeight:600}}>Kiểm tra</Button>
                 <Button icon = {<BlockOutlined style={{color:'#0b1de0'}}/>} style={{width:200, height:100, backgroundColor:'#f0f0f894', fontSize:18, fontWeight:600}}>Ghép thẻ</Button>
             </div>
 

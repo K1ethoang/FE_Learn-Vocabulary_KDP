@@ -11,6 +11,8 @@ import PrivateRoute from "./routes/PrivateRoute";
 import LoginScreen from "./auth/LoginScreen";
 import RegisterScreen from "./auth/RegisterScreen";
 import { AuthProvider } from "./providers/AuthProvider";
+import TestScreen from "./components/screens/TestScreen";
+import ResultTestScreen from "./components/screens/ResultTestScreen";
 
 
 function App() {
@@ -52,6 +54,8 @@ function App() {
           <Route path="/register" element={<RegisterScreen />} />
           <Route path="/flashcard/:id" element={<FlashCardScreen />} />
           <Route path="/learn/:id" element={<LearnTopic />} />
+          <Route path="/test/:id" element={<TestScreen />}/>
+          <Route path="/test/result/:id" element={<ResultTestScreen />}/>
 
           {/* Protected Routes */}
           <Route

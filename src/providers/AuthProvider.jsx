@@ -1,5 +1,5 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import React, { createContext, useState, useContext } from "react";
+
 
 
 const AuthContext = createContext();
@@ -14,6 +14,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setIsAuthenticated(false)
     localStorage.removeItem('isAuthenticated')
+    localStorage.removeItem('userSession')
     window.location.reload();
   };
 
