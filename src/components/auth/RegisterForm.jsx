@@ -1,5 +1,5 @@
 
-import { CheckCircleOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
+import { CheckCircleOutlined, LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
 
 import { useNavigate } from 'react-router-dom';
@@ -22,7 +22,7 @@ const RegisterForm = ({openNotification}) => {
     return (
         <Form
             // form={form}
-            name="login"
+            name="register"
             initialValues={{
                 remember: true,
             }}
@@ -36,11 +36,27 @@ const RegisterForm = ({openNotification}) => {
                 rules={[
                 {
                     required: true,
-                    message: 'Tên đăng nhập không được bỏ trống!',
+                    message: 'Tên không được bỏ trống!',
                 },
                 ]}
             >
-                <Input autoFocus size='large' prefix={<UserOutlined />} placeholder="Nhập tên đăng nhập" />
+                <Input autoFocus size='large' prefix={<UserOutlined />} placeholder="Nhập tên" />
+            </Form.Item>
+
+            <Form.Item
+                name="email"
+                rules={[
+                {
+                    required: true,
+                    message: 'Email không được bỏ trống!',
+                },
+                {
+                    type:'email',
+                    message:'Email không đúng định dạng!'
+                }
+                ]}
+            >
+                <Input type='email' autoFocus size='large' prefix={<MailOutlined  />} placeholder="Nhập email người dùng" />
             </Form.Item>
             <Form.Item
                 name="password"

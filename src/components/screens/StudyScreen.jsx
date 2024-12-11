@@ -5,6 +5,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import FlipCard from '../cards/FlipCard';
 import ListWordComponent from '../words/ListWordComponent';
 import data from  './../../assets/example_data/fake_data_word.json'
+import { readWord } from '../../utils/ReadWord';
+import { FaVolumeUp } from 'react-icons/fa';
 
 
 const StudyScreen = () => {
@@ -49,12 +51,18 @@ const StudyScreen = () => {
 
 
             <div>
-                <Carousel ref={carouselRef} infinite={false}>
+                <Carousel dots={false} ref={carouselRef} infinite={false}>
                     {data? data.map((item, idx) => {
                         return(
-                            <div key={idx}>
-                                <FlipCard item={item}/>
-                            </div>
+                            <>
+                                <div key={idx}>
+                                    <FlipCard item={item}/>
+                                </div>
+                                <div className=' w-3/5 mt-3 mr-auto ml-auto flex justify-end'>
+
+                                    <FaVolumeUp style={{fontSize:'25px', cursor:'pointer',color: '#b1b1b1', marginRight:20, zIndex:100}}  onClick={() => readWord(item.word)}/>
+                                </div>
+                            </>
                         )
                     }) : <Skeleton/>}
 

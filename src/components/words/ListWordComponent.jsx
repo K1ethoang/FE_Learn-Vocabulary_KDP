@@ -3,9 +3,13 @@
 // import InfiniteScroll from 'react-infinite-scroll-component';
 import { List } from 'antd'
 import data from  './../../assets/example_data/fake_data_word.json'
-import { PlayCircleOutlined } from '@ant-design/icons'
-
+import { DeleteOutlined, PlayCircleOutlined } from '@ant-design/icons'
+import { readWord } from '../../utils/ReadWord'
+import { FaVolumeUp } from 'react-icons/fa'
 const ListWordComponent = () => {
+    const handleDeleteWord = (word) => {
+        //handle sth
+    }
 
 //   const [loading, setLoading] = useState(false);
 //   const [data, setData] = useState({});
@@ -71,8 +75,9 @@ const ListWordComponent = () => {
                             <span>{item.meaning}</span>
                         </div>
 
-                        <div>
-                            <PlayCircleOutlined style={{fontSize:'25px', cursor:'pointer'}} />
+                        <div className='flex'>
+                            <FaVolumeUp  style={{fontSize:'25px', cursor:'pointer',color: '#1877F2', marginRight:10}} onClick={() => readWord(item.word)}/>
+                            <DeleteOutlined  style={{fontSize:'25px', cursor:'pointer',color: '#f35757'}} onClick={() => handleDeleteWord(item.word)}/>
                         </div>
                     </div>
                 </List.Item>

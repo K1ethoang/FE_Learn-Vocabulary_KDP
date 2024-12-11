@@ -12,7 +12,7 @@ const LoginForm = ({openNotification}) => {
     const [form] = Form.useForm()
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
-        if(values.username == 'test1234' && values.password == '12341234'){
+        if(values.username == 'test@gmail.com' && values.password == '12341234'){
             const fakeToken = '12345abcdef';
             const userData = { username: values.username, token: fakeToken };
 
@@ -44,11 +44,16 @@ const LoginForm = ({openNotification}) => {
                 rules={[
                 {
                     required: true,
-                    message: 'Tên đăng nhập không được bỏ trống!',
+                    message: 'Email không được bỏ trống!',
                 },
+                {
+                    required:false,
+                    type:'email',
+                    message:'Email không đúng định dạng!'
+                }
                 ]}
             >
-                <Input autoFocus size='large' prefix={<UserOutlined />} placeholder="Nhập tên đăng nhập" />
+                <Input autoFocus size='large' prefix={<UserOutlined />} placeholder="Nhập email người dùng" />
             </Form.Item>
             <Form.Item
                 name="password"

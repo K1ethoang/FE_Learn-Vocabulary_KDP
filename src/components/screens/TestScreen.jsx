@@ -57,9 +57,9 @@ const TestScreen = () => {
     }
     return (
 
-        <div className='flex flex-col items-center w-full min-h-screen bg-[#f6f7fb]'>
+        <div className='flex flex-col items-center w-full min-h-screen bg-[#F0F8FF]'>
             {contextHolder}
-            <div className='w-full min-h-16 bg-orange text-bg-light flex items-center justify-between p-3 mb-8'>
+            <div className='w-full min-h-16 bg-[#0056b3] text-bg-light flex items-center justify-between p-3 mb-8'>
                 <div>Kiểm tra</div>
                 <div className='flex flex-col items-center'>
                     <span>Title of topic test</span>
@@ -84,7 +84,7 @@ const TestScreen = () => {
                                 <Row gutter={[16, 16]}>
                                     {ques.options.map((opt, ansIdx) => (
                                         <Col span={12} key={ansIdx}>
-                                            <div className={`w-full h-full p-4 rounded-lg border hover:border-[#fc7536] cursor-pointer ${selectedAnswers[quesIdx] === ansIdx ? 'bg-blue' : ''}`} onClick={() => handleAnswerClick(quesIdx, ansIdx, ques.id, opt.id)}>
+                                            <div className={`w-full h-full p-4 rounded-lg border hover:border-[#fc7536] cursor-pointer ${selectedAnswers[quesIdx] === ansIdx ? 'bg-[#75b0ef]' : ''}`} onClick={() => handleAnswerClick(quesIdx, ansIdx, ques.id, opt.id)}>
                                                 <span className='mr-3'>{opt.id}</span>
                                                 <span className='text-[#000]'>{opt.text}</span>
                                             </div>
