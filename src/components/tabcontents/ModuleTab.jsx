@@ -3,12 +3,13 @@ import MemoryCard from '../cards/MemoryCard'
 import { Select,Divider ,Input} from 'antd'
 
 const ModuleTab = () => {
-    const { Search } = Input;
     const handleChange = (value) => {
         console.log(`selected ${value}`);
     };
-    const onSearch = (value, _e, info) => console.log(info?.source, value);
-  return (
+
+
+
+    return (
     <div>
         <div className='flex justify-between items-center'>
             <Select
@@ -22,7 +23,7 @@ const ModuleTab = () => {
 
                 ]}
             />
-            <Search style={{width:400}} size='large' placeholder="Tìm kiếm thẻ nhớ" onSearch={onSearch} enterButton />
+            <Input style={{width:400}} size='large' placeholder="Tìm kiếm thẻ nhớ"  enterButton />
 
         </div>
 

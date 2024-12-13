@@ -2,7 +2,7 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, Flex } from 'antd';
 import { useAuth } from '../../providers/AuthProvider';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 
@@ -14,14 +14,26 @@ const LoginForm = ({openNotification}) => {
         console.log('Received values of form: ', values);
         if(values.username == 'test@gmail.com' && values.password == '12341234'){
             const fakeToken = '12345abcdef';
-            const userData = { username: values.username, token: fakeToken };
+            const userData = { username: values.username, token: fakeToken , role: "user"};
 
             // Save session to sessionStorage
             localStorage.setItem('userSession', JSON.stringify(userData));
 
             login()
             navigate('/')
-        }else{
+        }
+        else if(values.username == 'admin@gmail.com' && values.password == '12341234'){
+            const fakeToken = '12345abcdef';
+            const userData = { username: values.username, token: fakeToken, role:'admin' };
+
+            // Save session to sessionStorage
+            localStorage.setItem('userSession', JSON.stringify(userData));
+
+            login()
+
+            navigate('/admin', {replace:true})
+        }
+        else{
             openNotification('topRight')
             form.resetFields();
 
