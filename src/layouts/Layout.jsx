@@ -11,6 +11,7 @@ import { Button, Image, Input, Layout, Menu, theme } from "antd";
 import MenuDropdown from "../components/menus/MenuDropdown";
 import MenuProfileExpend from "../components/menus/MenuProfileExpend";
 import { Link, useNavigate } from "react-router-dom";
+import ChatBox from "../components/chatbox/ChatBox";
 
 const { Header, Sider, Content } = Layout;
 const LayoutPage = ({ children }) => {
@@ -126,6 +127,8 @@ const LayoutPage = ({ children }) => {
         >
           {children}
         </Content>
+
+        <ChatBox />
       </Layout>
     </Layout>
   );

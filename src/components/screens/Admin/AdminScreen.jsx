@@ -5,6 +5,7 @@ import { MdDeleteOutline } from "react-icons/md";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import ProfileModal from "../../modals/ProfileModal";
 import DeleteModal from "../../modals/DeleteModal";
+import { LeftCircleOutlined, RightCircleOutlined } from "@ant-design/icons";
 
 const users = [
   {
@@ -98,9 +99,6 @@ const AdminScreen = () => {
     <div className="p-8">
       <div className="flex justify-between items-center mb-4 ">
         <h1 className="text-2xl font-semibold">Quản lí người dùng</h1>
-        <button className="bg-blue text-bg-light hover:bg-[#5cc3ff] px-4 py-2 rounded flex items-center">
-          <i className="fas fa-user-plus mr-2"></i> Thêm người dùng
-        </button>
       </div>
       <p className="text-gray mb-4">Tổng người dùng: 50</p>
       <div className="bg-[#fff] shadow rounded-lg">
@@ -155,15 +153,13 @@ const AdminScreen = () => {
         ))}
       </div>
       <div className="flex justify-center items-center mt-4 space-x-2">
-        <button className="text-gray-600 hover:underline mr-2">Quay lại</button>
+        <LeftCircleOutlined className="cursor-pointer " />
         <button className="bg-gray text-bg-black px-3 py-1 rounded">1</button>
         <button className="text-gray-600 hover:underline">2</button>
         <button className="text-gray-600 hover:underline">3</button>
         <button className="text-gray-600 hover:underline">4</button>
         <button className="text-gray-600 hover:underline">5</button>
-        <button className="text-gray-600 hover:underline ml-2">
-          Trang tiếp
-        </button>
+        <RightCircleOutlined className="cursor-pointer " />
       </div>
       <ProfileModal
         openViewModal={openViewModal}
