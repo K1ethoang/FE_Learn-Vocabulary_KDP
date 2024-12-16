@@ -1,4 +1,4 @@
-import { Alert, Button, Modal, Space } from "antd";
+import { Alert, Button, Modal, Pagination, Space } from "antd";
 import React, { useState } from "react";
 import { FaRegEye } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
@@ -153,13 +153,11 @@ const AdminScreen = () => {
         ))}
       </div>
       <div className="flex justify-center items-center mt-4 space-x-2">
-        <LeftCircleOutlined className="cursor-pointer " />
-        <button className="bg-gray text-bg-black px-3 py-1 rounded">1</button>
-        <button className="text-gray-600 hover:underline">2</button>
-        <button className="text-gray-600 hover:underline">3</button>
-        <button className="text-gray-600 hover:underline">4</button>
-        <button className="text-gray-600 hover:underline">5</button>
-        <RightCircleOutlined className="cursor-pointer " />
+        <Pagination
+          defaultCurrent={1}
+          total={50}
+          onChange={(e) => console.log(e)}
+        />
       </div>
       <ProfileModal
         openViewModal={openViewModal}

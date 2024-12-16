@@ -71,6 +71,7 @@ const SettingScreen = () => {
             </div>
             <div className="w-14 h-9 flex items-center justify-center bg-[#fff] font-bold mr-4">
               <Select
+                disabled
                 defaultValue="light"
                 style={{ width: 160 }}
                 onChange={handleChange}
@@ -84,7 +85,7 @@ const SettingScreen = () => {
           <Divider
             orientation="left"
             style={{
-              borderColor: "#7cb305",
+              borderColor: "#d4d5d5",
               margin: 0,
             }}
           />
@@ -97,6 +98,7 @@ const SettingScreen = () => {
             </div>
             <div className="w-14 h-9 flex items-center justify-center bg-[#fff] font-bold mr-6">
               <Select
+                disabled
                 defaultValue="Tiếng Việt"
                 style={{ width: 160 }}
                 onChange={handleChange}

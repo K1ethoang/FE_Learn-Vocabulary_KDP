@@ -141,12 +141,14 @@ const LearnTopic = () => {
   };
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-center bg-[#fff]">
-      <div className="w-full h-20 bg-[#007BFF] text-bg-light flex items-center justify-between p-6 font-bold text-xl mb-10">
-        <div>Hoc</div>
+    <div className="w-full min-h-screen flex flex-col items-center bg-[#F0F8FF]">
+      <div className="w-full h-16 bg-[#007BFF]  text-bg-light flex items-center justify-between p-6 font-bold text-xl mb-10">
+        <div className="text-base px-3 py-1 rounded-md  bg-[#265aa8] shadow-lg">
+          Học
+        </div>
         <div>Title of topic</div>
         <div
-          className=" w-7 h-7 text-center  border hover:bg-[rgb(82,154,255)] cursor-pointer "
+          className=" w-7 h-7 text-center  border hover:bg-[rgb(82,154,255)] cursor-pointer rounded-md "
           onClick={() => navigate(-1)}
         >
           X
@@ -162,7 +164,7 @@ const LearnTopic = () => {
           </div>
 
           <div className="w-full flex-grow flex justify-center items-center  ">
-            <div className="w-3/5 h-3/5 bg-[#fff] rounded-lg shadow-lg p-6 ">
+            <div className="w-3/5 h-3/5 bg-[#fff] rounded-lg shadow-xl p-6 ">
               <div className="mb-6">
                 <h2 className="text-xl font-semibold mb-2">Định nghĩa</h2>
                 <p className="text-lg">{currentQuestion.definition}</p>

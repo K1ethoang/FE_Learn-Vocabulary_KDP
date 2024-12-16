@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 body {
-    @apply font-roboto;
-    /* Use the font-sans utility class defined in tailwind.config.js */
+  @apply font-roboto;
+  /* Use the font-sans utility class defined in tailwind.config.js */
+  overflow-y: scroll;
 }

@@ -7,7 +7,7 @@ import {
   PlusSquareOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
-import { Button, Image, Input, Layout, Menu, theme } from "antd";
+import { Affix, Button, Image, Input, Layout, Menu, theme } from "antd";
 import MenuDropdown from "../components/menus/MenuDropdown";
 import MenuProfileExpend from "../components/menus/MenuProfileExpend";
 import { Link, useNavigate } from "react-router-dom";
@@ -38,7 +38,9 @@ const LayoutPage = ({ children }) => {
   };
 
   const handleSearch = () => {
-    navigate(`/search?query=${keySearch}`);
+    if (keySearch !== "") {
+      navigate(`/search?query=${keySearch}`);
+    }
   };
 
   const items = [
@@ -61,6 +63,7 @@ const LayoutPage = ({ children }) => {
   return (
     <Layout style={{ width: "100%", height: "100%" }}>
       <Header
+        className="fixed top-0 left-0 right-0 z-10 bg-white shadow-lg" // Tailwind classes for fixed header
         style={{
           padding: 0,
           background: colorBgContainer,
@@ -96,7 +99,7 @@ const LayoutPage = ({ children }) => {
         </div>
       </Header>
 
-      <Layout>
+      <Layout style={{ marginTop: "64px" }}>
         <Sider
           theme="light"
           width={260}

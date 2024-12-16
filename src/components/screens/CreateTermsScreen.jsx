@@ -49,7 +49,11 @@ const CreateTermsScreen = () => {
           <Form.List name="items">
             {(fields, { add, remove }) => (
               <div
-                style={{ display: "flex", rowGap: 16, flexDirection: "column" }}
+                style={{
+                  display: "flex",
+                  rowGap: 16,
+                  flexDirection: "column",
+                }}
               >
                 {fields.map((field) => (
                   <Card
@@ -65,6 +69,11 @@ const CreateTermsScreen = () => {
                         }}
                       />
                     }
+                    bordered
+                    style={{
+                      border: "0.1 solid",
+                      borderColor: "rgb(189,186,186)",
+                    }}
                   >
                     <div className="flex w-full h-20  flex-col  justify-center">
                       <div className="flex items-center justify-between">
