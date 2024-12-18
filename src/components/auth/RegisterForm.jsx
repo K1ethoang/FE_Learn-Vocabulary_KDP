@@ -122,10 +122,10 @@ const RegisterForm = ({ openNotification }) => {
         <Button size="large" block type="primary" htmlType="submit" danger>
           Đăng kí
         </Button>
-        <div className="flex items-center justify-end mt-2">
+        <div className="flex items-center justify-end mt-2 text-bg-light">
           <span> Bạn đã có tài khoản? </span>
           <a
-            className="hover:text-bg-light flex justify-end ml-1"
+            className="hover:underline hover:text-gray-light flex justify-end ml-1"
             href="/login"
           >
             {" "}

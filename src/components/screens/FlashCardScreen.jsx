@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import data from "./../../assets/example_data/fake_data_word.json";
-import { Button, Carousel, Skeleton } from "antd";
+import { Button, Carousel, Checkbox, Skeleton } from "antd";
 import {
   ArrowLeftOutlined,
   ArrowRightOutlined,
@@ -39,6 +39,11 @@ const FlashCardScreen = () => {
   const goback = () => {
     navigate(-1);
   };
+
+  const onChange = (e) => {
+    console.log(`checked = ${e.target.checked}`);
+  };
+
   return (
     <div className=" w-full min-h-screen bg-[#F0F8FF] flex flex-col">
       <div className=" w-full p-2 bg-[#3773eb] font-bold flex items-center justify-between ">
@@ -71,7 +76,7 @@ const FlashCardScreen = () => {
                     <div key={idx}>
                       <FlipCard item={item} />
                     </div>
-                    <div className=" w-2/5 mt-3 mr-auto ml-auto flex justify-end">
+                    <div className=" w-3/5  mt-3 mr-auto ml-auto flex justify-end">
                       <FaVolumeUp
                         style={{
                           fontSize: "25px",
@@ -82,6 +87,13 @@ const FlashCardScreen = () => {
                         }}
                         onClick={() => readWord(item.word)}
                       />
+                      <Checkbox
+                        className="mr-20 text-orange  text-base"
+                        c
+                        onChange={onChange}
+                      >
+                        Đánh dấu chưa thuộc
+                      </Checkbox>
                     </div>
                   </>
                 );

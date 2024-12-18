@@ -1,17 +1,26 @@
 import { Button, Form, Input, Modal, Select } from "antd";
 import React, { useEffect, useState } from "react";
 
-const AddWordModal = ({ openAddWordModal, handleCloseModal, idTopic }) => {
-  const [word, setWord] = useState("");
-  const [meaning, setMeaning] = useState("");
-  const [typeWord, setTypeWord] = useState("");
-  const [example, setExample] = useState("");
+const EditWordModal = ({ openEditWordModal, handleCloseModal, data }) => {
+  const item = data;
   const [form] = Form.useForm();
-
-  const handleCloseAddWordModal = () => {
-    form.resetFields();
-    handleCloseModal();
-  };
+  const [word, setWord] = useState(item.word);
+  const [meaning, setMeaning] = useState(item.meaning);
+  const [typeWord, setTypeWord] = useState(["N"]);
+  const [example, setExample] = useState("");
+  useEffect(() => {
+    setWord(item.word);
+    setMeaning(item.meaning);
+    setTypeWord(["N"]);
+    setExample("");
+    form.setFieldsValue({
+      word: item.word,
+      define: item.meaning,
+      typeWord: ["N"],
+      example: "",
+    });
+    console.log("check data", item);
+  }, [item, form]);
 
   const handleChange = (value) => {
     setTypeWord(value);
@@ -20,7 +29,7 @@ const AddWordModal = ({ openAddWordModal, handleCloseModal, idTopic }) => {
   const clearValues = () => {
     setWord("");
     setMeaning("");
-    setTypeWord("noun");
+    setTypeWord("");
     setExample("");
     form.resetFields();
   };
@@ -39,14 +48,14 @@ const AddWordModal = ({ openAddWordModal, handleCloseModal, idTopic }) => {
 
   return (
     <Modal
-      title={`Thêm từ mới vào topic ${idTopic}`}
+      title={`Chỉnh sửa từ ${item.word}`}
       centered
-      open={openAddWordModal}
+      open={openEditWordModal}
       onOk={handleOK}
-      onCancel={handleCloseAddWordModal}
+      onCancel={handleCloseModal}
       width={700}
       footer={[
-        <Button key="cancel" type="default" onClick={handleCloseAddWordModal}>
+        <Button key="cancel" type="default" onClick={handleCloseModal}>
           Hủy
         </Button>,
         <Button
@@ -56,7 +65,7 @@ const AddWordModal = ({ openAddWordModal, handleCloseModal, idTopic }) => {
           color="primary"
           variant="solid"
         >
-          Thêm từ
+          Sửa
         </Button>,
       ]}
     >
@@ -65,6 +74,12 @@ const AddWordModal = ({ openAddWordModal, handleCloseModal, idTopic }) => {
         name="dynamic_form_complex"
         style={{ maxWidth: "100%" }}
         autoComplete="off"
+        // initialValues={{
+        //   word: item.word,
+        //   define: item.meaning,
+        //   typeWord: ["N"],
+        //   example: "",
+        // }}
       >
         <div className=" w-full h-20 flex items-start mb-5">
           <div className="w-3/5">
@@ -80,6 +95,7 @@ const AddWordModal = ({ openAddWordModal, handleCloseModal, idTopic }) => {
               ]}
             >
               <Input
+                // defaultValue={item.word}
                 value={word}
                 onChange={(e) => setWord(e.target.value)}
                 placeholder="Nhập thuật ngữ"
@@ -95,6 +111,7 @@ const AddWordModal = ({ openAddWordModal, handleCloseModal, idTopic }) => {
               className="h-full w-full m-0"
             >
               <Select
+                // defaultValue={["N"]}
                 mode="multiple"
                 placeholder="Chọn loại từ"
                 style={{ width: "100%" }}
@@ -126,6 +143,7 @@ const AddWordModal = ({ openAddWordModal, handleCloseModal, idTopic }) => {
               ]}
             >
               <Input
+                // defaultValue={item.meaning}
                 value={meaning}
                 onChange={(e) => setMeaning(e.target.value)}
                 placeholder="Nhập định nghĩa"
@@ -142,6 +160,7 @@ const AddWordModal = ({ openAddWordModal, handleCloseModal, idTopic }) => {
               className="h-full w-full m-0"
             >
               <Input.TextArea
+                // defaultValue={""}
                 value={example}
                 onChange={(e) => setExample(e.target.value)}
                 placeholder="Nhập ví dụ (nếu có)"
@@ -154,4 +173,4 @@ const AddWordModal = ({ openAddWordModal, handleCloseModal, idTopic }) => {
   );
 };
 
-export default AddWordModal;
+export default EditWordModal;

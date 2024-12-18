@@ -78,6 +78,7 @@ const LoginForm = ({ openNotification }) => {
         />
       </Form.Item>
       <Form.Item
+        className="m-0"
         name="password"
         rules={[
           {
@@ -97,14 +98,16 @@ const LoginForm = ({ openNotification }) => {
           placeholder="Nhập mật khâu"
         />
       </Form.Item>
-      <Form.Item>
+      <Form.Item className=" text-bg-light  ">
         <Flex justify="space-between" align="center">
           <Form.Item name="remember" valuePropName="checked" noStyle>
-            <Checkbox>Ghi nhớ tài khoản</Checkbox>
+            <a className="hover:text-[#ece8e8]" href="/register">
+              Đăng kí ngay!
+            </a>
+            <a href="" className="hover:text-[#e6e2e2]">
+              Quên mật khẩu?
+            </a>
           </Form.Item>
-          <a href="" className="hover:text-bg-light">
-            Quên mật khẩu?
-          </a>
         </Flex>
       </Form.Item>
 
@@ -112,12 +115,6 @@ const LoginForm = ({ openNotification }) => {
         <Button size="large" block type="primary" htmlType="submit" danger>
           Đăng nhập
         </Button>
-        <a
-          className="hover:text-bg-light flex justify-end pt-2"
-          href="/register"
-        >
-          Đăng kí ngay!
-        </a>
       </Form.Item>
     </Form>
   );

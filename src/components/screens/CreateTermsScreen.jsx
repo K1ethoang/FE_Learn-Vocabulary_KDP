@@ -17,12 +17,23 @@ const CreateTermsScreen = () => {
       </div>
 
       <div className="mt-5">
-        <span>Tiêu đề</span>
-        <Input
-          activeBg="#f7f6f5c2"
-          size="large"
-          placeholder="Nhập tiêu đề, ví dụ: ' Chủ đề A ' "
-        />
+        <Form.Item
+          layout="vertical"
+          label="Tiêu đề"
+          name="title"
+          rules={[
+            {
+              required: true,
+              message: "Tiêu đề không được bỏ trống!",
+            },
+          ]}
+        >
+          <Input
+            activeBg="#f7f6f5c2"
+            size="large"
+            placeholder="Nhập tiêu đề, ví dụ: ' Chủ đề A ' "
+          />
+        </Form.Item>
       </div>
       <div className="mt-5 mb-8">
         <span>Mô tả</span>
@@ -34,7 +45,7 @@ const CreateTermsScreen = () => {
 
       <span className="font-semibold text-xl">Nhập từ và nghĩa của từ:</span>
 
-      <div className="mt-6">
+      <div className="mt-6 ">
         <Form
           labelCol={{ span: 6 }}
           wrapperCol={{ span: 18 }}
@@ -71,6 +82,7 @@ const CreateTermsScreen = () => {
                     style={{
                       border: "0.1 solid",
                       borderColor: "rgb(189,186,186)",
+                      paddingBottom: 40,
                     }}
                   >
                     <div className="flex w-full h-20  flex-col  justify-center">
@@ -80,6 +92,12 @@ const CreateTermsScreen = () => {
                           labelAlign="left"
                           name={[field.name, "word"]}
                           className="h-full w-5/12  m-0"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Thuật ngữ không được bỏ trống!",
+                            },
+                          ]}
                         >
                           <Input
                             size="large"
@@ -92,6 +110,12 @@ const CreateTermsScreen = () => {
                           labelAlign="left"
                           name={[field.name, "define"]}
                           className="h-full w-5/12 m-0"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Định nghĩa không được bỏ trống!",
+                            },
+                          ]}
                         >
                           <Input
                             size="large"
@@ -107,7 +131,7 @@ const CreateTermsScreen = () => {
                           name={[field.name, "example"]}
                           className="h-full w-5/12 m-0"
                         >
-                          <Input
+                          <Input.TextArea
                             size="large"
                             allowClear
                             placeholder="Nhập ví dụ(nếu có)..."
@@ -120,14 +144,15 @@ const CreateTermsScreen = () => {
                           className="h-full w-5/12 m-0"
                         >
                           <Select
+                            mode="multiple"
                             placeholder="Chọn loại từ"
-                            style={{ width: 160 }}
+                            style={{ width: "100%" }}
                             onChange={handleChange}
                             options={[
-                              { value: "noun", label: "Danh từ" },
-                              { value: "adj", label: "Tính từ" },
-                              { value: "verb", label: "Động từ" },
-                              { value: "adv", label: "Trạng từ" },
+                              { value: "N", label: "Danh từ" },
+                              { value: "Adj", label: "Tính từ" },
+                              { value: "V", label: "Động từ" },
+                              { value: "Adv", label: "Trạng từ" },
                             ]}
                           />
                         </Form.Item>

@@ -8,7 +8,7 @@ const DeleteModal = ({ openDeleteModal, handleCloseDeleteModal, word }) => {
   return (
     <Modal
       open={openDeleteModal}
-      title={`Xác nhận muốn xóa ${word.name}`}
+      title={`Xác nhận muốn xóa ${word}`}
       onOk={handleOk}
       onCancel={handleCloseDeleteModal}
       footer={[

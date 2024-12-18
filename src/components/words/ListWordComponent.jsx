@@ -3,14 +3,18 @@
 // import InfiniteScroll from 'react-infinite-scroll-component';
 import { List } from "antd";
 import data from "./../../assets/example_data/fake_data_word.json";
-import { DeleteOutlined, PlayCircleOutlined } from "@ant-design/icons";
+import { DeleteOutlined } from "@ant-design/icons";
 import { readWord } from "../../utils/ReadWord";
 import { FaVolumeUp } from "react-icons/fa";
 import DeleteModal from "../modals/DeleteModal";
 import { useState } from "react";
+import { MdOutlineEdit } from "react-icons/md";
+import EditWordModal from "../modals/word/EditWordModal";
 const ListWordComponent = () => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [word, setWord] = useState("");
+  const [item, setItem] = useState("");
+  const [isOpenEditModal, setIsOpenEditSetModal] = useState(false);
   const handleCloseDeleteModal = () => {
     setOpenDeleteModal(false);
   };
@@ -18,6 +22,16 @@ const ListWordComponent = () => {
   const handleDeleteWord = (word) => {
     setOpenDeleteModal(true);
     setWord(word);
+  };
+
+  const handleEditWord = (item) => {
+    setIsOpenEditSetModal(true);
+    setItem(item);
+    console.log("item", item);
+  };
+
+  const handleCloseModal = () => {
+    setIsOpenEditSetModal(false);
   };
 
   //   const [loading, setLoading] = useState(false);
@@ -74,29 +88,39 @@ const ListWordComponent = () => {
         dataSource={data}
         renderItem={(item) => (
           <List.Item key={item.word}>
-            <div className="w-full h-12  flex items-center justify-between ">
-              <div className="flex flex-col items-center justify-between ">
+            <div className="w-full max-h-fit  flex items-center justify-between ">
+              <div className="flex flex-col items-start ">
                 <span className="font-bold text-base">{item.word}</span>
                 <span className="text-gray">{item.phonetic}</span>
+                <span className="">Ví dụ: He is handsome!!!</span>
               </div>
 
               <div>
                 <span>{item.meaning}</span>
               </div>
 
-              <div className="flex">
+              <div className="flex w-30 items-center justify-around">
                 <FaVolumeUp
                   style={{
-                    fontSize: "25px",
+                    fontSize: "22px",
                     cursor: "pointer",
-                    color: "#1877F2",
+                    color: "gray",
                     marginRight: 10,
                   }}
                   onClick={() => readWord(item.word)}
                 />
+                <MdOutlineEdit
+                  style={{
+                    fontSize: "22px",
+                    cursor: "pointer",
+                    marginRight: 10,
+                    color: "blue",
+                  }}
+                  onClick={() => handleEditWord(item)}
+                />
                 <DeleteOutlined
                   style={{
-                    fontSize: "25px",
+                    fontSize: "22px",
                     cursor: "pointer",
                     color: "#f35757",
                   }}
@@ -112,6 +136,12 @@ const ListWordComponent = () => {
         openDeleteModal={openDeleteModal}
         handleCloseDeleteModal={handleCloseDeleteModal}
         word={word}
+      />
+
+      <EditWordModal
+        openEditWordModal={isOpenEditModal}
+        handleCloseModal={handleCloseModal}
+        data={item}
       />
     </>
     //   {/* </InfiniteScroll> */}

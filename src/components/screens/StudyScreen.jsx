@@ -18,15 +18,16 @@ import AddWordModal from "../modals/AddWordModal";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { IoBrushOutline } from "react-icons/io5";
 import DeleteSetModal from "../modals/DeleteSetModal";
+import EditSetModal from "../modals/set/EditSetModal";
 
 const StudyScreen = () => {
   const { id } = useParams();
   const carouselRef = useRef(null);
   const navigate = useNavigate();
   const [openAddWordModal, setOpenAddWordModal] = useState(false);
+  const [isOpenEditSetModal, setIsOpenEditSetModal] = useState(false);
   const [idTopic, setIdTopic] = useState(0);
-  const location = useLocation();
-  const { author } = location.state;
+
   const [openDeleteSetModal, setOpenDeleteSetModal] = useState(false);
 
   const handleNext = () => {
@@ -63,7 +64,8 @@ const StudyScreen = () => {
   };
 
   const handleEditSet = () => {
-    navigate(`/edit-set/${id}`, { state: { id } });
+    openEditSetModal();
+    setIdTopic(id);
   };
 
   const handleDeleteSet = () => {
@@ -71,6 +73,13 @@ const StudyScreen = () => {
   };
   const handleCloseDeleteSetModal = () => {
     setOpenDeleteSetModal(false);
+  };
+
+  const openEditSetModal = () => {
+    setIsOpenEditSetModal(true);
+  };
+  const handleCloseEditModal = () => {
+    setIsOpenEditSetModal(false);
   };
 
   return (
@@ -178,14 +187,11 @@ const StudyScreen = () => {
 
       <div className="w-5/6 mx-auto my-6 flex items-center justify-between">
         <div className="flex items-center">
-          <Avatar size="large" style={{ backgroundColor: "gray" }}>
-            {author?.charAt(0).toUpperCase()}
-          </Avatar>
           <div className="flex flex-col items-start ml-2">
-            <span className="text-gray text-sm">Tạo bởi</span>
             <span className="text-lg text-purple uppercase font-semibold ">
-              {author}
+              Tiêu đề của học phần {id}
             </span>
+            <span className="text-gray text-sm">Mô tả học phần</span>
           </div>
         </div>
 
@@ -212,6 +218,9 @@ const StudyScreen = () => {
           <span className="text-xl font-bold">
             Thuật ngữ trong học phần này
           </span>
+          <div>
+            <Button onClick={handleAddWord}>Thêm từ mới</Button>
+          </div>
         </div>
         <div className="mt-5 ">
           <ListWordComponent />
@@ -226,6 +235,11 @@ const StudyScreen = () => {
         openDeleteSetModal={openDeleteSetModal}
         handleCloseDeleteSetModal={handleCloseDeleteSetModal}
         data={id}
+      />
+      <EditSetModal
+        openEditSetModal={isOpenEditSetModal}
+        handleCloseEditModal={handleCloseEditModal}
+        idTopic={idTopic}
       />
     </div>
   );

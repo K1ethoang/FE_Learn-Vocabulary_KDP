@@ -6,7 +6,7 @@ const MemoryCard = ({ title, author, numVocabulary }) => {
   const navigate = useNavigate();
   const id = 1234;
   const accessCard = () => {
-    navigate(`/studies/${id}`, { state: { author } });
+    navigate(`/studies/${id}`);
   };
   return (
     <div
