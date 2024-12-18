@@ -1,11 +1,10 @@
-import { Alert, Button, Modal, Pagination, Space } from "antd";
+import { Pagination } from "antd";
 import React, { useState } from "react";
 import { FaRegEye } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+
 import ProfileModal from "../../modals/ProfileModal";
 import DeleteModal from "../../modals/DeleteModal";
-import { LeftCircleOutlined, RightCircleOutlined } from "@ant-design/icons";
 
 const users = [
   {
@@ -68,6 +67,7 @@ const users = [
 
 const AdminScreen = () => {
   const [openViewModal, setOpenViewModal] = useState(false);
+  const [user, setUser] = useState(null);
   const handleViewUser = () => {
     setOpenViewModal(true);
   };
@@ -76,9 +76,10 @@ const AdminScreen = () => {
   };
 
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
-  const handleDeleteModal = () => {
+  const handleDeleteModal = (user) => {
     console.log("check");
     setOpenDeleteModal(true);
+    setUser(user);
   };
   const handleCloseDeleteModal = () => {
     setOpenDeleteModal(false);
@@ -144,7 +145,7 @@ const AdminScreen = () => {
                 style={{ width: "26px", height: "26px", color: "blue" }}
               />
               <MdDeleteOutline
-                onClick={handleDeleteModal}
+                onClick={() => handleDeleteModal(user)}
                 className="cursor-pointer"
                 style={{ width: "26px", height: "26px", color: "orange" }}
               />
@@ -166,6 +167,7 @@ const AdminScreen = () => {
       <DeleteModal
         openDeleteModal={openDeleteModal}
         handleCloseDeleteModal={handleCloseDeleteModal}
+        word={user}
       />
     </div>
   );

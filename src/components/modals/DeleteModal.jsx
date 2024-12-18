@@ -8,7 +8,7 @@ const DeleteModal = ({ openDeleteModal, handleCloseDeleteModal, word }) => {
   return (
     <Modal
       open={openDeleteModal}
-      title={`Xác nhận muốn xóa ${word}`}
+      title={`Xác nhận muốn xóa ${word.name}`}
       onOk={handleOk}
       onCancel={handleCloseDeleteModal}
       footer={[
@@ -20,7 +20,7 @@ const DeleteModal = ({ openDeleteModal, handleCloseDeleteModal, word }) => {
         </Button>,
       ]}
     >
-      <p>Bạn có chắc chắn muốn xóa từ này?</p>
+      <p>Bạn có chắc chắn muốn xóa?</p>
     </Modal>
   );
 };
