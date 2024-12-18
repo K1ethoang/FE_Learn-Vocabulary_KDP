@@ -29,6 +29,8 @@ import AchievementScreen from "./components/screens/AchievementScreen";
 import PrivacyScreen from "./components/screens/PrivacyScreen";
 import SupportScreen from "./components/screens/SupportScreen";
 import UpgradeScreen from "./components/screens/UpgradeScreen";
+import EditSetScreen from "./components/screens/EditSetScreen";
+import ChatBoxScreen from "./components/screens/ChatBoxScreen";
 
 function App() {
   const AuthLayout = () => {
@@ -53,6 +55,7 @@ function App() {
           <Routes>
             {/* User Routers */}
             <Route path="/" element={<HomeScreen />} />
+            <Route path="/edit-set/:id" element={<EditSetScreen />} />
             <Route path="/search" element={<SearchScreen />} />
             <Route path="/library" element={<LibraryScreen />} />
             <Route path="/setting" element={<SettingScreen />} />
@@ -60,6 +63,7 @@ function App() {
             <Route path="/privacy" element={<PrivacyScreen />} />
             <Route path="/support" element={<SupportScreen />} />
             <Route path="/upgrade" element={<UpgradeScreen />} />
+            <Route path="/chat-box" element={<ChatBoxScreen />} />
             <Route path="/create-set" element={<CreateTermsScreen />} />
             <Route path="/studies/:id" element={<StudyScreen />} />
             <Route path="/user/folders" element={<FolderScreen />} />

@@ -7,11 +7,21 @@ import {
   PlusSquareOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
-import { Affix, Button, Image, Input, Layout, Menu, theme } from "antd";
+import {
+  Affix,
+  Button,
+  Divider,
+  Image,
+  Input,
+  Layout,
+  Menu,
+  theme,
+} from "antd";
 import MenuDropdown from "../components/menus/MenuDropdown";
 import MenuProfileExpend from "../components/menus/MenuProfileExpend";
 import { Link, useNavigate } from "react-router-dom";
 import ChatBox from "../components/chatbox/ChatBox";
+import { CiChat1 } from "react-icons/ci";
 
 const { Header, Sider, Content } = Layout;
 const LayoutPage = ({ children }) => {
@@ -21,6 +31,7 @@ const LayoutPage = ({ children }) => {
   const storedKey = sessionStorage.getItem("selectedKey");
   const [selectedKey, setSelectedKey] = useState(storedKey ? storedKey : "1");
   const navigate = useNavigate();
+  const width = window.screen.width;
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -47,17 +58,39 @@ const LayoutPage = ({ children }) => {
     {
       key: "1",
       icon: <HomeOutlined style={{ fontSize: 24 }} />,
-      label: <Link to="/">Trang chủ</Link>,
+      label: (
+        <Link to="/" className="font-semibold">
+          Trang chủ
+        </Link>
+      ),
     },
     {
       key: "2",
       icon: <FolderOutlined style={{ fontSize: 24 }} />,
-      label: <Link to="/library">Thư viện của bạn</Link>,
+      label: (
+        <Link to="/library" className="font-semibold">
+          Thư viện của bạn
+        </Link>
+      ),
     },
     {
       key: "3",
       icon: <PlusSquareOutlined style={{ fontSize: 24 }} />,
-      label: <Link to="/create-set">Tạo thẻ ghi nhớ</Link>,
+      label: (
+        <Link to="/create-set" className="font-semibold">
+          Tạo thẻ ghi nhớ
+        </Link>
+      ),
+    },
+
+    {
+      key: "4",
+      icon: <CiChat1 size={24} />,
+      label: (
+        <Link to="/chat-box" className="font-semibold">
+          Trợ lý học tập
+        </Link>
+      ),
     },
   ];
   return (
@@ -101,8 +134,8 @@ const LayoutPage = ({ children }) => {
 
       <Layout style={{ marginTop: "64px" }}>
         <Sider
+          width={width * 0.18}
           theme="light"
-          width={260}
           trigger={null}
           collapsible
           collapsed={collapsed}
@@ -131,7 +164,7 @@ const LayoutPage = ({ children }) => {
           {children}
         </Content>
 
-        <ChatBox />
+        {/* <ChatBox /> */}
       </Layout>
     </Layout>
   );

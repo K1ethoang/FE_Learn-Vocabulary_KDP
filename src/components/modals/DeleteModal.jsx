@@ -1,4 +1,4 @@
-import { Alert, message, Modal } from "antd";
+import { Alert, Button, message, Modal } from "antd";
 import React from "react";
 
 const DeleteModal = ({ openDeleteModal, handleCloseDeleteModal, word }) => {
@@ -11,12 +11,14 @@ const DeleteModal = ({ openDeleteModal, handleCloseDeleteModal, word }) => {
       title={`Xác nhận muốn xóa ${word}`}
       onOk={handleOk}
       onCancel={handleCloseDeleteModal}
-      footer={(_, { OkBtn, CancelBtn }) => (
-        <>
-          <CancelBtn />
-          <OkBtn />
-        </>
-      )}
+      footer={[
+        <Button key="cancel" type="default" onClick={handleCloseDeleteModal}>
+          Hủy
+        </Button>,
+        <Button key="submit" onClick={handleOk} color="danger" variant="solid">
+          Vâng, tôi muốn xóa!
+        </Button>,
+      ]}
     >
       <p>Bạn có chắc chắn muốn xóa từ này?</p>
     </Modal>

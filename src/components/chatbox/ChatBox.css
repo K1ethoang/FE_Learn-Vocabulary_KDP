@@ -1,0 +1,21 @@
+/* Hide scrollbar by default */
+.scrollable {
+  overflow-y: scroll; /* Enable scrolling */
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: transparent transparent; /* For Firefox */
+}
+
+/* For Webkit browsers (Chrome, Safari) */
+.scrollable::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+  opacity: 0; /* Hide scrollbar */
+}
+
+.scrollable:hover::-webkit-scrollbar {
+  opacity: 1; /* Show scrollbar on hover */
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.5); /* Color of the scrollbar */
+  border-radius: 10px; /* Rounded corners */
+}

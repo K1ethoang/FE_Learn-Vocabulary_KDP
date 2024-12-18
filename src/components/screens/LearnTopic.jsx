@@ -2,6 +2,7 @@ import { ArrowLeftOutlined, ReloadOutlined } from "@ant-design/icons";
 import { Button, Progress } from "antd";
 import React, { useState } from "react";
 import { AiOutlineCheck, AiOutlineCloseCircle } from "react-icons/ai";
+import { IoCloseSharp } from "react-icons/io5";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const LearnTopic = () => {
@@ -111,9 +112,11 @@ const LearnTopic = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [stillQuestion, setStillQuestion] = useState(true);
   const [percent, setPercent] = useState(0);
-  const [percentExactly, setPercentExactly] = useState(0);
+
   const [resultTrue, setResultTrue] = useState(0);
   const totalQuestion = questions.length;
+  const [unfamiliarWords, setUnfamiliarWords] = useState([]);
+  const [results, setResults] = React.useState(Array(totalQuestion).fill(null));
   const navigate = useNavigate();
   const currentQuestion = questions[currentQuestionIndex];
   const location = useLocation();
@@ -122,16 +125,27 @@ const LearnTopic = () => {
     window.location.href = location.pathname;
   };
 
-  const handleAnswerClick = (option) => {
+  const handleLearnUnfamiliarWords = () => {
+    console.log("unfamiliarWords", results);
+  };
+
+  const handleAnswerClick = (option, currentQuestion) => {
+    const newSelectedAnswers = [...results];
     setSelectedOption(option);
     if (option.isCorrect) {
       setResultTrue(resultTrue + 1);
+
+      newSelectedAnswers[currentQuestionIndex] = 1;
+      setResults(newSelectedAnswers);
+    } else {
+      setUnfamiliarWords((prev) => [...prev, currentQuestion]);
+      newSelectedAnswers[currentQuestionIndex] = 0;
+      setResults(newSelectedAnswers);
     }
     setTimeout(() => {
       if (currentQuestionIndex < questions.length - 1) {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
         setPercent(((currentQuestionIndex + 1) / totalQuestion) * 100);
-        setPercentExactly((resultTrue / totalQuestion) * 100);
 
         setSelectedOption(null);
       } else {
@@ -186,7 +200,7 @@ const LearnTopic = () => {
                             : "hover:bg-[rgb(232,237,251)]"
                           : "hover:bg-[rgb(232,237,251)]"
                       } `}
-                      onClick={() => handleAnswerClick(option)}
+                      onClick={() => handleAnswerClick(option, currentQuestion)}
                       disabled={!!selectedOption}
                     >
                       <span>{option.id}</span>
@@ -213,37 +227,74 @@ const LearnTopic = () => {
         </>
       ) : (
         <>
-          <div className=" w-full flex-grow flex flex-col justify-center items-center">
-            <div className="text-2xl font-bold mb-8">Kết quả:</div>
-
-            <div className="mb-6 ">
-              <span className="mr-5"> Phần trăm số câu đúng: </span>
-              <Progress
-                strokeColor={"green"}
-                type="circle"
-                percent={percentExactly}
-              />
+          <div className="flex w-full flex-grow">
+            <div className="w-1/5  bg-white p-4 shadow-md">
+              <h2 className="text-lg font-bold mb-4">Đáp án đã chọn:</h2>
+              <ul className="list-disc pl-5">
+                {results.map((question, index) => (
+                  <li key={index} className="mb-2 flex">
+                    Câu {index + 1}
+                    {question === 1 ? (
+                      <AiOutlineCheck
+                        className="ml-2"
+                        size={22}
+                        color="green"
+                      />
+                    ) : (
+                      <IoCloseSharp size={22} color="red" className="ml-2" />
+                    )}
+                  </li>
+                ))}
+              </ul>
             </div>
+            <div className=" w-full flex-grow flex flex-col justify-center items-center">
+              <div className="text-2xl font-bold mb-8">Kết quả:</div>
 
-            <div>
-              <span className="mr-9"> Phần trăm số câu sai: </span>
-              <Progress
-                type="circle"
-                percent={100 - percentExactly}
-                strokeColor={"red"}
-              />
+              <div className="mb-6 ">
+                <span className="mr-5"> Phần trăm số câu đã thuộc: </span>
+                <Progress
+                  strokeColor={"green"}
+                  type="circle"
+                  percent={
+                    (results.filter((val) => val === 1).length /
+                      totalQuestion) *
+                    100
+                  }
+                />
+              </div>
+
+              <div>
+                <span className="mr-9"> Phần trăm số câu chưa thuộc: </span>
+                <Progress
+                  type="circle"
+                  percent={
+                    (results.filter((val) => val === 0).length /
+                      totalQuestion) *
+                    100
+                  }
+                  strokeColor={"red"}
+                />
+              </div>
             </div>
           </div>
-
-          <div className="w-80 h-10 flex items-center justify-between mb-8 mt-4  ">
+          <div className="w-2/5 h-10 flex items-center justify-between mb-8 mt-4  ">
             <Button
               icon={<ReloadOutlined />}
               size="large"
               type="primary"
               onClick={refreshPage}
             >
-              Học lại
+              Học lại từ đầu
             </Button>
+            {/* <Button
+              danger
+              icon={<ReloadOutlined />}
+              size="large"
+              type="primary"
+              onClick={handleLearnUnfamiliarWords}
+            >
+              Học lại từ đã sai
+            </Button> */}
             <Button
               icon={<ArrowLeftOutlined />}
               size="large"

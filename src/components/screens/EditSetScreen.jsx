@@ -1,19 +1,31 @@
 import React from "react";
 import { DeleteOutlined } from "@ant-design/icons";
 import { Button, Input, Card, Form, Select, Typography } from "antd";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const { TextArea } = Input;
 
-const CreateTermsScreen = () => {
+const EditSetScreen = () => {
+  const location = useLocation();
+  const { id } = location.state;
   const [form] = Form.useForm();
+  const navigate = useNavigate();
   const handleChange = (value) => {
     console.log(value);
+  };
+
+  const handleSubmit = () => {
+    const author = "Tôi";
+    navigate(`/studies/${id}`, { state: { author } });
   };
   return (
     <div>
       <div className="w-full h-18 flex justify-between items-center">
-        <p className="font-bold text-3xl">Tạo một học phần mới</p>
-        <div></div>
+        <div>
+          <Button type="primary" onClick={() => navigate(-1)}>
+            Quay về học phần
+          </Button>
+        </div>
       </div>
 
       <div className="mt-5">
@@ -154,12 +166,16 @@ const CreateTermsScreen = () => {
       </div>
 
       <div className="w-full mt-3 flex justify-end">
-        <Button style={{ width: 100, height: 40 }} type="primary">
-          Tạo
+        <Button
+          style={{ width: 100, height: 40 }}
+          type="primary"
+          onClick={handleSubmit}
+        >
+          Hoàn tất
         </Button>
       </div>
     </div>
   );
 };
 
-export default CreateTermsScreen;
+export default EditSetScreen;
