@@ -1,6 +1,4 @@
-import React from "react";
 import { Tabs } from "antd";
-import ExceptionScreen from "../exceptions/ExceptionScreen";
 import ModuleTab from "../tabcontents/ModuleTab";
 import VocabularyTab from "../tabcontents/VocabularyTab";
 import FolderScreen from "../screens/FolderScreen";

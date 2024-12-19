@@ -65,7 +65,7 @@ const MenuDropdown = () => {
       <Dropdown menu={{ items }} trigger={["click"]} placement="bottomLeft">
         <Button
           type="primary"
-          shape="circle"
+          shape="default"
           icon={<PlusOutlined />}
           size="large"
         />

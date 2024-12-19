@@ -131,7 +131,7 @@ const MenuProfileExpend = () => {
       <Dropdown menu={{ items }} trigger={["click"]} placement="bottomLeft">
         <Avatar
           style={{ backgroundColor: "blue" }}
-          shape="square"
+          shape="circle"
           size="large"
           icon={<UserOutlined />}
         />

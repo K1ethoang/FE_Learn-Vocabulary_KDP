@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import ListWordComponent from "../words/ListWordComponent";
 import { Input, List } from "antd";
 import data from "./../../assets/example_data/fake_data_word.json";
 import { FaVolumeUp } from "react-icons/fa";
-import { DeleteOutlined } from "@ant-design/icons";
 import { readWord } from "../../utils/ReadWord";
 import DeleteModal from "../modals/DeleteModal";
+import { MdOutlineDeleteOutline } from "react-icons/md";
 
 const VocabularyTab = () => {
   const [filteredVocabulary, setFilteredVocabulary] = React.useState(data);
@@ -69,34 +68,53 @@ const VocabularyTab = () => {
           dataSource={filteredVocabulary}
           renderItem={(item) => (
             <List.Item key={item.word}>
-              <div className="w-full h-12  flex items-center justify-between ">
-                <div className="flex flex-col items-center justify-between ">
-                  <span className="font-bold text-base">{item.word}</span>
-                  <span className="text-gray">{item.phonetic}</span>
+              <div className="w-full max-h-fit  flex items-center justify-between ">
+                <div className="flex flex-col items-start ">
+                  <div className="flex items-center mb-2">
+                    <span className="font-bold text-base">{item.word}</span>
+                    <span className="text-gray ml-2">{item.phonetic}</span>
+                    <div className="w-7 h-7 flex items-center justify-center rounded-lg ml-3 bg-[#88beff]">
+                      <FaVolumeUp
+                        style={{
+                          fontSize: "16px",
+                          cursor: "pointer",
+                          color: "blue",
+                        }}
+                        onClick={() => readWord(item.word)}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col items-start">
+                    <span className="font-semibold">Định nghĩa:</span>
+                    <span>{item.meaning}</span>
+                  </div>
+                  <span className="">Ví dụ: He is handsome!!!</span>
                 </div>
 
-                <div>
-                  <span>{item.meaning}</span>
-                </div>
+                <div className="flex w-30 items-center justify-around">
+                  {/* <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-[#9cffb9]">
+                    <LuPencilLine
+                      style={{
+                        fontSize: "18px",
+                        cursor: "pointer",
+                        marginRight: 10,
+                        color: "green",
+                      }}
+                      onClick={() => handleEditWord(item)}
+                    />
+                  </div> */}
 
-                <div className="flex">
-                  <FaVolumeUp
-                    style={{
-                      fontSize: "25px",
-                      cursor: "pointer",
-                      color: "#1877F2",
-                      marginRight: 10,
-                    }}
-                    onClick={() => readWord(item.word)}
-                  />
-                  <DeleteOutlined
-                    style={{
-                      fontSize: "25px",
-                      cursor: "pointer",
-                      color: "#f35757",
-                    }}
-                    onClick={() => handleDeleteWord(item.word)}
-                  />
+                  <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-[#ffb58b] ml-2">
+                    <MdOutlineDeleteOutline
+                      style={{
+                        fontSize: "22px",
+                        cursor: "pointer",
+                        color: "red",
+                      }}
+                      onClick={() => handleDeleteWord(item.word)}
+                    />
+                  </div>
                 </div>
               </div>
             </List.Item>
@@ -108,6 +126,12 @@ const VocabularyTab = () => {
         handleCloseDeleteModal={handleCloseDeleteModal}
         word={word}
       />
+
+      {/* <EditWordModal
+        openEditWordModal={isOpenEditModal}
+        handleCloseModal={handleCloseModal}
+        data={item}
+      /> */}
     </div>
   );
 };

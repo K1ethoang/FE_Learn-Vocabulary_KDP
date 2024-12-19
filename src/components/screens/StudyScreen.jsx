@@ -6,9 +6,9 @@ import {
   ReadOutlined,
   SnippetsOutlined,
 } from "@ant-design/icons";
-import { Avatar, Button, Carousel, Skeleton } from "antd";
-import React, { useRef, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Button, Carousel, Skeleton } from "antd";
+import { useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import FlipCard from "../cards/FlipCard";
 import ListWordComponent from "../words/ListWordComponent";
 import data from "./../../assets/example_data/fake_data_word.json";
@@ -222,7 +222,7 @@ const StudyScreen = () => {
             <Button onClick={handleAddWord}>Thêm từ mới</Button>
           </div>
         </div>
-        <div className="mt-5 ">
+        <div className="mt-5 w-4/5 mx-auto">
           <ListWordComponent />
         </div>
       </div>

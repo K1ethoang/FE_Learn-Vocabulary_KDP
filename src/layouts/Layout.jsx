@@ -145,7 +145,7 @@ const LayoutPage = ({ children }) => {
             theme="light"
             mode="inline"
             inlineCollapsed={collapsed}
-            defaultSelectedKeys={[selectedKey]}
+            defaultSelectedKeys={[selectedKey ? selectedKey : ""]}
             style={{ fontSize: 14, fontFamily: ["Roboto", "sans-serif"] }}
             items={items}
             onSelect={handleSelect}
