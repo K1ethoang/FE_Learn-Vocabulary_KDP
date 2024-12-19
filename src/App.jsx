@@ -31,13 +31,16 @@ import SupportScreen from "./components/screens/SupportScreen";
 import UpgradeScreen from "./components/screens/UpgradeScreen";
 import EditSetScreen from "./components/screens/EditSetScreen";
 import ChatBoxScreen from "./components/screens/ChatBoxScreen";
+import { jwtDecode } from "jwt-decode";
 
 function App() {
   const AuthLayout = () => {
-    const userSession = localStorage.getItem("userSession");
-    const jsonObject = JSON.parse(userSession);
+    console.log("AuthLayout");
+    const token = localStorage.getItem("token");
+    const decodedToken = jwtDecode(token);
+    const role = decodedToken.scope;
 
-    if (userSession && jsonObject.role === "admin") {
+    if (token && role === "admin") {
       return (
         <AdminLayout>
           <Routes>

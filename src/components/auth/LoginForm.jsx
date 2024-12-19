@@ -3,55 +3,32 @@ import { Button, Form, Input, Flex } from "antd";
 import { useAuth } from "../../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import axiosConfig from "../../services/axios/axiosConfig";
+import { useState } from "react";
 
 const LoginForm = ({ openNotification }) => {
   const { login } = useAuth();
   const navigate = useNavigate();
+  const [error, setError] = useState("");
   const [form] = Form.useForm();
 
   const onFinish = async (values) => {
-    const result = await axiosConfig.post("/auth/log-in", {
-      email: values.email,
-      password: values.password,
-    });
+    setError(null);
+    try {
+      const result = await axiosConfig.post("/auth/log-in", {
+        email: values.email,
+        password: values.password,
+      });
+      const token = result.data?.result;
+      const user = await login(token);
 
-    console.log(result);
-
-    console.log("Received values of form: ", values);
-    // if (values.username == "test@gmail.com" && values.password == "12341234") {
-    //   const fakeToken = "12345abcdef";
-    //   const userData = {
-    //     username: values.username,
-    //     token: fakeToken,
-    //     role: "user",
-    //   };
-
-    //   // Save session to sessionStorage
-    //   localStorage.setItem("userSession", JSON.stringify(userData));
-
-    //   login();
-    //   navigate("/");
-    // } else if (
-    //   values.username == "admin@gmail.com" &&
-    //   values.password == "12341234"
-    // ) {
-    //   const fakeToken = "12345abcdef";
-    //   const userData = {
-    //     username: values.username,
-    //     token: fakeToken,
-    //     role: "admin",
-    //   };
-
-    //   // Save session to sessionStorage
-    //   localStorage.setItem("userSession", JSON.stringify(userData));
-
-    //   login();
-
-    //   navigate("/admin", { replace: true });
-    // } else {
-    //   openNotification("topRight");
-    //   form.resetFields();
-    // }
+      if (user.role === "ADMIN") {
+        navigate("/admin", { replace: true });
+      } else {
+        navigate("/", { replace: true });
+      }
+    } catch (error) {
+      setError(error.response?.data?.errors[0]?.message);
+    }
   };
   return (
     <Form
@@ -108,6 +85,9 @@ const LoginForm = ({ openNotification }) => {
           placeholder="Nhập mật khâu"
         />
       </Form.Item>
+      <div className={`text-base text-[#fc4343] ${error ? "" : "hidden"}`}>
+        {error}
+      </div>
       <Form.Item className=" text-bg-light  ">
         <Flex justify="space-between" align="center">
           <a className="hover:text-[#ece8e8]" href="/register">
