@@ -37,6 +37,14 @@ const RegisterForm = ({ openNotification }) => {
             required: true,
             message: "Tên không được bỏ trống!",
           },
+          {
+            min: 5,
+            message: "Tên phải trên 5 kí tự.",
+          },
+          {
+            max: 40,
+            message: "Tên phải dưới 40 kí tự.",
+          },
         ]}
       >
         <Input

@@ -1,33 +1,30 @@
 // src/axiosConfig.js
 import axios from "axios";
 
-// Create an Axios instance
+// Create an Axios instance with default configuration
 const axiosConfig = axios.create({
-  baseURL: import.meta.env.VITE_API_BACKEND_URL, // Your backend API base URL
-  timeout: 10000, // Optional: Set a timeout for requests
+  baseURL: import.meta.env.VITE_API_BACKEND_URL, // Base URL for the API
+  timeout: 10000, // Request timeout in milliseconds
   headers: {
     "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
-    "Access-Control-Allow-Credentials": true,
-    // Set default content type
-    // Add any other default headers here
+    // Default content type for requests
   },
 });
 
-// Optional: Add interceptors for requests or responses
+// Request Interceptor
 axiosConfig.interceptors.request.use(
   (config) => {
-    // You can add authorization tokens or modify the request here
-    // const token = localStorage.getItem('token'); // Example for token
-    // if (token) {
-    //   config.headers['Authorization'] = `Bearer ${token}`;
-    // }
-    return config;
+    // Optionally add authorization tokens or modify the request here
+    const token = localStorage.getItem("token"); // Example for token retrieval
+    if (token) {
+      config.headers["Authorization"] = `Bearer ${token}`; // Attach token if available
+    }
+    return config; // Return the modified config
   },
   (error) => {
-    return Promise.reject(error);
+    // Handle request errors
+    console.error("Request error:", error);
+    return Promise.reject(error); // Reject the promise with the error
   }
 );
 
@@ -36,10 +33,18 @@ axiosConfig.interceptors.response.use(
     return response;
   },
   (error) => {
-    // Handle errors globally
-    console.error("API call error:", error);
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      console.error("API call error:", error.response.data); // Log the response data
+      console.error("Status code:", error.response.status); // Log the status code
+    } else if (error.request) {
+      // The request was made but no response was received
+      console.error("No response received:", error.request);
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.error("Error:", error.message);
+    }
     return Promise.reject(error);
   }
 );
-
 export default axiosConfig;
