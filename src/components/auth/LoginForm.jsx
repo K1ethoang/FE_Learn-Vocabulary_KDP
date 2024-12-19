@@ -1,63 +1,69 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input, Flex } from "antd";
+import { Button, Form, Input, Flex } from "antd";
 import { useAuth } from "../../providers/AuthProvider";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import axiosConfig from "../../services/axios/axiosConfig";
 
 const LoginForm = ({ openNotification }) => {
   const { login } = useAuth();
   const navigate = useNavigate();
   const [form] = Form.useForm();
-  const onFinish = (values) => {
+
+  const onFinish = async (values) => {
+    const result = await axiosConfig.post("/auth/log-in", {
+      email: values.email,
+      password: values.password,
+    });
+
+    console.log(result);
+
     console.log("Received values of form: ", values);
-    if (values.username == "test@gmail.com" && values.password == "12341234") {
-      const fakeToken = "12345abcdef";
-      const userData = {
-        username: values.username,
-        token: fakeToken,
-        role: "user",
-      };
+    // if (values.username == "test@gmail.com" && values.password == "12341234") {
+    //   const fakeToken = "12345abcdef";
+    //   const userData = {
+    //     username: values.username,
+    //     token: fakeToken,
+    //     role: "user",
+    //   };
 
-      // Save session to sessionStorage
-      localStorage.setItem("userSession", JSON.stringify(userData));
+    //   // Save session to sessionStorage
+    //   localStorage.setItem("userSession", JSON.stringify(userData));
 
-      login();
-      navigate("/");
-    } else if (
-      values.username == "admin@gmail.com" &&
-      values.password == "12341234"
-    ) {
-      const fakeToken = "12345abcdef";
-      const userData = {
-        username: values.username,
-        token: fakeToken,
-        role: "admin",
-      };
+    //   login();
+    //   navigate("/");
+    // } else if (
+    //   values.username == "admin@gmail.com" &&
+    //   values.password == "12341234"
+    // ) {
+    //   const fakeToken = "12345abcdef";
+    //   const userData = {
+    //     username: values.username,
+    //     token: fakeToken,
+    //     role: "admin",
+    //   };
 
-      // Save session to sessionStorage
-      localStorage.setItem("userSession", JSON.stringify(userData));
+    //   // Save session to sessionStorage
+    //   localStorage.setItem("userSession", JSON.stringify(userData));
 
-      login();
+    //   login();
 
-      navigate("/admin", { replace: true });
-    } else {
-      openNotification("topRight");
-      form.resetFields();
-    }
+    //   navigate("/admin", { replace: true });
+    // } else {
+    //   openNotification("topRight");
+    //   form.resetFields();
+    // }
   };
   return (
     <Form
       form={form}
       name="login"
-      initialValues={{
-        remember: true,
-      }}
       style={{
         maxWidth: 360,
       }}
       onFinish={onFinish}
     >
       <Form.Item
-        name="username"
+        name="email"
         rules={[
           {
             required: true,
@@ -89,6 +95,10 @@ const LoginForm = ({ openNotification }) => {
             min: 8,
             message: "Mật khẩu phải trên 8 kí tự.",
           },
+          {
+            max: 20,
+            message: "Mật khẩu phải dưới 20 kí tự.",
+          },
         ]}
       >
         <Input.Password
@@ -100,14 +110,12 @@ const LoginForm = ({ openNotification }) => {
       </Form.Item>
       <Form.Item className=" text-bg-light  ">
         <Flex justify="space-between" align="center">
-          <Form.Item name="remember" valuePropName="checked" noStyle>
-            <a className="hover:text-[#ece8e8]" href="/register">
-              Đăng kí ngay!
-            </a>
-            <a href="" className="hover:text-[#e6e2e2]">
-              Quên mật khẩu?
-            </a>
-          </Form.Item>
+          <a className="hover:text-[#ece8e8]" href="/register">
+            Đăng kí ngay!
+          </a>
+          <a href="" className="hover:text-[#e6e2e2]">
+            Quên mật khẩu?
+          </a>
         </Flex>
       </Form.Item>
 
