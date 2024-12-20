@@ -27,7 +27,12 @@ const LoginForm = ({ openNotification }) => {
         navigate("/", { replace: true });
       }
     } catch (error) {
-      setError(error.response?.data?.errors[0]?.message);
+      if (
+        error.response?.data?.errors[0]?.message ===
+        "Email or password is incorrect"
+      ) {
+        setError("Email hoặc mật khẩu không chính xác!");
+      }
     }
   };
   return (

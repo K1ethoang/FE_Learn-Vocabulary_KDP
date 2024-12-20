@@ -40,7 +40,7 @@ function App() {
     const decodedToken = jwtDecode(token);
     const role = decodedToken.scope;
 
-    if (token && role === "admin") {
+    if (token && role === "ADMIN") {
       return (
         <AdminLayout>
           <Routes>
