@@ -1,7 +1,9 @@
 import { Button, Divider, Select } from "antd";
 import React from "react";
+import { useAuth } from "../../providers/AuthProvider";
 
 const SettingScreen = () => {
+  const { user } = useAuth();
   const handleChange = (value) => {
     console.log(`selected ${value}`);
   };
@@ -18,7 +20,7 @@ const SettingScreen = () => {
           <div className="text-base h-24 w-full p-2 flex items-center justify-between">
             <div className=" flex flex-col justify-center p-4">
               <span className="font-semibold">Tên người dùng</span>
-              <span className="font-medium text-gray">Trần Văn Tráo</span>
+              <span className="font-medium text-gray">{user?.fullName}</span>
             </div>
             <div className="w-14 h-9 flex items-center justify-center bg-[#fff] font-bold text-[#473dd9] cursor-pointer hover:bg-[#e0deff] rounded-lg">
               <span>Sửa</span>
@@ -34,9 +36,7 @@ const SettingScreen = () => {
           <div className="text-base w-full h-24  p-2  flex items-center justify-between">
             <div className=" flex flex-col justify-center p-4">
               <span className="font-semibold">Email</span>
-              <span className="font-medium text-gray">
-                tranvantrao@gmail.com
-              </span>
+              <span className="font-medium text-gray">{user?.email}</span>
             </div>
             <div className="w-14 h-9 flex items-center justify-center bg-[#fff] font-bold text-[#473dd9] cursor-pointer hover:bg-[#e0deff] rounded-lg">
               <span>Sửa</span>
@@ -92,9 +92,6 @@ const SettingScreen = () => {
           <div className="text-base w-full h-24  p-2  flex items-center justify-between">
             <div className=" flex flex-col justify-center p-4">
               <span className="font-semibold">Ngôn ngữ</span>
-              <span className="font-medium text-gray">
-                tranvantrao@gmail.com
-              </span>
             </div>
             <div className="w-14 h-9 flex items-center justify-center bg-[#fff] font-bold mr-6">
               <Select

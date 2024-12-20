@@ -6,19 +6,6 @@ import axiosConfig from "../../services/axios/axiosConfig";
 import axios from "axios";
 
 const HomeScreen = () => {
-  //Test api /users/my-info (begin)
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axiosConfig.get("/users/my-info");
-        console.log(response.data);
-      } catch (err) {
-        console.log(err.data);
-      }
-    };
-    fetchData();
-  }, []);
-  //Test api /users/my-info (end)
   return (
     <div>
       <div className="m-4">

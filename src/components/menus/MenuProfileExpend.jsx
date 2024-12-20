@@ -42,10 +42,11 @@ const MenuProfileExpend = () => {
             size="large"
             shape="circle"
             style={{ backgroundColor: "blue" }}
+            src={user?.avatar}
           >
-            A
+            {user?.avatar ? "" : user?.fullName?.charAt(0).toUpperCase()}
           </Avatar>
-          <span className="text-lg font-bold pl-1">Nguyen Van A</span>
+          <span className="text-lg font-bold pl-1">{user?.fullName}</span>
         </div>
       ),
       key: "1",

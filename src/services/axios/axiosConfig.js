@@ -4,15 +4,16 @@ import axios from "axios";
 // Create an Axios instance with default configuration
 const axiosConfig = axios.create({
   baseURL: import.meta.env.VITE_API_BACKEND_URL, // Base URL for the API
-  timeout: 20000, // Request timeout in milliseconds
-  headers: {
-    "Content-Type": "application/json",
-    // "Access-Control-Allow-Origin": import.meta.env.VITE_API_BACKEND_URL,
-    // "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-    // "Access-Control-Allow-Headers": "Content-Type",
-    // "Access-Control-Allow-Credentials": false,
-    // Default content type for requests
-  },
+  timeout: 10000, // Request timeout
+  // headers: {
+  //   "Content-Type": "application/json",
+  //   "Access-Control-Allow-Origin": "*",
+  //   "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+  //   "Access-Control-Allow-Headers":
+  //     "Content-Type, Authorization, Content-Length, X-Requested-With",
+  //   "Access-Control-Allow-Credentials": true,
+  //   // Default content type
+  // },
 });
 
 // Request Interceptor
