@@ -7,24 +7,48 @@ import {
 import { Button, Form, Input } from "antd";
 
 import { useNavigate } from "react-router-dom";
+import axiosConfig from "../../services/axios/axiosConfig";
+import { useState } from "react";
 
 const RegisterForm = ({ openNotification }) => {
+  console.log("herer");
+  const [errorEmail, setErrorEmail] = useState("");
   const navigate = useNavigate();
   // const [form] = Form.useForm()
-  const onFinish = (values) => {
-    openNotification("topRight");
-    setTimeout(() => {
-      navigate("/login");
-    }, 1600);
-    //form.resetFields();
+  const onFinish = async (values) => {
+    console.log("Received values of form: ", values);
+    setErrorEmail("");
+    try {
+      const { username, email, password } = values;
+      const res = await axiosConfig.post("/auth/register", {
+        fullName: username,
+        email,
+        password,
+      });
+
+      if (res.data.statusCode === 201) {
+        openNotification("topRight");
+        setTimeout(() => {
+          navigate("/login");
+        }, 1600);
+      }
+    } catch (error) {
+      if (error.response?.data?.statusCode === 400) {
+        console.log("error", error.response?.data?.errors[0]?.message);
+        if (
+          error.response?.data?.errors[0]?.message === "Email is already exist"
+        ) {
+          setErrorEmail("Email đã tồn tại!");
+        }
+      } else {
+        openNotification("topRight", "error", "Đăng kí thất bại!");
+      }
+    }
   };
   return (
     <Form
       // form={form}
       name="register"
-      initialValues={{
-        remember: true,
-      }}
       style={{
         maxWidth: 360,
       }}
@@ -32,6 +56,7 @@ const RegisterForm = ({ openNotification }) => {
     >
       <Form.Item
         name="username"
+        autoFocus
         rules={[
           {
             required: true,
@@ -56,6 +81,7 @@ const RegisterForm = ({ openNotification }) => {
       </Form.Item>
 
       <Form.Item
+        className={`${errorEmail ? "mb-0" : ""}`}
         name="email"
         rules={[
           {
@@ -70,12 +96,20 @@ const RegisterForm = ({ openNotification }) => {
       >
         <Input
           type="email"
-          autoFocus
           size="large"
           prefix={<MailOutlined />}
           placeholder="Nhập email người dùng"
         />
       </Form.Item>
+      <span
+        className={`text-[#ff1c1c] m-0 p-0 text-base ${
+          errorEmail ? "" : "hidden"
+        }`}
+        style={{ margin: 0, padding: 0 }}
+      >
+        {errorEmail}
+      </span>
+
       <Form.Item
         name="password"
         rules={[

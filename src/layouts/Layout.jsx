@@ -164,7 +164,7 @@ const LayoutPage = ({ children }) => {
           {children}
         </Content>
 
-        {/* <ChatBox /> */}
+        <ChatBox />
       </Layout>
     </Layout>
   );

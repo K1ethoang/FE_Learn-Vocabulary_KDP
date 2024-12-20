@@ -4,15 +4,22 @@ import { notification } from "antd";
 import { FrownOutlined } from "@ant-design/icons";
 import LoginForm from "../components/auth/LoginForm";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../providers/AuthProvider";
 
 const LoginScreen = () => {
-  const token = localStorage.getItem("token");
-
+  // const token = localStorage.getItem("token");
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
   useEffect(() => {
-    if (token) {
-      window.location.href = "/";
+    if (isAuthenticated) {
+      navigate("/", { replace: true });
     }
-  }, [token]);
+    // if (token) {
+    //   console.log("here login");
+    //   window.location.href = "/";
+    // }
+  }, [navigate, isAuthenticated]);
 
   const [api, contextHolder] = notification.useNotification();
   const openNotification = () => {

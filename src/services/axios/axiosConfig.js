@@ -4,9 +4,13 @@ import axios from "axios";
 // Create an Axios instance with default configuration
 const axiosConfig = axios.create({
   baseURL: import.meta.env.VITE_API_BACKEND_URL, // Base URL for the API
-  timeout: 10000, // Request timeout in milliseconds
+  timeout: 20000, // Request timeout in milliseconds
   headers: {
     "Content-Type": "application/json",
+    // "Access-Control-Allow-Origin": import.meta.env.VITE_API_BACKEND_URL,
+    // "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+    // "Access-Control-Allow-Headers": "Content-Type",
+    // "Access-Control-Allow-Credentials": false,
     // Default content type for requests
   },
 });
@@ -17,9 +21,9 @@ axiosConfig.interceptors.request.use(
     // Optionally add authorization tokens or modify the request here
     const token = localStorage.getItem("token"); // Example for token retrieval
     if (token) {
-      config.headers["Authorization"] = `Bearer ${token}`; // Attach token if available
+      config.headers.Authorization = `Bearer ${token}`;
     }
-    return config; // Return the modified config
+    return config;
   },
   (error) => {
     // Handle request errors
