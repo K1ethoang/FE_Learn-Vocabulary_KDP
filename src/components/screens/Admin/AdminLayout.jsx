@@ -1,8 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "../../../providers/AuthProvider";
+import { Avatar } from "antd";
 
 const AdminLayout = ({ children }) => {
   const location = useLocation();
   const pathName = location.pathname;
+  const { user } = useAuth();
   const logout = () => {
     localStorage.clear();
     window.location.reload();
@@ -31,9 +34,9 @@ const AdminLayout = ({ children }) => {
           </nav>
         </div>
         <div className="flex items-center space-x-4">
-          <div className="bg-[#626161] rounded-full h-8 w-8 flex items-center justify-center">
-            GS
-          </div>
+          <Avatar src={user?.avatar} className="bg-[#626161]" shape="circle">
+            {user?.avatar ? "" : user?.fullName?.charAt(0).toUpperCase()}
+          </Avatar>
           <div
             className="text-bg-light hover:underline cursor-pointer"
             onClick={logout}

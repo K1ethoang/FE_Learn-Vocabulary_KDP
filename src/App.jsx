@@ -32,8 +32,20 @@ import UpgradeScreen from "./components/screens/UpgradeScreen";
 import EditSetScreen from "./components/screens/EditSetScreen";
 import ChatBoxScreen from "./components/screens/ChatBoxScreen";
 import { jwtDecode } from "jwt-decode";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+      if (decodedToken.exp < currentTime) {
+        localStorage.clear();
+        window.location.href = "/login";
+      }
+    }
+  }, []);
   const AuthLayout = () => {
     console.log("AuthLayout");
     const token = localStorage.getItem("token");

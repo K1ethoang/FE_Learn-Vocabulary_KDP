@@ -1,12 +1,22 @@
 import { Button, Divider, Select } from "antd";
 import React from "react";
 import { useAuth } from "../../providers/AuthProvider";
+import EditProfileModal from "../modals/user/EditProfileModal";
 
 const SettingScreen = () => {
   const { user } = useAuth();
+  const [openEditProfileModal, setOpenEditProfileModal] = React.useState(false);
   const handleChange = (value) => {
     console.log(`selected ${value}`);
   };
+
+  const handleEditProfile = () => {
+    setOpenEditProfileModal(true);
+  };
+  const handleEditProfileModalClose = () => {
+    setOpenEditProfileModal(false);
+  };
+
   return (
     <div className=" w-full flex flex-col  justify-center px-48 py-8 ml-auto mr-auto">
       <div className="text-3xl font-bold mb-3">Cài đặt</div>
@@ -22,9 +32,6 @@ const SettingScreen = () => {
               <span className="font-semibold">Tên người dùng</span>
               <span className="font-medium text-gray">{user?.fullName}</span>
             </div>
-            <div className="w-14 h-9 flex items-center justify-center bg-[#fff] font-bold text-[#473dd9] cursor-pointer hover:bg-[#e0deff] rounded-lg">
-              <span>Sửa</span>
-            </div>
           </div>
           <Divider
             orientation="left"
@@ -37,9 +44,6 @@ const SettingScreen = () => {
             <div className=" flex flex-col justify-center p-4">
               <span className="font-semibold">Email</span>
               <span className="font-medium text-gray">{user?.email}</span>
-            </div>
-            <div className="w-14 h-9 flex items-center justify-center bg-[#fff] font-bold text-[#473dd9] cursor-pointer hover:bg-[#e0deff] rounded-lg">
-              <span>Sửa</span>
             </div>
           </div>
 
@@ -113,6 +117,27 @@ const SettingScreen = () => {
       <div className="mt-12">
         <span className="text-xl font-semibold text-gray">Tài khoản</span>
         <div className="w-full h-3/5 border rounded-lg mt-2">
+          <div className="text-base w-full h-24  p-2  flex items-center justify-between">
+            <div className=" flex flex-col justify-center p-4">
+              <span className="font-semibold">
+                Cập nhật thông tin tài khoản
+              </span>
+            </div>
+
+            <div
+              className="w-28 h-9 flex items-center justify-center bg-[#fff] font-bold text-[#473dd9] cursor-pointer hover:bg-[#e0deff] rounded-lg"
+              onClick={handleEditProfile}
+            >
+              <span>Cập nhật</span>
+            </div>
+          </div>
+          <Divider
+            orientation="left"
+            style={{
+              borderColor: "#d4d5d5",
+              margin: 0,
+            }}
+          />
           <div className="text-base h-24 w-full p-2 flex items-center justify-between">
             <div className=" flex flex-col justify-center p-4">
               <span className="font-semibold">Xóa tài khoản của bạn</span>
@@ -129,6 +154,12 @@ const SettingScreen = () => {
           </div>
         </div>
       </div>
+
+      <EditProfileModal
+        openEditProfileModal={openEditProfileModal}
+        handleEditProfileModalClose={handleEditProfileModalClose}
+        user={user}
+      />
     </div>
   );
 };
