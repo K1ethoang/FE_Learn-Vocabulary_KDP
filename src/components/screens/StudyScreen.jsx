@@ -84,8 +84,33 @@ const StudyScreen = () => {
 
   return (
     <div className="m-6">
-      <div className="text-2xl font-bold ">Title of Course id: {id}</div>
+      <div className="w-full mx-auto my-6 flex items-center justify-between">
+        <div className="flex items-center">
+          <div className="flex flex-col items-start ml-2">
+            <span className="text-2xl text-purple uppercase font-semibold ">
+              Tiêu đề của học phần {id}
+            </span>
+            <span className="text-gray text-sm">Mô tả học phần</span>
+          </div>
+        </div>
 
+        <div className="flex">
+          <div
+            className="w-9 h-9 flex items-center justify-center rounded-lg bg-bg-light hover:bg-gray-light cursor-pointer mr-4"
+            style={{ border: "1px solid gray" }}
+            onClick={handleEditSet}
+          >
+            <IoBrushOutline size={22} />
+          </div>
+          <div
+            className="w-9 h-9 flex items-center justify-center rounded-lg bg-bg-light hover:bg-gray-light cursor-pointer "
+            style={{ border: "1px solid gray" }}
+            onClick={handleDeleteSet}
+          >
+            <MdOutlineDeleteOutline size={22} />
+          </div>
+        </div>
+      </div>
       <div className="m-5  flex items-center justify-between">
         <Button
           onClick={accessFlashcard}
@@ -139,8 +164,7 @@ const StudyScreen = () => {
           Ghép thẻ
         </Button>
       </div>
-
-      <div>
+      {/* <div>
         <Carousel dots={false} ref={carouselRef} infinite={false}>
           {data ? (
             data.map((item, idx) => {
@@ -183,36 +207,7 @@ const StudyScreen = () => {
             style={{ marginTop: "20px", width: "100px", height: "50px" }}
           />
         </div>
-      </div>
-
-      <div className="w-5/6 mx-auto my-6 flex items-center justify-between">
-        <div className="flex items-center">
-          <div className="flex flex-col items-start ml-2">
-            <span className="text-lg text-purple uppercase font-semibold ">
-              Tiêu đề của học phần {id}
-            </span>
-            <span className="text-gray text-sm">Mô tả học phần</span>
-          </div>
-        </div>
-
-        <div className="flex">
-          <div
-            className="w-9 h-9 flex items-center justify-center rounded-lg bg-bg-light hover:bg-gray-light cursor-pointer mr-4"
-            style={{ border: "1px solid gray" }}
-            onClick={handleEditSet}
-          >
-            <IoBrushOutline size={22} />
-          </div>
-          <div
-            className="w-9 h-9 flex items-center justify-center rounded-lg bg-bg-light hover:bg-gray-light cursor-pointer "
-            style={{ border: "1px solid gray" }}
-            onClick={handleDeleteSet}
-          >
-            <MdOutlineDeleteOutline size={22} />
-          </div>
-        </div>
-      </div>
-
+      </div> */}
       <div className="m-14">
         <div className="flex items-center justify-between">
           <span className="text-xl font-bold">

@@ -7,12 +7,9 @@ import {
 } from "@ant-design/icons";
 import { useAuth } from "../../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
-import axiosConfig from "../../services/axios/axiosConfig";
-import axios from "axios";
 
 const MenuProfileExpend = () => {
   const { user } = useAuth();
-  console.log("user", user);
   const { logout } = useAuth();
   const navigate = useNavigate();
   const handleSetting = () => {

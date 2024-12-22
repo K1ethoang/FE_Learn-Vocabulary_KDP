@@ -22,6 +22,8 @@ import MenuProfileExpend from "../components/menus/MenuProfileExpend";
 import { Link, useNavigate } from "react-router-dom";
 import ChatBox from "../components/chatbox/ChatBox";
 import { CiChat1 } from "react-icons/ci";
+import { IoBookOutline } from "react-icons/io5";
+import { TbBuildingWarehouse } from "react-icons/tb";
 
 const { Header, Sider, Content } = Layout;
 const LayoutPage = ({ children }) => {
@@ -66,22 +68,40 @@ const LayoutPage = ({ children }) => {
     },
     {
       key: "2",
-      icon: <FolderOutlined style={{ fontSize: 24 }} />,
+      icon: <IoBookOutline style={{ fontSize: 24 }} />,
       label: (
-        <Link to="/library" className="font-semibold">
-          Thư viện của bạn
+        <Link to="/sets" className="font-semibold">
+          Học phần của bạn
         </Link>
       ),
     },
     {
       key: "3",
-      icon: <PlusSquareOutlined style={{ fontSize: 24 }} />,
+      icon: <TbBuildingWarehouse style={{ fontSize: 24 }} />,
       label: (
-        <Link to="/create-set" className="font-semibold">
-          Tạo thẻ ghi nhớ
+        <Link to="/vocabulary" className="font-semibold">
+          Kho từ vựng
         </Link>
       ),
     },
+    // {
+    //   key: "4",
+    //   icon: <FolderOutlined style={{ fontSize: 24 }} />,
+    //   label: (
+    //     <Link to="/library" className="font-semibold">
+    //       Thư viện của bạn
+    //     </Link>
+    //   ),
+    // },
+    // {
+    //   key: "5",
+    //   icon: <PlusSquareOutlined style={{ fontSize: 24 }} />,
+    //   label: (
+    //     <Link to="/create-set" className="font-semibold">
+    //       Tạo học phần
+    //     </Link>
+    //   ),
+    // },
 
     {
       key: "4",

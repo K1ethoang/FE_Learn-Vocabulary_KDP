@@ -33,6 +33,8 @@ import EditSetScreen from "./components/screens/EditSetScreen";
 import ChatBoxScreen from "./components/screens/ChatBoxScreen";
 import { jwtDecode } from "jwt-decode";
 import { useEffect } from "react";
+import SetsScreen from "./components/screens/SetsScreen";
+import VocabularyScreen from "./components/screens/VocabularyScreen";
 
 function App() {
   useEffect(() => {
@@ -42,6 +44,7 @@ function App() {
       const currentTime = Date.now() / 1000;
       if (decodedToken.exp < currentTime) {
         localStorage.clear();
+        sessionStorage.clear();
         window.location.href = "/login";
       }
     }
@@ -72,6 +75,8 @@ function App() {
             <Route path="/" element={<HomeScreen />} />
             <Route path="/edit-set/:id" element={<EditSetScreen />} />
             <Route path="/search" element={<SearchScreen />} />
+            <Route path="/sets" element={<SetsScreen />} />
+            <Route path="/vocabulary" element={<VocabularyScreen />} />
             <Route path="/library" element={<LibraryScreen />} />
             <Route path="/setting" element={<SettingScreen />} />
             <Route path="/achievements" element={<AchievementScreen />} />
