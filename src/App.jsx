@@ -35,6 +35,7 @@ import { jwtDecode } from "jwt-decode";
 import { useEffect } from "react";
 import SetsScreen from "./components/screens/SetsScreen";
 import VocabularyScreen from "./components/screens/VocabularyScreen";
+import { message } from "antd";
 
 function App() {
   useEffect(() => {
@@ -45,7 +46,12 @@ function App() {
       if (decodedToken.exp < currentTime) {
         localStorage.clear();
         sessionStorage.clear();
-        window.location.href = "/login";
+        message.warning(
+          "Phiên đăng nhập của bạn đã hết hạn. Vui lòng đăng nhập lại"
+        );
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 700);
       }
     }
   }, []);

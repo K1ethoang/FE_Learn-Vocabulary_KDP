@@ -4,27 +4,10 @@ import { Button, message, notification, Spin } from "antd";
 import CreateSetsModal from "../modals/set/CreateSetsModal";
 import axiosConfig from "../../services/axios/axiosConfig";
 import EmtySets from "../exceptions/EmtySets";
+import DeleteSetModal from "../modals/DeleteSetModal";
+import EditSetModal from "../modals/set/EditSetModal";
 
 const SetsScreen = () => {
-  const [openCreateSet, setOpenCreateSet] = useState(false);
-  const [api, contextHolder] = notification.useNotification([]);
-  const openNotification = (placement, message) => {
-    api.info({
-      message: `${message}`,
-      placement,
-    });
-  };
-  const handleCreateSet = () => {
-    setOpenCreateSet(true);
-  };
-
-  const handleCreateSetModalClose = () => {
-    setOpenCreateSet(false);
-  };
-  const handleOpenNotifi = (place, mess) => {
-    openNotification(place, mess);
-  };
-
   const token = localStorage.getItem("token");
   const [topics, setTopics] = React.useState();
   const [isloading, setIsLoading] = useState(true);
@@ -52,6 +35,45 @@ const SetsScreen = () => {
     getAllTopic();
   }, [token]);
 
+  const [openCreateSet, setOpenCreateSet] = useState(false);
+  const [api, contextHolder] = notification.useNotification([]);
+  const [isOpenEditSetModal, setIsOpenEditSetModal] = useState(false);
+  const [isOpenDeleteSetModal, setIsOpenDeleteSetModal] = useState(false);
+  const [idTopic, setIdTopic] = useState();
+  const [topic, setTopic] = useState();
+
+  const openEditSetModal = () => {
+    setIsOpenEditSetModal(true);
+  };
+  const handleCloseEditModal = () => {
+    setIsOpenEditSetModal(false);
+  };
+
+  const openDeleteSetModal = () => {
+    setIsOpenDeleteSetModal(true);
+  };
+
+  const handleCloseDeleteSetModal = () => {
+    setIsOpenDeleteSetModal(false);
+  };
+
+  const openNotification = (placement, message) => {
+    api.info({
+      message: `${message}`,
+      placement,
+    });
+  };
+  const handleCreateSet = () => {
+    setOpenCreateSet(true);
+  };
+
+  const handleCreateSetModalClose = () => {
+    setOpenCreateSet(false);
+  };
+  const handleOpenNotifi = (place, mess) => {
+    openNotification(place, mess);
+  };
+
   if (isloading) {
     return (
       <Spin className=" w-full flex items-center justify-center" size="large" />
@@ -69,7 +91,12 @@ const SetsScreen = () => {
       </div>
 
       {topics && topics?.length > 0 ? (
-        <ModuleTab topics={topics} />
+        <ModuleTab
+          topics={topics}
+          openEditSetModal={openEditSetModal}
+          openDeleteSetModal={openDeleteSetModal}
+          setTopic={setTopic}
+        />
       ) : (
         <EmtySets />
       )}
@@ -79,6 +106,21 @@ const SetsScreen = () => {
         handleCreateSetModalClose={handleCreateSetModalClose}
         setTopics={setTopics}
         openNotification={openNotification}
+      />
+
+      <DeleteSetModal
+        openDeleteSetModal={isOpenDeleteSetModal}
+        handleCloseDeleteSetModal={handleCloseDeleteSetModal}
+        topic={topic}
+        handleOpenNotifi={handleOpenNotifi}
+        setTopics={setTopics}
+      />
+      <EditSetModal
+        openEditSetModal={isOpenEditSetModal}
+        handleCloseEditModal={handleCloseEditModal}
+        topic={topic}
+        setTopics={setTopics}
+        handleOpenNotifi={handleOpenNotifi}
       />
     </div>
   );

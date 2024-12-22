@@ -1,32 +1,75 @@
 import { Button, Form, Input, Modal, Select } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axiosConfig from "../../../services/axios/axiosConfig";
 
-const EditSetModal = ({ openEditSetModal, handleCloseEditModal, idTopic }) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+const EditSetModal = ({
+  openEditSetModal,
+  handleCloseEditModal,
+  topic,
+  setTopics,
+  handleOpenNotifi,
+}) => {
+  const set = topic;
+  const [title, setTitle] = useState(set?.title);
+  const [description, setDescription] = useState(set?.description);
   const [form] = Form.useForm();
-
+  useEffect(() => {
+    if (openEditSetModal && set) {
+      setTitle(set?.title);
+      setDescription(set?.description);
+      form.setFieldsValue({
+        title: set?.title,
+        description: set?.description,
+      });
+    }
+  }, [openEditSetModal, set, form]);
   const handleCloseModal = () => {
-    form.resetFields();
+    clearValues();
     handleCloseEditModal();
   };
   const clearValues = () => {
+    setTitle("");
+    setDescription("");
     form.resetFields();
   };
+
+  const handleOpenNotify = (place, mess) => {
+    handleOpenNotifi(place, mess);
+  };
+
+  const handleEditSet = async (newSet) => {
+    try {
+      const res = await axiosConfig.put(`/topics/${set?.id}`, {
+        title: newSet?.title,
+        description: newSet?.description,
+      });
+
+      if (res.data?.statusCode === 200) {
+        setTopics((prev) => [
+          res.data?.result,
+          ...prev.filter((set) => set.id !== res.data?.result.id),
+        ]);
+        handleOpenNotify("topRight", "Cập nhật thành công!");
+      }
+    } catch (error) {
+      handleOpenNotify("topRight", "Có lỗi xảy ra!");
+      console.log("error", error);
+    }
+  };
+
   const handleOK = () => {
-    const newData = {
+    const newTopic = {
       title,
       description,
     };
-
-    console.log("newData:", newData);
+    handleEditSet(newTopic);
     clearValues();
     handleCloseEditModal();
   };
 
   return (
     <Modal
-      title={`Chỉnh sửa học phần ${idTopic}`}
+      title={`Chỉnh sửa học phần ${topic?.title}`}
       centered
       open={openEditSetModal}
       onOk={handleOK}
@@ -63,6 +106,14 @@ const EditSetModal = ({ openEditSetModal, handleCloseEditModal, idTopic }) => {
                 {
                   required: true,
                   message: "Tiêu đề không được bỏ trống!",
+                },
+                {
+                  min: 3,
+                  message: "Tiêu đề phải lớn hơn 3 kí tự!",
+                },
+                {
+                  max: 100,
+                  message: "Tiêu đề phải bé hơn 100 kí tự!",
                 },
               ]}
             >

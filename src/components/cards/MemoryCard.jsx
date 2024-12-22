@@ -1,19 +1,67 @@
 import { Avatar, Card } from "antd";
 import React from "react";
+import { IoBrushOutline } from "react-icons/io5";
+import { MdOutlineDeleteOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
-const MemoryCard = ({ topic }) => {
-  console.log("topic", topic);
+const MemoryCard = ({
+  topic,
+  openEditSetModal,
+  openDeleteSetModal,
+  setTopic,
+}) => {
   const navigate = useNavigate();
+
   const accessCard = () => {
-    navigate(`/studies/${topic?.id}`);
+    navigate(`/studies/${topic?.id}`, {
+      state: {
+        id: topic?.id,
+        title: topic?.title,
+        description: topic?.description,
+      },
+    });
+  };
+
+  const handleOpenEditSetModal = () => {
+    setTopic(topic);
+    openEditSetModal();
+  };
+
+  const handleOpenDeleteSet = () => {
+    setTopic(topic);
+    openDeleteSetModal();
   };
   return (
-    <div
-      onClick={accessCard}
-      className="m-3 hover:bg-[#559ff4] cursor-pointer rounded-xl shadow-lg"
-    >
+    <div className="m-3 hover:bg-[#559ff4] cursor-pointer rounded-xl shadow-lg">
       <Card
+        onClick={accessCard}
+        extra={
+          <div className="flex space-x-2">
+            <div
+              key="edit"
+              className="z-50 w-9 h-9 flex items-center justify-center rounded-lg bg-bg-light hover:bg-gray-light cursor-pointer mr-4"
+              style={{ border: "1px solid gray" }}
+              onClick={(e) => {
+                handleOpenEditSetModal();
+                e.stopPropagation();
+              }}
+            >
+              <IoBrushOutline size={22} />
+            </div>
+
+            <div
+              key="delete"
+              className="w-9 h-9 flex items-center justify-center rounded-lg bg-bg-light hover:bg-gray-light cursor-pointer "
+              style={{ border: "1px solid gray" }}
+              onClick={(e) => {
+                handleOpenDeleteSet();
+                e.stopPropagation();
+              }}
+            >
+              <MdOutlineDeleteOutline size={22} />
+            </div>
+          </div>
+        }
         style={{
           backgroundColor: "#4f8ff08c",
           boxShadow: "0 25px 50px -12px rgb(0.1 0.1 0.1 / 0.08)",

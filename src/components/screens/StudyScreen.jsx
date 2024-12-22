@@ -8,7 +8,7 @@ import {
 } from "@ant-design/icons";
 import { Button, Carousel, Skeleton } from "antd";
 import { useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import FlipCard from "../cards/FlipCard";
 import ListWordComponent from "../words/ListWordComponent";
 import data from "./../../assets/example_data/fake_data_word.json";
@@ -21,27 +21,14 @@ import DeleteSetModal from "../modals/DeleteSetModal";
 import EditSetModal from "../modals/set/EditSetModal";
 
 const StudyScreen = () => {
-  const { id } = useParams();
-  const carouselRef = useRef(null);
+  const location = useLocation();
+  const { id, title, description } = location.state || {};
   const navigate = useNavigate();
   const [openAddWordModal, setOpenAddWordModal] = useState(false);
   const [isOpenEditSetModal, setIsOpenEditSetModal] = useState(false);
   const [idTopic, setIdTopic] = useState(0);
 
   const [openDeleteSetModal, setOpenDeleteSetModal] = useState(false);
-
-  const handleNext = () => {
-    // Call the next method of the Carousel
-    if (carouselRef.current) {
-      carouselRef.current.next();
-    }
-  };
-  const handlePrev = () => {
-    // Call the next method of the Carousel
-    if (carouselRef.current) {
-      carouselRef.current.prev();
-    }
-  };
 
   const accessFlashcard = () => {
     navigate(`/flashcard/${id}`);
@@ -63,21 +50,10 @@ const StudyScreen = () => {
     setOpenAddWordModal(false);
   };
 
-  const handleEditSet = () => {
-    openEditSetModal();
-    setIdTopic(id);
-  };
-
-  const handleDeleteSet = () => {
-    setOpenDeleteSetModal(true);
-  };
   const handleCloseDeleteSetModal = () => {
     setOpenDeleteSetModal(false);
   };
 
-  const openEditSetModal = () => {
-    setIsOpenEditSetModal(true);
-  };
   const handleCloseEditModal = () => {
     setIsOpenEditSetModal(false);
   };
@@ -88,26 +64,11 @@ const StudyScreen = () => {
         <div className="flex items-center">
           <div className="flex flex-col items-start ml-2">
             <span className="text-2xl text-purple uppercase font-semibold ">
-              Tiêu đề của học phần {id}
+              Tên Học phần:{title}
             </span>
-            <span className="text-gray text-sm">Mô tả học phần</span>
-          </div>
-        </div>
-
-        <div className="flex">
-          <div
-            className="w-9 h-9 flex items-center justify-center rounded-lg bg-bg-light hover:bg-gray-light cursor-pointer mr-4"
-            style={{ border: "1px solid gray" }}
-            onClick={handleEditSet}
-          >
-            <IoBrushOutline size={22} />
-          </div>
-          <div
-            className="w-9 h-9 flex items-center justify-center rounded-lg bg-bg-light hover:bg-gray-light cursor-pointer "
-            style={{ border: "1px solid gray" }}
-            onClick={handleDeleteSet}
-          >
-            <MdOutlineDeleteOutline size={22} />
+            <span className="text-gray text-sm">
+              Mô tả học phần :{description}
+            </span>
           </div>
         </div>
       </div>
@@ -229,7 +190,8 @@ const StudyScreen = () => {
       <DeleteSetModal
         openDeleteSetModal={openDeleteSetModal}
         handleCloseDeleteSetModal={handleCloseDeleteSetModal}
-        data={id}
+        id={id}
+        title={title}
       />
       <EditSetModal
         openEditSetModal={isOpenEditSetModal}

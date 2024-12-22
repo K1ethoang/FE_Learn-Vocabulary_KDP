@@ -2,7 +2,12 @@ import React, { useEffect } from "react";
 import MemoryCard from "../cards/MemoryCard";
 import { Select, Divider, Input } from "antd";
 
-const ModuleTab = ({ topics }) => {
+const ModuleTab = ({
+  topics,
+  openEditSetModal,
+  openDeleteSetModal,
+  setTopic,
+}) => {
   // const handleChange = (value) => {
   //   console.log(`selected ${value}`);
   // };
@@ -31,7 +36,13 @@ const ModuleTab = ({ topics }) => {
       <Divider />
 
       {topics.map((topic, idx) => (
-        <MemoryCard key={idx} topic={topic} />
+        <MemoryCard
+          key={idx}
+          topic={topic}
+          openEditSetModal={openEditSetModal}
+          openDeleteSetModal={openDeleteSetModal}
+          setTopic={setTopic}
+        />
       ))}
     </div>
   );
