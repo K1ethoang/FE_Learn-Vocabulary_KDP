@@ -54,7 +54,7 @@ const StudyScreen = () => {
   const [openDeleteSetModal, setOpenDeleteSetModal] = useState(false);
 
   const accessFlashcard = () => {
-    navigate(`/flashcard/${id}`);
+    navigate(`/flashcard/${id}`, { state: { data, title } });
   };
   const accessLearn = () => {
     navigate(`/learn/${id}`);

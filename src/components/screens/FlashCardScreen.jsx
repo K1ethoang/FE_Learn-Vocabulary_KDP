@@ -1,27 +1,26 @@
-import React, { useRef, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import data from "./../../assets/example_data/fake_data_word.json";
+import React, { useEffect, useRef, useState } from "react";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
+// import data from "./../../assets/example_data/fake_data_word.json";
 import { Button, Carousel, Checkbox, Skeleton } from "antd";
-import {
-  ArrowLeftOutlined,
-  ArrowRightOutlined,
-  CloseSquareOutlined,
-  SnippetsOutlined,
-} from "@ant-design/icons";
+import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import FlipCard from "./../cards/FlipCard";
 import { FaVolumeUp } from "react-icons/fa";
 import { readWord } from "../../utils/ReadWord";
 
 const FlashCardScreen = () => {
   const { id } = useParams();
+  const location = useLocation();
+  const { data, title } = location.state;
   const [count, setCount] = useState(1);
   const length = data.length;
   const navigate = useNavigate();
   const carouselRef = useRef(null);
+
+  console.log("data", data);
   const handleNext = () => {
     // Call the next method of the Carousel
     if (carouselRef.current) {
-      if (count < 50) {
+      if (count < length) {
         setCount(count + 1);
       }
       carouselRef.current.next();
@@ -52,7 +51,7 @@ const FlashCardScreen = () => {
         </div>
 
         <div className="flex flex-col items-center">
-          <span className="text-xl text-[#fff]">Title of Course id: {id}</span>
+          <span className="text-xl text-[#fff]">Học phần {title}</span>
           <span className="text-xl text-center text-[#fff]">
             {count} / {length}
           </span>
@@ -85,7 +84,7 @@ const FlashCardScreen = () => {
                           marginRight: 20,
                           zIndex: 100,
                         }}
-                        onClick={() => readWord(item.word)}
+                        onClick={() => readWord(item.name)}
                       />
                       <Checkbox
                         className="mr-20 text-orange  text-base"
