@@ -39,7 +39,7 @@ const SetsScreen = () => {
   const [api, contextHolder] = notification.useNotification([]);
   const [isOpenEditSetModal, setIsOpenEditSetModal] = useState(false);
   const [isOpenDeleteSetModal, setIsOpenDeleteSetModal] = useState(false);
-  const [idTopic, setIdTopic] = useState();
+
   const [topic, setTopic] = useState();
 
   const openEditSetModal = () => {

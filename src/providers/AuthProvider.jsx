@@ -2,6 +2,7 @@ import { jwtDecode } from "jwt-decode";
 import { createContext, useContext, useState, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import axiosConfig from "../services/axios/axiosConfig";
+import { message } from "antd";
 
 const AuthContext = createContext();
 
@@ -31,6 +32,18 @@ export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem("token");
 
     if (token) {
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+      if (decodedToken.exp < currentTime) {
+        localStorage.clear();
+        sessionStorage.clear();
+        message.warning(
+          "Phiên đăng nhập của bạn đã hết hạn. Vui lòng đăng nhập lại"
+        );
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 700);
+      }
       myInfo();
     }
   }, []);

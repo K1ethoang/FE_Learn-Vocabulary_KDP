@@ -34,20 +34,12 @@ axiosConfig.interceptors.request.use(
 );
 
 axiosConfig.interceptors.response.use(
-  (response) => {
-    return response;
-  },
+  (response) => response,
   (error) => {
-    if (error.response) {
-      // The request was made and the server responded with a status code
-      console.error("API call error:", error.response.data); // Log the response data
-      console.error("Status code:", error.response.status); // Log the status code
-    } else if (error.request) {
-      // The request was made but no response was received
-      console.error("No response received:", error.request);
-    } else {
-      // Something happened in setting up the request that triggered an Error
-      console.error("Error:", error.message);
+    if (error.response?.status === 401) {
+      // Token hết hạn hoặc không hợp lệ
+      localStorage.removeItem("accessToken"); // Xóa token cũ
+      window.location.href = "/login"; // Chuyển hướng về trang login
     }
     return Promise.reject(error);
   }

@@ -6,19 +6,14 @@ import {
   ReadOutlined,
   SnippetsOutlined,
 } from "@ant-design/icons";
-import { Button, Carousel, Skeleton } from "antd";
-import { useRef, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import FlipCard from "../cards/FlipCard";
+import { Button, notification } from "antd";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import ListWordComponent from "../words/ListWordComponent";
-import data from "./../../assets/example_data/fake_data_word.json";
-import { readWord } from "../../utils/ReadWord";
-import { FaVolumeUp } from "react-icons/fa";
 import AddWordModal from "../modals/AddWordModal";
-import { MdOutlineDeleteOutline } from "react-icons/md";
-import { IoBrushOutline } from "react-icons/io5";
 import DeleteSetModal from "../modals/DeleteSetModal";
 import EditSetModal from "../modals/set/EditSetModal";
+import axiosConfig from "../../services/axios/axiosConfig";
 
 const StudyScreen = () => {
   const location = useLocation();
@@ -27,7 +22,35 @@ const StudyScreen = () => {
   const [openAddWordModal, setOpenAddWordModal] = useState(false);
   const [isOpenEditSetModal, setIsOpenEditSetModal] = useState(false);
   const [idTopic, setIdTopic] = useState(0);
+  const [api, contextHolder] = notification.useNotification([]);
+  const [data, setData] = useState();
+  const [isLoading, setIsLoading] = useState();
 
+  const getAllWordOfTopic = async () => {
+    try {
+      const res = await axiosConfig.get(`topics/${id}/words`);
+      if (res?.data?.statusCode === 200) {
+        setData(res?.data?.result);
+      }
+    } catch (error) {
+      console.log("error:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    setIsLoading(true);
+    getAllWordOfTopic();
+  }, [id]);
+
+  const openNotification = (placement, message) => {
+    api.info({
+      message: `${message}`,
+      placement,
+      duration: 2,
+    });
+  };
   const [openDeleteSetModal, setOpenDeleteSetModal] = useState(false);
 
   const accessFlashcard = () => {
@@ -60,6 +83,7 @@ const StudyScreen = () => {
 
   return (
     <div className="m-6">
+      {contextHolder}
       <div className="w-full mx-auto my-6 flex items-center justify-between">
         <div className="flex items-center">
           <div className="flex flex-col items-start ml-2">
@@ -179,13 +203,21 @@ const StudyScreen = () => {
           </div>
         </div>
         <div className="mt-5 w-4/5 mx-auto">
-          <ListWordComponent />
+          <ListWordComponent
+            idTopic={id}
+            data={data}
+            isLoading={isLoading}
+            openNotification={openNotification}
+            setData={setData}
+          />
         </div>
       </div>
       <AddWordModal
         openAddWordModal={openAddWordModal}
         handleCloseModal={handleCloseModal}
         idTopic={idTopic}
+        openNotification={openNotification}
+        setData={setData}
       />
       <DeleteSetModal
         openDeleteSetModal={openDeleteSetModal}

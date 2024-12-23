@@ -1,12 +1,46 @@
-import { Button, Form, Input, Modal, Select } from "antd";
+import { Button, Form, Input, Modal, notification, Select, Spin } from "antd";
 import React, { useEffect, useState } from "react";
+import axiosConfig from "../../services/axios/axiosConfig";
 
-const AddWordModal = ({ openAddWordModal, handleCloseModal, idTopic }) => {
+const AddWordModal = ({
+  openAddWordModal,
+  handleCloseModal,
+  idTopic,
+  openNotification,
+  setData,
+}) => {
   const [word, setWord] = useState("");
   const [meaning, setMeaning] = useState("");
+  const [pronounce, setPronounce] = useState("");
   const [typeWord, setTypeWord] = useState("");
   const [example, setExample] = useState("");
   const [form] = Form.useForm();
+  const [types, setTypes] = useState([]);
+
+  const handleOpenNotification = (place, mess) => {
+    openNotification(place, mess);
+  };
+  const getAllTypeWord = async () => {
+    if (openAddWordModal) {
+      try {
+        const res = await axiosConfig.get(`/types`);
+        res.data?.result?.map((type) => {
+          setTypes((prev) => [
+            ...prev,
+            {
+              value: type?.id,
+              label: type?.name,
+            },
+          ]);
+        });
+      } catch (error) {
+        console.log("error:", error);
+      }
+    }
+  };
+  useEffect(() => {
+    getAllTypeWord();
+  }, [openAddWordModal]);
 
   const handleCloseAddWordModal = () => {
     form.resetFields();
@@ -20,18 +54,41 @@ const AddWordModal = ({ openAddWordModal, handleCloseModal, idTopic }) => {
   const clearValues = () => {
     setWord("");
     setMeaning("");
-    setTypeWord("noun");
+    setTypeWord("");
     setExample("");
+    setPronounce("");
     form.resetFields();
   };
+
+  const handleAddWord = async (newWord) => {
+    try {
+      const res = await axiosConfig.post(`/topics/${idTopic}/words`, {
+        name: newWord?.word,
+        pronounce: newWord?.pronounce,
+        meaning: newWord?.meaning,
+        example: newWord?.example,
+        typeIds: newWord?.typeWord,
+      });
+
+      if (res?.data?.statusCode === 201) {
+        setData((prev) => [res?.data?.result, ...prev]);
+        handleOpenNotification("topRight", "Thêm từ vựng thành công!");
+      }
+    } catch (error) {
+      console.log("error:", error);
+      handleOpenNotification("topRight", "Có lỗi xảy ra khi thêm từ vựng!");
+    }
+  };
+
   const handleOK = () => {
     const newWord = {
       word,
       meaning,
+      pronounce,
       typeWord,
       example,
     };
-
+    handleAddWord(newWord);
     console.log("newWord:", newWord);
     clearValues();
     handleCloseModal();
@@ -39,7 +96,7 @@ const AddWordModal = ({ openAddWordModal, handleCloseModal, idTopic }) => {
 
   return (
     <Modal
-      title={`Thêm từ mới vào topic ${idTopic}`}
+      title={`Thêm từ mới vào topic`}
       centered
       open={openAddWordModal}
       onOk={handleOK}
@@ -89,6 +146,22 @@ const AddWordModal = ({ openAddWordModal, handleCloseModal, idTopic }) => {
           <div className="w-4/5 ml-5 ">
             <Form.Item
               layout="vertical"
+              label="Phát âm"
+              labelAlign="left"
+              name="pronounce"
+              className="h-full w-full m-0"
+            >
+              <Input
+                value={pronounce}
+                onChange={(e) => setPronounce(e.target.value)}
+                placeholder="Nhập phát âm..."
+              />
+            </Form.Item>
+          </div>
+
+          <div className="w-4/5 ml-5 ">
+            <Form.Item
+              layout="vertical"
               label="Loại từ"
               labelAlign="left"
               name="typeWord"
@@ -99,12 +172,7 @@ const AddWordModal = ({ openAddWordModal, handleCloseModal, idTopic }) => {
                 placeholder="Chọn loại từ"
                 style={{ width: "100%" }}
                 onChange={handleChange}
-                options={[
-                  { value: "N", label: "Danh từ" },
-                  { value: "Adj", label: "Tính từ" },
-                  { value: "V", label: "Động từ" },
-                  { value: "Adv", label: "Trạng từ" },
-                ]}
+                options={types}
               />
             </Form.Item>
           </div>
