@@ -36,6 +36,7 @@ import { useEffect } from "react";
 import SetsScreen from "./components/screens/SetsScreen";
 import VocabularyScreen from "./components/screens/VocabularyScreen";
 import { message } from "antd";
+import ForgotPassword from "./components/modals/user/ForgotPassword";
 
 function App() {
   useEffect(() => {
@@ -107,6 +108,7 @@ function App() {
         <Routes>
           {/* Public Routes */}
           <Route path="/login" element={<LoginScreen />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/register" element={<RegisterScreen />} />
           <Route path="/flashcard/:id" element={<FlashCardScreen />} />
           <Route path="/learn/:id" element={<LearnTopic />} />

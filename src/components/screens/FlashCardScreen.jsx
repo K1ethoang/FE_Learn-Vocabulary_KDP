@@ -58,7 +58,7 @@ const FlashCardScreen = () => {
       if (count < filteredData.length) {
         setCount(count + 1);
       } else {
-        alert("next: ", count);
+        // alert("next: ", count);
       }
       carouselRef.current.next();
     }

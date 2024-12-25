@@ -98,7 +98,7 @@ const LoginForm = ({ openNotification }) => {
           <a className="hover:text-[#ece8e8]" href="/register">
             Đăng kí ngay!
           </a>
-          <a href="" className="hover:text-[#e6e2e2]">
+          <a href="/forgot-password" className="hover:text-[#e6e2e2]">
             Quên mật khẩu?
           </a>
         </Flex>
