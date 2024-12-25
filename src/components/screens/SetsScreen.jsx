@@ -98,7 +98,7 @@ const SetsScreen = () => {
           setTopic={setTopic}
         />
       ) : (
-        <EmtySets />
+        <EmtySets message="Bạn chưa có học phần nào!" />
       )}
 
       <CreateSetsModal
