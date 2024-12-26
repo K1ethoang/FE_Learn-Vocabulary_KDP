@@ -57,7 +57,7 @@ const StudyScreen = () => {
     navigate(`/flashcard/${id}`, { state: { title } });
   };
   const accessLearn = () => {
-    navigate(`/learn/${id}`);
+    navigate(`/learn/${id}`, { state: { title, data } });
   };
 
   const accessTest = () => {

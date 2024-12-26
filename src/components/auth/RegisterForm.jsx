@@ -25,6 +25,7 @@ const RegisterForm = ({ openNotification }) => {
         email,
         password,
       });
+      console.log("res register: ", res?.data);
 
       if (res.data.statusCode === 201) {
         openNotification("topRight");

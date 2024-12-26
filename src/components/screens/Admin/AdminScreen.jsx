@@ -1,75 +1,18 @@
-import { Avatar, Pagination, Spin } from "antd";
+import { Avatar, Pagination, Select, Spin } from "antd";
 import React, { useEffect, useState } from "react";
 import { FaRegEye } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
 
 import ProfileModal from "../../modals/user/ProfileModal";
 import axiosConfig from "../../../services/axios/axiosConfig";
-import { FiUser } from "react-icons/fi";
+import { FiLock, FiUnlock, FiUser } from "react-icons/fi";
 import DeleteUserModal from "../../modals/user/DeleteUserModal";
-
-// const users = [
-//   {
-//     initials: "GS",
-//     name: "Grant Siders (you)",
-//     email: "gsiders@heliacare.com",
-//     role: "Super Admin",
-//     status: "",
-//   },
-//   {
-//     initials: "SS",
-//     name: "Scott Stewart",
-//     email: "scott@heliacare.com",
-//     role: "Client Account Manager",
-//     status: "",
-//   },
-//   {
-//     initials: "JD",
-//     name: "Jane Doe",
-//     email: "jane@heliacare.com",
-//     role: "Client Account Manager (Admin)",
-//     status: "",
-//   },
-//   {
-//     initials: "DM",
-//     name: "Dillon Morris",
-//     email: "dillon@heliacare.com",
-//     role: "",
-//     status: "INVITATION PENDING",
-//   },
-//   {
-//     initials: "JH",
-//     name: "Jamie Hollis",
-//     email: "jamie@heliacare.com",
-//     role: "",
-//     status: "INVITATION PENDING",
-//   },
-//   {
-//     initials: "KS",
-//     name: "Kingston Stewart",
-//     email: "king@heliacare.com",
-//     role: "",
-//     status: "INVITATION PENDING",
-//   },
-//   {
-//     initials: "JT",
-//     name: "Jeff Thomas",
-//     email: "jeff@heliacare.com",
-//     role: "",
-//     status: "INVITATION PENDING",
-//   },
-//   {
-//     initials: "JH",
-//     name: "Jamie Hollis",
-//     email: "jamie@heliacare.com",
-//     role: "",
-//     status: "INVITATION PENDING",
-//   },
-// ];
+import LockUserModal from "../../modals/user/LockUserModal";
 
 const AdminScreen = () => {
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState(null);
+  const [openLockUserModal, setOpenLockUserModal] = useState();
   const [loading, setLoading] = useState(false);
   const getUsers = async () => {
     setLoading(true);
@@ -77,7 +20,7 @@ const AdminScreen = () => {
       const res = await axiosConfig.get("/users");
       console.log(res.data);
       if (res.data?.statusCode === 200) {
-        setUsers(res.data?.result);
+        setUsers(res.data?.result.content);
       }
     } catch (error) {
       console.error(error);
@@ -90,6 +33,7 @@ const AdminScreen = () => {
   }, []);
 
   const [openViewModal, setOpenViewModal] = useState(false);
+
   const handleViewUser = (user) => {
     setUser(user);
     setOpenViewModal(true);
@@ -106,6 +50,18 @@ const AdminScreen = () => {
   const handleCloseDeleteUserModal = () => {
     setOpenDeleteUserModal(false);
   };
+
+  const handleLockUserModal = (user) => {
+    setOpenLockUserModal(true);
+    setUser(user);
+  };
+  const handleCloseLockUserModal = () => {
+    setOpenLockUserModal(false);
+  };
+
+  if (loading) {
+    return <Spin />;
+  }
 
   return (
     <div className="p-8">
@@ -174,13 +130,35 @@ const AdminScreen = () => {
                     style={{ width: "24px", height: "24px", color: "#2580c5" }}
                   />
                 </div>
-
                 <div className="w-8 h-8 cursor-pointer bg-[#ffd9bc] flex items-center justify-center rounded-lg">
                   <MdDeleteOutline
                     onClick={() => handleDeleteModal(user)}
                     className="cursor-pointer"
                     style={{ width: "26px", height: "26px", color: "#ff8b31" }}
                   />
+                </div>
+                <div className="w-8 h-8 cursor-pointer bg-[#8ffb96] flex items-center justify-center rounded-lg">
+                  {user?.isBlock ? (
+                    <FiLock
+                      onClick={() => handleLockUserModal(user)}
+                      className="cursor-pointer"
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        color: "#115d16",
+                      }}
+                    />
+                  ) : (
+                    <FiUnlock
+                      onClick={() => handleLockUserModal(user)}
+                      className="cursor-pointer"
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        color: "#115d16",
+                      }}
+                    />
+                  )}
                 </div>
               </div>
             </div>
@@ -202,6 +180,13 @@ const AdminScreen = () => {
       <DeleteUserModal
         openDeleteUserModal={openDeleteUserModal}
         handleCloseDeleteUserModal={handleCloseDeleteUserModal}
+        user={user}
+        setUsers={setUsers}
+      />
+
+      <LockUserModal
+        openLockUserModal={openLockUserModal}
+        handleCloseLockUserModal={handleCloseLockUserModal}
         user={user}
         setUsers={setUsers}
       />
