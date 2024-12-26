@@ -6,6 +6,8 @@ import { Button, message, theme } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { MdOutlineGeneratingTokens } from "react-icons/md";
 import { TbLockPassword } from "react-icons/tb";
+import axiosConfig from "../../../services/axios/axiosConfig";
+import { useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {
   const { token } = theme.useToken();
@@ -13,12 +15,19 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState();
   const [tokenCreateNewPass, setTokenCreateNewPass] = useState();
   const [newPassword, setNewPassword] = useState();
+  const [errorEmail, setErrorEmail] = useState("");
+  const [form] = Form.useForm();
+  const navigate = useNavigate();
+
   const steps = [
     {
       title: <span className="text-bg-light">Bước 1</span>,
       content: (
         <div className="w-full  flex  justify-center items-center">
-          <Form className="w-full h-28 flex items-center justify-center">
+          <Form
+            form={form}
+            className="w-full h-28 flex items-center justify-center"
+          >
             <Form.Item
               name="email"
               label={<span className="text-bg-light ">Email</span>}
@@ -29,7 +38,6 @@ const ForgotPassword = () => {
                   message: "Email không được bỏ trống!",
                 },
                 {
-                  required: false,
                   type: "email",
                   message: "Email không đúng định dạng!",
                 },
@@ -42,8 +50,14 @@ const ForgotPassword = () => {
                 prefix={<UserOutlined />}
                 placeholder="Nhập email người dùng"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setErrorEmail("");
+                }}
               />
+              {errorEmail !== "" ? (
+                <span className="text-[#ff1313]">{errorEmail}</span>
+              ) : null}
             </Form.Item>
           </Form>
         </div>
@@ -147,11 +161,44 @@ const ForgotPassword = () => {
     },
   ];
 
-  const next = () => {
-    if (current === 0) {
-      console.log(email);
+  const handleSentEmail = async (email) => {
+    try {
+      const res = await axiosConfig.post(
+        `/auth/forgot-password?email=${email}`
+      );
+      setErrorEmail("");
+      console.log("res:", res?.data);
+    } catch (error) {
+      if (
+        error?.response?.data?.statusCode === 400 &&
+        error?.response?.data?.errors[0]?.message === "User not found"
+      ) {
+        setErrorEmail("Email không tồn tại");
+      } else if (
+        error?.response?.data?.statusCode === 400 &&
+        error?.response?.data?.errors[0]?.message ===
+          "You must verify your email address"
+      ) {
+        setErrorEmail("Vui lòng xác minh tài khoản trước!");
+      }
+      console.log("error:", error);
     }
-    setCurrent(current + 1);
+  };
+  const next = async () => {
+    if (current === 0) {
+      try {
+        await form.validateFields();
+        handleSentEmail(email);
+        errorEmail === "" ? setCurrent(current + 1) : setCurrent(current);
+      } catch (error) {
+        console.log("Validation failed:", error);
+        // Không làm gì nếu validation thất bại
+      }
+    } else {
+      errorEmail === "Email không tồn tại"
+        ? setCurrent(current)
+        : setCurrent(current + 1); // Chuyển bước nếu không ở bước đầu
+    }
   };
   const prev = () => {
     setCurrent(current - 1);
@@ -170,13 +217,35 @@ const ForgotPassword = () => {
     marginTop: 16,
   };
 
+  const handleResetPassword = async (token, data) => {
+    try {
+      const res = await axiosConfig.post(
+        `/auth/reset-password?token=${token}`,
+        {
+          email: data?.email,
+          newPassword: data?.newPassword,
+        }
+      );
+
+      if (res?.data?.statusCode === 200) {
+        message.info("Đổi mật khẩu thành công!");
+        setTimeout(() => {
+          navigate("/login");
+        }, 1000);
+      }
+    } catch (error) {
+      message.error("Có lỗi xảy ra!");
+      console.log("error:", error);
+    }
+  };
+
   const handleForgotPassword = () => {
-    message.success("Processing complete!");
-    console.log("data", {
-      tokenCreateNewPass,
+    const data = {
       email,
       newPassword,
-    });
+    };
+
+    handleResetPassword(tokenCreateNewPass, data);
   };
   return (
     <div className="w-full h-screen bg-bg-main flex flex-col items-center pt-2 ">

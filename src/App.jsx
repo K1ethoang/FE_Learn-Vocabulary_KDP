@@ -38,6 +38,7 @@ import VocabularyScreen from "./components/screens/VocabularyScreen";
 import { message } from "antd";
 import ForgotPassword from "./components/modals/user/ForgotPassword";
 import VerifyAccountScreen from "./auth/VerifyAccountScreen";
+import ResetPassword from "./auth/ResetPassword";
 
 function App() {
   useEffect(() => {
@@ -110,6 +111,7 @@ function App() {
           {/* Public Routes */}
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/register" element={<RegisterScreen />} />
           <Route path="/verify-account" element={<VerifyAccountScreen />} />
 
