@@ -4,14 +4,16 @@ import {
   MailOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Spin } from "antd";
 
 import { useNavigate } from "react-router-dom";
 import axiosConfig from "../../services/axios/axiosConfig";
 import { useState } from "react";
 
 const RegisterForm = ({ openNotification }) => {
-  console.log("herer");
+  const [isLoading, setIsLoading] = useState(false);
+  const [check, setCheck] = useState(false);
+  const [email, setEmail] = useState();
   const [errorEmail, setErrorEmail] = useState("");
   const navigate = useNavigate();
   // const [form] = Form.useForm()
@@ -19,7 +21,9 @@ const RegisterForm = ({ openNotification }) => {
     console.log("Received values of form: ", values);
     setErrorEmail("");
     try {
+      setIsLoading(true);
       const { username, email, password } = values;
+      setEmail(email);
       const res = await axiosConfig.post("/auth/register", {
         fullName: username,
         email,
@@ -29,9 +33,6 @@ const RegisterForm = ({ openNotification }) => {
 
       if (res.data.statusCode === 201) {
         openNotification("topRight");
-        setTimeout(() => {
-          navigate("/login");
-        }, 1600);
       }
     } catch (error) {
       if (error.response?.data?.statusCode === 400) {
@@ -44,8 +45,13 @@ const RegisterForm = ({ openNotification }) => {
       } else {
         openNotification("topRight", "error", "Đăng kí thất bại!");
       }
+    } finally {
+      setIsLoading(false);
+      setCheck(true);
     }
   };
+
+  const hanldeResentToken = (email) => {};
   return (
     <Form
       // form={form}
@@ -163,8 +169,22 @@ const RegisterForm = ({ openNotification }) => {
 
       <Form.Item>
         <Button size="large" block type="primary" htmlType="submit" danger>
-          Đăng kí
+          {isLoading ? <Spin /> : "Đăng kí"}
         </Button>
+
+        {check ? (
+          <div className="flex items-center justify-end mt-2 text-bg-light">
+            <span> Bạn chưa nhận được mã xác thực? </span>
+            <a
+              className="hover:underline hover:text-gray-light flex justify-end ml-1"
+              onClick={hanldeResentToken}
+            >
+              {" "}
+              Gửi lại!
+            </a>
+          </div>
+        ) : null}
+
         <div className="flex items-center justify-end mt-2 text-bg-light">
           <span> Bạn đã có tài khoản? </span>
           <a

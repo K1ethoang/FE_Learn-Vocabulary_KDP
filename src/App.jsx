@@ -37,6 +37,7 @@ import SetsScreen from "./components/screens/SetsScreen";
 import VocabularyScreen from "./components/screens/VocabularyScreen";
 import { message } from "antd";
 import ForgotPassword from "./components/modals/user/ForgotPassword";
+import VerifyAccountScreen from "./auth/VerifyAccountScreen";
 
 function App() {
   useEffect(() => {
@@ -90,7 +91,7 @@ function App() {
             <Route path="/privacy" element={<PrivacyScreen />} />
             <Route path="/support" element={<SupportScreen />} />
             <Route path="/upgrade" element={<UpgradeScreen />} />
-            <Route path="/chat-box" element={<ChatBoxScreen />} />
+            <Route path="/chat-bot" element={<ChatBoxScreen />} />
             <Route path="/create-set" element={<CreateTermsScreen />} />
             <Route path="/studies/:id" element={<StudyScreen />} />
             <Route path="/user/folders" element={<FolderScreen />} />
@@ -110,6 +111,8 @@ function App() {
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/register" element={<RegisterScreen />} />
+          <Route path="/verify-account" element={<VerifyAccountScreen />} />
+
           <Route path="/flashcard/:id" element={<FlashCardScreen />} />
           <Route path="/learn/:id" element={<LearnTopic />} />
           <Route path="/test/:id" element={<TestScreen />} />

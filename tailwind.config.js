@@ -14,6 +14,7 @@ export default {
       "gray-light": "#d3dce6",
       "bg-light": "#ffffff",
       "bg-black": "#000",
+      "bg-main": "#155329",
     },
     fontFamily: {
       sans: ["Graphik", "sans-serif"],

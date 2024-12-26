@@ -75,15 +75,15 @@ const LayoutPage = ({ children }) => {
         </Link>
       ),
     },
-    {
-      key: "3",
-      icon: <TbBuildingWarehouse style={{ fontSize: 24 }} />,
-      label: (
-        <Link to="/vocabulary" className="font-semibold">
-          Kho từ vựng
-        </Link>
-      ),
-    },
+    // {
+    //   key: "3",
+    //   icon: <TbBuildingWarehouse style={{ fontSize: 24 }} />,
+    //   label: (
+    //     <Link to="/vocabulary" className="font-semibold">
+    //       Kho từ vựng
+    //     </Link>
+    //   ),
+    // },
     // {
     //   key: "4",
     //   icon: <FolderOutlined style={{ fontSize: 24 }} />,
@@ -104,10 +104,10 @@ const LayoutPage = ({ children }) => {
     // },
 
     {
-      key: "4",
+      key: "3",
       icon: <CiChat1 size={24} />,
       label: (
-        <Link to="/chat-box" className="font-semibold">
+        <Link to="/chat-bot" className="font-semibold">
           Trợ lý học tập
         </Link>
       ),

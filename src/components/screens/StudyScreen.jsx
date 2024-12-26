@@ -6,7 +6,7 @@ import {
   ReadOutlined,
   SnippetsOutlined,
 } from "@ant-design/icons";
-import { Button, notification } from "antd";
+import { Button, message, notification } from "antd";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ListWordComponent from "../words/ListWordComponent";
@@ -14,6 +14,7 @@ import AddWordModal from "../modals/AddWordModal";
 import DeleteSetModal from "../modals/DeleteSetModal";
 import EditSetModal from "../modals/set/EditSetModal";
 import axiosConfig from "../../services/axios/axiosConfig";
+import { CiExport } from "react-icons/ci";
 
 const StudyScreen = () => {
   const location = useLocation();
@@ -81,6 +82,32 @@ const StudyScreen = () => {
     setIsOpenEditSetModal(false);
   };
 
+  const exportExcel = async (idTopic) => {
+    try {
+      const res = await axiosConfig.get(`/topics/excel/${idTopic}`, {
+        responseType: "blob",
+      });
+
+      const blob = res.data;
+      const url = window.URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `topic-${title}.xlsx`;
+      link.click();
+
+      window.URL.revokeObjectURL(url);
+      message.success("Tải thành công!");
+    } catch (error) {
+      console.log("error:", error?.response?.data);
+    }
+  };
+
+  const handleExportExcel = () => {
+    console.log("id: ", id);
+    exportExcel(id);
+  };
+
   return (
     <div className="m-6">
       {contextHolder}
@@ -94,6 +121,13 @@ const StudyScreen = () => {
               Mô tả học phần :{description}
             </span>
           </div>
+        </div>
+        <div
+          onClick={handleExportExcel}
+          className="flex  items-center justify-center bg-[#61ff53] p-2 font-medium cursor-pointer hover:bg-[#69f057] rounded-lg border border-[#fff] shadow-lg"
+        >
+          <CiExport size={28} className="mr-1" />
+          Xuất excel
         </div>
       </div>
       <div className="m-5  flex items-center justify-between">

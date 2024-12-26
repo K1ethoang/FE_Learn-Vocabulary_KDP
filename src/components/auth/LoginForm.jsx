@@ -28,10 +28,16 @@ const LoginForm = ({ openNotification }) => {
       }
     } catch (error) {
       if (
-        error.response?.data?.errors[0]?.message ===
-        "Email or password is incorrect"
+        error.response?.data?.errors[0]?.message === "User not found" ||
+        error.response?.data?.errors[0]?.message === "Password is incorrect"
       ) {
         setError("Email hoặc mật khẩu không chính xác!");
+      } else if (
+        error.response?.data?.errors[0]?.message === "User is blocked"
+      ) {
+        setError("Tài khoản của bạn đã bị khóa!");
+      } else {
+        return;
       }
     }
   };

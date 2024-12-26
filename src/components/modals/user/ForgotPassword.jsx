@@ -15,13 +15,13 @@ const ForgotPassword = () => {
   const [newPassword, setNewPassword] = useState();
   const steps = [
     {
-      title: "Bước 1",
+      title: <span className="text-bg-light">Bước 1</span>,
       content: (
         <div className="w-full  flex  justify-center items-center">
           <Form className="w-full h-28 flex items-center justify-center">
             <Form.Item
               name="email"
-              label="Email"
+              label={<span className="text-bg-light ">Email</span>}
               className="w-2/3"
               rules={[
                 {
@@ -50,15 +50,15 @@ const ForgotPassword = () => {
       ),
     },
     {
-      title: "Bước 2",
+      title: <span className="text-bg-light">Bước 2</span>,
       content: (
-        <span>
+        <span className="text-bg-light">
           Vui lòng kiểm tra email <b>{email}</b> của bạn
         </span>
       ),
     },
     {
-      title: "Bước 3",
+      title: <span className="text-bg-light">Bước 3</span>,
       content: (
         <div className="w-full  h-fit">
           <Form
@@ -67,7 +67,7 @@ const ForgotPassword = () => {
           >
             <Form.Item
               name="token"
-              label="Token"
+              label={<span className="text-bg-light">Token</span>}
               className="w-2/3"
               rules={[
                 {
@@ -88,7 +88,7 @@ const ForgotPassword = () => {
             </Form.Item>
             <Form.Item
               name="email"
-              label="Email"
+              label={<span className="text-bg-light">Email</span>}
               className="w-2/3"
               rules={[
                 {
@@ -105,18 +105,16 @@ const ForgotPassword = () => {
               <Input
                 disabled
                 defaultValue={email}
-                className=""
                 autoFocus
                 size="large"
                 prefix={<UserOutlined />}
-                placeholder="Nhập email người dùng"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </Form.Item>
             <Form.Item
               name="password"
-              label="Mật khẩu mới"
+              label={<span className="text-bg-light">Mật khẩu mới</span>}
               className="w-2/3"
               rules={[
                 {
@@ -181,7 +179,7 @@ const ForgotPassword = () => {
     });
   };
   return (
-    <div className="w-full h-screen bg-[rgba(111,161,255,0.84)] flex flex-col items-center pt-2">
+    <div className="w-full h-screen bg-bg-main flex flex-col items-center pt-2 ">
       <div className="w-fit h-1/3 pb-2 ">
         <DotLottieReact src={animation_forgot_password} loop autoplay />
       </div>
