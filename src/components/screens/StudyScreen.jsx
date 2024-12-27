@@ -16,6 +16,7 @@ import EditSetModal from "../modals/set/EditSetModal";
 import axiosConfig from "../../services/axios/axiosConfig";
 import { CiExport } from "react-icons/ci";
 import { v4 as uuidv4 } from "uuid";
+import { FaHistory } from "react-icons/fa";
 
 const StudyScreen = () => {
   const location = useLocation();
@@ -64,6 +65,10 @@ const StudyScreen = () => {
 
   const accessTest = () => {
     navigate(`/test/${id}/exam?uuid=${uuidv4()}`, { state: { title } });
+  };
+
+  const accessHistoryExam = () => {
+    navigate(`/history/topic/${id}/exams`, { state: { title, id } });
   };
 
   const handleAddWord = () => {
@@ -172,7 +177,8 @@ const StudyScreen = () => {
           Kiểm tra
         </Button>
         <Button
-          icon={<BlockOutlined style={{ color: "#0b1de0" }} />}
+          onClick={accessHistoryExam}
+          icon={<FaHistory style={{ color: "#0b1de0" }} />}
           style={{
             width: 200,
             height: 100,
@@ -181,7 +187,7 @@ const StudyScreen = () => {
             fontWeight: 600,
           }}
         >
-          Ghép thẻ
+          Lịch sử kiểm tra
         </Button>
       </div>
       {/* <div>

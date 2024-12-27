@@ -39,6 +39,7 @@ import { message } from "antd";
 import ForgotPassword from "./components/modals/user/ForgotPassword";
 import VerifyAccountScreen from "./auth/VerifyAccountScreen";
 import ResetPassword from "./auth/ResetPassword";
+import HistoryExamsScreen from "./components/screens/HistoryExamsScreen";
 
 function App() {
   useEffect(() => {
@@ -119,6 +120,10 @@ function App() {
           <Route path="/learn/:id" element={<LearnTopic />} />
           <Route path="/test/:id/exam" element={<TestScreen />} />
           <Route path="/test/result/:id" element={<ResultTestScreen />} />
+          <Route
+            path="/history/topic/:id/exams"
+            element={<HistoryExamsScreen />}
+          />
 
           {/* Protected Routes */}
           <Route
