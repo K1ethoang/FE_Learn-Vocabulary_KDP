@@ -74,12 +74,15 @@ const AdminScreen = () => {
           <div className="col-span-3 font-semibold text-gray-600">
             Tên người dùng
           </div>
-          <div className="col-span-5 font-semibold text-gray-600">Email</div>
-          <div className="col-span-3 font-semibold text-gray-600">
+          <div className="col-span-4 font-semibold text-gray-600">Email</div>
+          <div className="col-span-2 font-semibold text-gray-600">
             Loại vai trò
           </div>
           <div className="col-span-1 font-semibold text-gray-600">
             Chức năng
+          </div>
+          <div className="col-span-2 font-semibold text-gray-600">
+            Trạng thái
           </div>
         </div>
 
@@ -110,31 +113,24 @@ const AdminScreen = () => {
                 </span>
               </div>
               <div
-                className={`col-span-5 ${
+                className={`col-span-4 ${
                   user.role === "ADMIN" ? "text-[#ff1b1b]" : "text-[#7223f9]"
                 }`}
               >
                 {user.email}
               </div>
               <div
-                className={`col-span-3 ${
+                className={`col-span-2 ${
                   user.role === "ADMIN" ? "text-[#ff1b1b]" : "text-[#7223f9]"
                 }`}
               >
                 {user.role}
               </div>
-              <div className="col-span-1 text-gray text-right flex items-center justify-between ">
-                <div className="w-8 h-8 cursor-pointer bg-[#cde9ff] flex items-center justify-center rounded-lg">
+              <div className="col-span-1 text-gray text-right flex items-center  ">
+                <div className="w-8 h-8 mr-3 cursor-pointer bg-[#cde9ff] flex items-center justify-center rounded-lg">
                   <FiUser
                     onClick={() => handleViewUser(user)}
                     style={{ width: "24px", height: "24px", color: "#2580c5" }}
-                  />
-                </div>
-                <div className="w-8 h-8 cursor-pointer bg-[#ffd9bc] flex items-center justify-center rounded-lg">
-                  <MdDeleteOutline
-                    onClick={() => handleDeleteModal(user)}
-                    className="cursor-pointer"
-                    style={{ width: "26px", height: "26px", color: "#ff8b31" }}
                   />
                 </div>
                 <div className="w-8 h-8 cursor-pointer bg-[#8ffb96] flex items-center justify-center rounded-lg">
@@ -161,6 +157,17 @@ const AdminScreen = () => {
                   )}
                 </div>
               </div>
+              <div className="col-span-2 ">
+                {user?.isActive ? (
+                  user?.isBlock ? (
+                    <span className="text-[#884314]">Đã bị khóa</span>
+                  ) : (
+                    <span className="text-[#13882a]">Đang hoạt động</span>
+                  )
+                ) : (
+                  <span className="text-[#ecb229]">Chưa xác minh</span>
+                )}
+              </div>
             </div>
           ))
         )}
@@ -176,12 +183,6 @@ const AdminScreen = () => {
         openViewModal={openViewModal}
         handleCloseViewModal={handleCloseViewModal}
         user={user}
-      />
-      <DeleteUserModal
-        openDeleteUserModal={openDeleteUserModal}
-        handleCloseDeleteUserModal={handleCloseDeleteUserModal}
-        user={user}
-        setUsers={setUsers}
       />
 
       <LockUserModal

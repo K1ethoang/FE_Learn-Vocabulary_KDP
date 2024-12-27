@@ -120,7 +120,7 @@ const SettingScreen = () => {
           <div className="text-base w-full h-24  p-2  flex items-center justify-between">
             <div className=" flex flex-col justify-center p-4">
               <span className="font-semibold">
-                Cập nhật thông tin tài khoản
+                Thông tin tài khoản chi tiết
               </span>
             </div>
 
@@ -128,7 +128,7 @@ const SettingScreen = () => {
               className="w-28 h-9 flex items-center justify-center bg-[#fff] font-bold text-[#473dd9] cursor-pointer hover:bg-[#e0deff] rounded-lg"
               onClick={handleEditProfile}
             >
-              <span>Cập nhật</span>
+              <span>Xem</span>
             </div>
           </div>
           <Divider

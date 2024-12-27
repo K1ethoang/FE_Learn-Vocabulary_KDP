@@ -28,7 +28,6 @@ const FlashCardScreen = () => {
   const { title } = location.state;
   const [count, setCount] = useState(1);
   const [data, setData] = useState([]);
-  const length = data.length;
   const navigate = useNavigate();
   const carouselRef = useRef(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -51,7 +50,6 @@ const FlashCardScreen = () => {
     getAllWordOfTopic();
   }, []);
 
-  console.log("data", data);
   const handleNext = () => {
     // Call the next method of the Carousel
     if (carouselRef.current) {
@@ -162,7 +160,7 @@ const FlashCardScreen = () => {
         <div className="flex flex-col items-center">
           <span className="text-xl text-[#fff]">Học phần {title}</span>
           <span className="text-xl text-center text-[#fff]">
-            {count} / {filteredData.length}
+            {filteredData.length !== 0 ? count : 0} / {filteredData.length}
           </span>
         </div>
 

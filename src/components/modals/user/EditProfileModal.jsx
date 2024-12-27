@@ -1,4 +1,4 @@
-import { Modal } from "antd";
+import { Button, Modal } from "antd";
 import React, { useState } from "react";
 
 const EditProfileModal = ({
@@ -12,14 +12,29 @@ const EditProfileModal = ({
   // const [isBlocked, setIsBlocked] = useState(user?.isBlocked);
   // const [password, setPassword] = useState("");
 
+  const handleOk = () => {
+    handleEditProfileModalClose();
+  };
   return (
     <Modal
       title="Thông tin người dùng cập nhật"
       centered
       open={openEditProfileModal}
-      onOk={handleEditProfileModalClose}
+      onOk={handleOk}
       onCancel={handleEditProfileModalClose}
       width={800}
+      footer={[
+        <Button
+          key="cancel"
+          type="default"
+          onClick={handleEditProfileModalClose}
+        >
+          Hủy
+        </Button>,
+        <Button key="submit" onClick={handleOk} color="primary" variant="solid">
+          Ok
+        </Button>,
+      ]}
     >
       <div className="flex items-center justify-around mb-3 ">
         <div className="w-1/2 flex flex-col items-start ">

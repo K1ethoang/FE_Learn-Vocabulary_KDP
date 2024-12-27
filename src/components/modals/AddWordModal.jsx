@@ -29,7 +29,7 @@ const AddWordModal = ({
             ...prev,
             {
               value: type?.id,
-              label: type?.name,
+              label: `${type?.name} (${type?.symbol})`,
             },
           ]);
         });

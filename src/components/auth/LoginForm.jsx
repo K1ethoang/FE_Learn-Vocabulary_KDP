@@ -1,5 +1,5 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Flex } from "antd";
+import { Button, Form, Input, Flex, Spin } from "antd";
 import { useAuth } from "../../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import axiosConfig from "../../services/axios/axiosConfig";
@@ -10,10 +10,12 @@ const LoginForm = ({ openNotification }) => {
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const [form] = Form.useForm();
+  const [isLoading, setIsLoading] = useState(false);
 
   const onFinish = async (values) => {
     setError(null);
     try {
+      setIsLoading(true);
       const result = await axiosConfig.post("/auth/log-in", {
         email: values.email,
         password: values.password,
@@ -39,6 +41,8 @@ const LoginForm = ({ openNotification }) => {
       } else {
         return;
       }
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -112,7 +116,7 @@ const LoginForm = ({ openNotification }) => {
 
       <Form.Item>
         <Button size="large" block type="primary" htmlType="submit" danger>
-          Đăng nhập
+          {isLoading ? <Spin /> : "Đăng nhập"}
         </Button>
       </Form.Item>
     </Form>

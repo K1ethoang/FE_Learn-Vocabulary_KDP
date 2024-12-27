@@ -47,7 +47,11 @@ const ProfileModal = ({ openViewModal, handleCloseViewModal, user }) => {
             className="w-full p-2 rounded-md"
             style={{ border: "0.5px solid", borderColor: "gray" }}
           >
-            {user?.isBlocked ? "Đã bị khóa" : "Đang hoạt động"}
+            {user?.isActive
+              ? user?.isBlock
+                ? "Đã bị khóa"
+                : "Đang hoạt động"
+              : "Chưa xác minh"}
           </div>
         </div>
       </div>

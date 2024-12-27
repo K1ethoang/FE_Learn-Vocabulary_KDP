@@ -62,6 +62,15 @@ const VerifyAccountScreen = () => {
           </div>
           <div className="absolute top-1/2 text-lg font-semibold text-bg-light">
             Xác minh tài khoản thành công.
+            <div className="flex justify-center items-center mt-2">
+              <Button
+                type="primary"
+                size="large"
+                onClick={() => navigate("/login", { replace: true })}
+              >
+                Đến trang đăng nhập
+              </Button>
+            </div>
           </div>
         </>
       )}

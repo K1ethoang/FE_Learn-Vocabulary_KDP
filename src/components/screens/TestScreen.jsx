@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { questions } from "../../assets/example_data/questions_fake";
 import { Affix, Button, Col, message, Row } from "antd";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate, useParams } from "react-router-dom";
+import QuestionList from "../../utils/QuestionList";
 const TestScreen = () => {
   const lengthTest = questions.length;
   const [results, setResults] = React.useState(Array(lengthTest).fill(null));
@@ -13,6 +14,22 @@ const TestScreen = () => {
   const navigate = useNavigate();
   const myUUID = uuidv4();
   const { id } = useParams();
+  const questionRefs = useRef([]);
+
+  const scrollToQuestion = (index) => {
+    if (questionRefs.current[index]) {
+      const headerHeight = 80; // Chiều cao của header (cập nhật theo kích thước thực tế)
+      const elementPosition =
+        questionRefs.current[index].getBoundingClientRect().top +
+        window.scrollY;
+      const offsetPosition = elementPosition - headerHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  };
 
   const handleAnswerClick = (questionIndex, answerIndex, numQues, numAns) => {
     const newSelectedAnswers = [...selectedAnswers];
@@ -54,7 +71,11 @@ const TestScreen = () => {
   return (
     <div className="flex flex-col items-center w-full min-h-screen bg-[#F0F8FF]">
       {contextHolder}
-
+      <QuestionList
+        questions={questions}
+        onClick={scrollToQuestion}
+        selectedAnswers={selectedAnswers} // Truyền trạng thái đã chọn
+      />
       <div className="fixed top-0 left-0 right-0 z-10 w-full min-h-16 bg-[#0056b3] text-bg-light flex items-center justify-between p-3 mb-8">
         <div className="bg-[#416df1] px-2 py-1 rounded-lg shadow-xl">
           Kiểm tra
@@ -74,6 +95,7 @@ const TestScreen = () => {
         {questions.map((ques, quesIdx) => (
           <div
             key={quesIdx}
+            ref={(el) => (questionRefs.current[quesIdx] = el)}
             className="w-1/2 min-h-96 mb-5 bg-bg-light flex flex-col p-6 rounded-lg shadow-lg text-[#626380] "
           >
             <div className="w-full">

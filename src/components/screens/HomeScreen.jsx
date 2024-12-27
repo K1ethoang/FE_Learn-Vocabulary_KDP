@@ -63,46 +63,6 @@ const HomeScreen = () => {
             : ""}
         </Row>
       </div>
-
-      <div className="m-4">
-        <span className="text-2xl font-bold">Bộ thẻ ghi nhớ phổ biến</span>
-
-        <Carousel draggable arrows infinite={false}>
-          <div>
-            <Row gutter={16}>
-              <Col span={8}>
-                <MemoryCard title="Testing" author="Admin" numVocabulary="20" />
-              </Col>
-              <Col span={8}>
-                <MemoryCard title="Testing" author="Admin" numVocabulary="20" />
-              </Col>
-              <Col span={8}>
-                <MemoryCard title="Testing" author="Admin" numVocabulary="20" />
-              </Col>
-            </Row>
-          </div>
-
-          <div>
-            <Row gutter={16}>
-              <Col span={8}>
-                <MemoryCard title="Testing" author="Admin" numVocabulary="20" />
-              </Col>
-              <Col span={8}>
-                <MemoryCard title="Testing" author="Admin" numVocabulary="20" />
-              </Col>
-              <Col span={8}>
-                <MemoryCard title="Testing" author="Admin" numVocabulary="20" />
-              </Col>
-            </Row>
-          </div>
-
-          {/* <div className='flex justify-center'>
-					<MemoryCard title='Testing' author='Admin' numVocabulary='20'/>
-					<MemoryCard title='Testing' author='Admin' numVocabulary='20'/>
-					<MemoryCard title='Testing' author='Admin' numVocabulary='20'/>
-				</div> */}
-        </Carousel>
-      </div>
     </div>
   );
 };

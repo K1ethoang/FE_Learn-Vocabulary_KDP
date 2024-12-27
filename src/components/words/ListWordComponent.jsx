@@ -56,11 +56,16 @@ const ListWordComponent = ({
                   <span className="font-bold text-base">{item.name}</span>
                   <span className="text-gray ml-2">{item.pronounce}</span>
                   <div className="ml-1">
+                    ({" "}
                     {item?.types?.map((type, idx) => (
-                      <span key={idx} className="mr-1">
-                        {type?.name}
-                      </span>
+                      <>
+                        {idx !== 0 ? ", " : null}
+                        <span key={idx} className="mr-1">
+                          {type?.symbol}
+                        </span>
+                      </>
                     ))}
+                    )
                   </div>
                   <div className="w-7 h-7 flex items-center justify-center rounded-lg ml-3 bg-[#88beff]">
                     <FaVolumeUp
