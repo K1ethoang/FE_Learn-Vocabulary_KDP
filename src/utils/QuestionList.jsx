@@ -2,6 +2,7 @@ import React from "react";
 import { List } from "antd";
 
 const QuestionList = ({ questions, onClick, selectedAnswers }) => {
+  console.log("check list: ", selectedAnswers[0]);
   return (
     <div className="w-1/5 fixed left-0 top-28 bg-white shadow-md p-4 rounded-lg">
       <List
@@ -11,7 +12,7 @@ const QuestionList = ({ questions, onClick, selectedAnswers }) => {
           <List.Item
             onClick={() => onClick(index)}
             className={`cursor-pointer ${
-              selectedAnswers[index] !== null ? "bg-[#c3f4d3]" : "bg-white"
+              selectedAnswers[index] !== undefined ? "bg-[#c3f4d3]" : "bg-white"
             }`}
             style={{
               padding: "10px",

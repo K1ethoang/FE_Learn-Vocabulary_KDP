@@ -117,7 +117,7 @@ function App() {
 
           <Route path="/flashcard/:id" element={<FlashCardScreen />} />
           <Route path="/learn/:id" element={<LearnTopic />} />
-          <Route path="/test/:id" element={<TestScreen />} />
+          <Route path="/test/:id/exam" element={<TestScreen />} />
           <Route path="/test/result/:id" element={<ResultTestScreen />} />
 
           {/* Protected Routes */}

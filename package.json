@@ -5,7 +5,7 @@
   "author": "entidi",
   "type": "module",
   "scripts": {
-    "dev": "vite --port=3001",
+    "dev": "echo 'Fontend is designed by [Entidi] - Running...' && vite --port=3001",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"

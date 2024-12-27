@@ -15,6 +15,7 @@ import DeleteSetModal from "../modals/DeleteSetModal";
 import EditSetModal from "../modals/set/EditSetModal";
 import axiosConfig from "../../services/axios/axiosConfig";
 import { CiExport } from "react-icons/ci";
+import { v4 as uuidv4 } from "uuid";
 
 const StudyScreen = () => {
   const location = useLocation();
@@ -62,7 +63,7 @@ const StudyScreen = () => {
   };
 
   const accessTest = () => {
-    navigate(`/test/${id}`);
+    navigate(`/test/${id}/exam?uuid=${uuidv4()}`, { state: { title } });
   };
 
   const handleAddWord = () => {

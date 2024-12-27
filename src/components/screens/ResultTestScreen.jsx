@@ -4,40 +4,43 @@ import { Button, Col, Flex, Progress, Row } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineCheck, AiOutlineCloseCircle } from "react-icons/ai";
 const ResultTestScreen = () => {
-  const lengthTest = questions.length;
-
   const navigate = useNavigate();
   const location = useLocation();
-  const data = location.state;
+  const { result, title } = location.state;
+  console.log("res", result, title);
 
-  const getAllCorrectOption = questions.map((question) => {
-    const correctOption = question.options.find((option) => option.isCorrect); // Find the correct option
-    return {
-      idQues: question.id,
-      correctOption: correctOption.id,
-    };
-  });
+  const percentCorrect = (result?.correctCount / result?.totalQuestions) * 100;
+  const DisplayTime = ({ text, time }) => {
+    const formattedTime = new Intl.DateTimeFormat("vi-VN", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false, // 24-hour format
+    }).format(new Date(time));
 
-  const countNumOfCorrect = data.map((ques, idx) => {
-    let numOfCorrect = 0;
-    if (ques["ans"] === getAllCorrectOption[idx]["correctOption"]) {
-      numOfCorrect++;
-    }
-
-    return numOfCorrect;
-  });
-
-  const numOfCorrect = countNumOfCorrect.filter((c) => c == 1).length;
-  const percentCorrect = (numOfCorrect / lengthTest) * 100;
+    return (
+      <div>
+        {text} {formattedTime}
+      </div>
+    );
+  };
   return (
     <div className="flex flex-col items-center w-full min-h-screen bg-[#f6f7fb]">
       <div className="w-full min-h-16 bg-orange text-bg-light flex items-center justify-between p-3 mb-8">
         <div>Kết quả kiểm tra</div>
         <div className="flex flex-col items-center">
-          <span>Title of topic test</span>
-          <span>Số câu: {lengthTest}</span>
+          <span>Học phần {title}</span>
+          <span>Số câu: {result?.totalQuestions}</span>
         </div>
         <div></div>
+      </div>
+
+      <div className="mb-3">
+        <DisplayTime text="Bắt đầu làm bài" time={result?.startAt} />
+        <DisplayTime text="Kết thúc làm bài" time={result?.endAt} />
       </div>
 
       <Flex gap="small" wrap className="mb-10">
@@ -45,19 +48,25 @@ const ResultTestScreen = () => {
           className="mr-10 "
           type="circle"
           percent={percentCorrect}
-          format={(percent) => <span className="text-lg">Đúng {percent}%</span>}
+          format={(percent) => (
+            <span className="text-lg">Đúng {result?.correctCount} câu</span>
+          )}
           strokeColor="green"
         />
         <Progress
           type="circle"
           percent={100 - percentCorrect}
           status="exception"
-          format={(percent) => <span className="text-lg">Sai {percent}%</span>}
+          format={(percent) => (
+            <span className="text-lg">
+              Sai {result?.totalQuestions - result?.correctCount} câu
+            </span>
+          )}
           strokeColor="#ff7849"
         />
       </Flex>
 
-      {
+      {/* {
         questions.map((ques, quesIdx) => (
           <div
             key={quesIdx}
@@ -80,7 +89,7 @@ const ResultTestScreen = () => {
                     <Col span={12} key={ansIdx}>
                       <div
                         className={`w-full h-full flex items-center  p-4 rounded-lg border ${
-                          ques.id === data[quesIdx]["ques"] &&
+                          ques.id === result[quesIdx]["ques"] &&
                           getAllCorrectOption[quesIdx]["idQues"]
                             ? data[quesIdx]["ans"] ===
                               getAllCorrectOption[quesIdx]["correctOption"]
@@ -129,8 +138,8 @@ const ResultTestScreen = () => {
             </div>
           </div>
         ))
-        // ques.id === data[quesIdx]['ques'] & data[quesIdx]['ques'] === getAllCorrectOption[quesIdx]['idQues'] ? ((data[quesIdx]['ans'] === getAllCorrectOption[quesIdx]['correctOption'] & data[quesIdx]['ans'] === opt.id ) ?  'bg-green' : getAllCorrectOption[quesIdx]['correctOption'] === opt.id ? 'bg-orange': ''): ''
-      }
+
+      } */}
 
       <div className="mb-10 ">
         <Button
