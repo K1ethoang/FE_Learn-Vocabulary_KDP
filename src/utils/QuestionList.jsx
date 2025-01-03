@@ -1,10 +1,17 @@
 import React from "react";
 import { List } from "antd";
+import { useSelector } from "react-redux";
 
 const QuestionList = ({ questions, onClick, selectedAnswers }) => {
   console.log("check list: ", selectedAnswers[0]);
+  const theme = useSelector((state) => state.theme.theme);
+
   return (
-    <div className="w-1/5 fixed left-0 top-28 bg-white shadow-md p-4 rounded-lg">
+    <div
+      className={`w-1/5 fixed left-0 top-28 ${
+        theme === "light" ? "bg-[#fff]" : "bg-bg-main-dark"
+      } shadow-md p-4 rounded-lg`}
+    >
       <List
         bordered
         dataSource={questions}
@@ -12,7 +19,9 @@ const QuestionList = ({ questions, onClick, selectedAnswers }) => {
           <List.Item
             onClick={() => onClick(index)}
             className={`cursor-pointer ${
-              selectedAnswers[index] !== undefined ? "bg-[#c3f4d3]" : "bg-white"
+              selectedAnswers[index] !== undefined
+                ? "bg-[#c3f4d3]"
+                : "bg-bg-light"
             }`}
             style={{
               padding: "10px",

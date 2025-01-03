@@ -17,6 +17,7 @@ import axiosConfig from "../../services/axios/axiosConfig";
 import { CiExport } from "react-icons/ci";
 import { v4 as uuidv4 } from "uuid";
 import { FaHistory } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 const StudyScreen = () => {
   const location = useLocation();
@@ -28,6 +29,7 @@ const StudyScreen = () => {
   const [api, contextHolder] = notification.useNotification([]);
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState();
+  const theme = useSelector((state) => state.theme.theme);
 
   const getAllWordOfTopic = async () => {
     try {
@@ -115,28 +117,35 @@ const StudyScreen = () => {
   };
 
   return (
-    <div className="m-6">
+    <div className="m-6 ">
       {contextHolder}
       <div className="w-full mx-auto my-6 flex items-center justify-between">
         <div className="flex items-center">
           <div className="flex flex-col items-start ml-2">
             <span className="text-2xl text-purple uppercase font-semibold ">
-              Tên Học phần:{title}
+              Tên Học phần:{title ? title : "Chưa có"}
             </span>
             <span className="text-gray text-sm">
-              Mô tả học phần :{description}
+              Mô tả học phần :{description ? description : " Chưa có"}
             </span>
           </div>
         </div>
         <div
           onClick={handleExportExcel}
-          className="flex  items-center justify-center bg-[#61ff53] p-2 font-medium cursor-pointer hover:bg-[#69f057] rounded-lg border border-[#fff] shadow-lg"
+          className={`flex  items-center justify-center bg-[#61ff53] p-2 font-medium cursor-pointer hover:bg-[#69f057] rounded-lg border border-[#fff] shadow-lg `}
         >
           <CiExport size={28} className="mr-1" />
-          Xuất excel
+          <span
+            className={`${
+              theme === "dark" ? "text-gray-dark" : "text-bg-main-light"
+            }`}
+          >
+            {" "}
+            Xuất excel
+          </span>
         </div>
       </div>
-      <div className="m-5  flex items-center justify-between">
+      <div className="  m-5  flex items-center justify-between">
         <Button
           onClick={accessFlashcard}
           icon={<SnippetsOutlined style={{ color: "#0b1de0" }} />}
@@ -146,6 +155,7 @@ const StudyScreen = () => {
             backgroundColor: "#f0f0f894",
             fontSize: 18,
             fontWeight: 600,
+            color: theme === "dark" ? "white" : "black",
           }}
         >
           Thẻ ghi nhớ
@@ -158,6 +168,7 @@ const StudyScreen = () => {
             height: 100,
             backgroundColor: "#f0f0f894",
             fontSize: 18,
+            color: theme === "dark" ? "white" : "black",
             fontWeight: 600,
           }}
         >
@@ -171,6 +182,7 @@ const StudyScreen = () => {
             height: 100,
             backgroundColor: "#f0f0f894",
             fontSize: 18,
+            color: theme === "dark" ? "white" : "black",
             fontWeight: 600,
           }}
         >
@@ -184,6 +196,7 @@ const StudyScreen = () => {
             height: 100,
             backgroundColor: "#f0f0f894",
             fontSize: 18,
+            color: theme === "dark" ? "white" : "black",
             fontWeight: 600,
           }}
         >

@@ -2,12 +2,17 @@ import { Button, Divider, Select } from "antd";
 import React from "react";
 import { useAuth } from "../../providers/AuthProvider";
 import EditProfileModal from "../modals/user/EditProfileModal";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleTheme } from "../../redux/themeSlice";
 
 const SettingScreen = () => {
   const { user } = useAuth();
   const [openEditProfileModal, setOpenEditProfileModal] = React.useState(false);
+  const theme = useSelector((state) => state.theme.theme);
+  const dispatch = useDispatch();
   const handleChange = (value) => {
-    console.log(`selected ${value}`);
+    dispatch(toggleTheme());
+    console.log(`selected ${value}`, theme);
   };
 
   const handleEditProfile = () => {
@@ -58,7 +63,11 @@ const SettingScreen = () => {
             <div className=" flex flex-col justify-center p-4">
               <span className="font-semibold">Loại tài khoản</span>
             </div>
-            <div className=" h-9 flex items-center justify-center bg-[#fff] font-bold text-[#473dd9] mr-3">
+            <div
+              className={` h-9 flex items-center justify-center font-bold text-[#473dd9] mr-3 ${
+                theme === "light" ? "bg-[#fff]" : "bg-bg-main-dark"
+              }`}
+            >
               <span>Người dùng</span>
             </div>
           </div>
@@ -73,10 +82,14 @@ const SettingScreen = () => {
             <div className=" flex flex-col justify-center p-4">
               <span className="font-semibold">Hình nền</span>
             </div>
-            <div className="w-14 h-9 flex items-center justify-center bg-[#fff] font-bold mr-4">
+            <div
+              className={`w-14 h-9 flex items-center justify-center  font-bold mr-4 ${
+                theme === "light" ? "bg-[#fff]" : "bg-bg-main-dark"
+              }`}
+            >
               <Select
-                disabled
-                defaultValue="light"
+                // disabled
+                defaultValue={theme === "light" ? "Light" : "Dark"}
                 style={{ width: 160 }}
                 onChange={handleChange}
                 options={[
@@ -97,11 +110,17 @@ const SettingScreen = () => {
             <div className=" flex flex-col justify-center p-4">
               <span className="font-semibold">Ngôn ngữ</span>
             </div>
-            <div className="w-14 h-9 flex items-center justify-center bg-[#fff] font-bold mr-6">
+            <div
+              className={`w-14 h-9 flex items-center justify-center ${
+                theme === "light" ? "bg-[#fff]" : "bg-bg-main-dark"
+              } font-bold mr-6 text-blue`}
+            >
               <Select
                 disabled
                 defaultValue="Tiếng Việt"
-                style={{ width: 160 }}
+                style={{
+                  width: 160,
+                }}
                 onChange={handleChange}
                 options={[
                   { value: "vn", label: "Tiếng Việt" },
@@ -146,7 +165,11 @@ const SettingScreen = () => {
                 tác.
               </span>
             </div>
-            <div className="w-14 h-9 flex items-center justify-center bg-[#fff] font-bold mr-8">
+            <div
+              className={`w-14 h-9 flex items-center justify-center  font-bold mr-8 ${
+                theme === "light" ? "bg-[#fff]" : "bg-bg-main-dark"
+              }`}
+            >
               <Button danger title="Xóa tài khoản" type="primary">
                 Xóa tài khoản
               </Button>

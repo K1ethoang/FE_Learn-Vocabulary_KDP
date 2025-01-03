@@ -41,9 +41,13 @@ import VerifyAccountScreen from "./auth/VerifyAccountScreen";
 import ResetPassword from "./auth/ResetPassword";
 import HistoryExamsScreen from "./components/screens/HistoryExamsScreen";
 import SplashScreen from "./components/screens/SplashScreen";
+import { useSelector } from "react-redux";
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
+  const theme = useSelector((state) => state.theme.theme);
+  console.log("App", theme);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {

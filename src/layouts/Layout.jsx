@@ -1,29 +1,17 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  FolderOutlined,
   HomeOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  PlusSquareOutlined,
-  SearchOutlined,
 } from "@ant-design/icons";
-import {
-  Affix,
-  Button,
-  Divider,
-  Image,
-  Input,
-  Layout,
-  Menu,
-  theme,
-} from "antd";
+import { Button, Image, Input, Layout, Menu } from "antd";
 import MenuDropdown from "../components/menus/MenuDropdown";
 import MenuProfileExpend from "../components/menus/MenuProfileExpend";
 import { Link, useNavigate } from "react-router-dom";
 import ChatBox from "../components/chatbox/ChatBox";
 import { CiChat1 } from "react-icons/ci";
 import { IoBookOutline } from "react-icons/io5";
-import { TbBuildingWarehouse } from "react-icons/tb";
+import { useSelector } from "react-redux";
 
 const { Header, Sider, Content } = Layout;
 const LayoutPage = ({ children }) => {
@@ -34,10 +22,11 @@ const LayoutPage = ({ children }) => {
   const [selectedKey, setSelectedKey] = useState(storedKey ? storedKey : "1");
   const navigate = useNavigate();
   const width = window.screen.width;
+  const theme = useSelector((state) => state.theme);
 
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
+  // const {
+  //   token: { colorBgContainer, borderRadiusLG },
+  // } = theme.useToken();
 
   useEffect(() => {
     if (storedKey) {
@@ -114,14 +103,16 @@ const LayoutPage = ({ children }) => {
     },
   ];
   return (
-    <Layout style={{ width: "100%", height: "100%" }}>
+    <Layout style={{ width: "100%", minHeight: "100vh" }}>
       <Header
-        className="fixed top-0 left-0 right-0 z-10 bg-white shadow-lg" // Tailwind classes for fixed header
+        className={`fixed top-0 left-0 right-0 z-10 shadow-lg`} // Tailwind classes for fixed header
         style={{
           padding: 0,
-          background: colorBgContainer,
+          background: "#fff",
           display: "flex",
           alignItems: "center",
+          backgroundColor: theme?.theme === "dark" ? "#001529" : "#fff",
+          color: theme?.theme === "dark" ? "#fff" : "#000",
         }}
       >
         <Button
@@ -132,6 +123,7 @@ const LayoutPage = ({ children }) => {
             fontSize: "16px",
             width: 64,
             height: 64,
+            color: theme?.theme === "dark" ? "#fff" : "#000",
           }}
         />
         <div className=" w-full bg-slate-500 p-4 flex text-center justify-between items-center">
@@ -155,14 +147,14 @@ const LayoutPage = ({ children }) => {
       <Layout style={{ marginTop: "64px" }}>
         <Sider
           width={width * 0.18}
-          theme="light"
+          theme={theme?.theme === "dark" ? "dark" : "light"}
           trigger={null}
           collapsible
           collapsed={collapsed}
         >
           <Menu
             className="p-4"
-            theme="light"
+            theme={theme?.theme === "dark" ? "dark" : "light"}
             mode="inline"
             inlineCollapsed={collapsed}
             defaultSelectedKeys={[selectedKey ? selectedKey : ""]}
@@ -174,11 +166,12 @@ const LayoutPage = ({ children }) => {
 
         <Content
           style={{
-            margin: "20px 16px",
+            margin: theme?.theme === "dark" ? "8px" : "24px 16px",
             padding: 24,
             minHeight: "calc(100vh - 108px)",
-            background: colorBgContainer,
-            borderRadius: borderRadiusLG,
+            backgroundColor: theme?.theme === "dark" ? "#001529" : "#fff",
+            color: theme?.theme === "dark" ? "#fff" : "#000",
+            borderRadius: "10px",
           }}
         >
           {children}

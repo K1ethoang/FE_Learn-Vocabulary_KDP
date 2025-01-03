@@ -5,10 +5,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { ArrowLeftOutlined, ReloadOutlined } from "@ant-design/icons";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import annimation_not_enough_word from "../../assets/images/animation_not_enough_word.lottie";
+import { useSelector } from "react-redux";
 
 const LearnTopic = () => {
   const location = useLocation();
   const { title, data } = location.state;
+  const theme = useSelector((state) => state.theme.theme);
 
   const generateQuestions = (data) => {
     const meanings = data.map((word) => word.meaning);
@@ -90,7 +92,11 @@ const LearnTopic = () => {
   };
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-center bg-[#F0F8FF]">
+    <div
+      className={`w-full min-h-screen flex flex-col items-center ${
+        theme === "light" ? "bg-[#fff]" : "bg-bg-main-dark"
+      }`}
+    >
       <div className="w-full h-16 bg-[#007BFF] text-bg-light flex items-center justify-between p-6 font-bold text-xl mb-10">
         <div className="text-base px-3 py-1 rounded-md bg-[#265aa8] shadow-lg">
           Học
@@ -107,9 +113,21 @@ const LearnTopic = () => {
         !completed ? (
           <>
             <div className="flex w-3/5 h-9 mb-4 text-xl items-center justify-around">
-              <div className="mr-2">{currentQuestionIndex + 1}</div>
+              <div
+                className={`mr-2 ${
+                  theme === "light" ? "text-bg-black" : "text-bg-light"
+                }`}
+              >
+                {currentQuestionIndex + 1}
+              </div>
               <Progress className="w-4/5" percent={percent} showInfo={false} />
-              <div className="ml-2">{questions.length}</div>
+              <div
+                className={`ml-2 ${
+                  theme === "light" ? "text-bg-black" : "text-bg-light"
+                }`}
+              >
+                {questions.length}
+              </div>
             </div>
             <div className="w-full flex-grow flex justify-center items-center">
               <div className="w-3/5 h-3/5 bg-[#fff] rounded-lg shadow-xl p-6">

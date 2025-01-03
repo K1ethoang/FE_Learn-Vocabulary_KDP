@@ -21,6 +21,7 @@ import { FaVolumeUp } from "react-icons/fa";
 import { readWord } from "../../utils/ReadWord";
 import EmtySets from "../exceptions/EmtySets";
 import axiosConfig from "../../services/axios/axiosConfig";
+import { useSelector } from "react-redux";
 
 const FlashCardScreen = () => {
   const { id } = useParams();
@@ -33,7 +34,7 @@ const FlashCardScreen = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [mode, setMode] = useState("all");
   const [wordsNoRemember, setWordsNoRemember] = useState([]);
-
+  const theme = useSelector((state) => state.theme.theme);
   const getAllWordOfTopic = async () => {
     try {
       const res = await axiosConfig.get(`topics/${id}/words`);
@@ -130,7 +131,11 @@ const FlashCardScreen = () => {
   console.log("no rem", wordsNoRemember);
 
   return (
-    <div className="w-full min-h-screen bg-[#F0F8FF] flex flex-col">
+    <div
+      className={`w-full min-h-screen  flex flex-col ${
+        theme === "light" ? "bg-[#fff]" : "bg-bg-main-dark"
+      }`}
+    >
       <div className="w-full p-2 bg-[#3773eb] font-bold flex items-center justify-between">
         <div className="text-[#fff] text-base p-2 rounded-md bg-[#2a57af] shadow-xl mr-3">
           <Select

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Avatar, Dropdown } from "antd";
+import { Avatar, ConfigProvider, Dropdown } from "antd";
 import {
   UserOutlined,
   TrophyOutlined,
@@ -7,11 +7,14 @@ import {
 } from "@ant-design/icons";
 import { useAuth } from "../../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const MenuProfileExpend = () => {
   const { user } = useAuth();
   const { logout } = useAuth();
   const navigate = useNavigate();
+  const theme = useSelector((state) => state.theme);
+
   const handleSetting = () => {
     navigate("/setting");
   };
@@ -130,14 +133,23 @@ const MenuProfileExpend = () => {
 
   return (
     <div className="cursor-pointer flex items-center">
-      <Dropdown menu={{ items }} trigger={["click"]} placement="bottomLeft">
-        <Avatar
-          style={{ backgroundColor: "blue" }}
-          shape="circle"
-          size="large"
-          icon={<UserOutlined />}
-        />
-      </Dropdown>
+      <ConfigProvider
+        theme={{
+          token: {
+            colorBgBase: theme.theme === "dark" ? "#01203e" : "#ffffff",
+            colorTextBase: theme.theme === "dark" ? "#ffffff" : "#000000",
+          },
+        }}
+      >
+        <Dropdown menu={{ items }} trigger={["click"]} placement="bottomLeft">
+          <Avatar
+            style={{ backgroundColor: "blue" }}
+            shape="circle"
+            size="large"
+            icon={<UserOutlined />}
+          />
+        </Dropdown>
+      </ConfigProvider>
     </div>
   );
 };

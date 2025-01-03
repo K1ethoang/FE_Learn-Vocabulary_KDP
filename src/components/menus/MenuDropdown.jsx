@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Dropdown } from "antd";
+import { Button, ConfigProvider, Dropdown, Menu } from "antd";
 import {
   PlusOutlined,
   BookOutlined,
@@ -7,9 +7,11 @@ import {
   TeamOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const MenuDropdown = () => {
   const navigate = useNavigate();
+  const theme = useSelector((state) => state.theme);
   const handleOpenSet = () => {
     navigate("/create-set");
   };
@@ -62,14 +64,23 @@ const MenuDropdown = () => {
 
   return (
     <div>
-      <Dropdown menu={{ items }} trigger={["click"]} placement="bottomLeft">
-        <Button
-          type="primary"
-          shape="default"
-          icon={<PlusOutlined />}
-          size="large"
-        />
-      </Dropdown>
+      <ConfigProvider
+        theme={{
+          token: {
+            colorBgBase: theme.theme === "dark" ? "#01203e" : "#ffffff",
+            colorTextBase: theme.theme === "dark" ? "#ffffff" : "#000000",
+          },
+        }}
+      >
+        <Dropdown menu={{ items }} trigger={["click"]} placement="bottomLeft">
+          <Button
+            type="primary"
+            shape="default"
+            icon={<PlusOutlined />}
+            size="large"
+          />
+        </Dropdown>
+      </ConfigProvider>
     </div>
   );
 };

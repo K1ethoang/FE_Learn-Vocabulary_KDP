@@ -6,6 +6,7 @@ import { MdOutlineDeleteOutline } from "react-icons/md";
 import EditWordModal from "../modals/word/EditWordModal";
 import { LuPencilLine } from "react-icons/lu";
 import DeleteWordModal from "../modals/word/DeleteWordModal";
+import { useSelector } from "react-redux";
 const ListWordComponent = ({
   idTopic,
   data,
@@ -16,6 +17,7 @@ const ListWordComponent = ({
   const [openDeleteWordModal, setOpenDeleteWordModal] = useState(false);
   console.log("data", data);
   const [item, setItem] = useState("");
+  const theme = useSelector((state) => state.theme.theme);
 
   const [isOpenEditModal, setIsOpenEditSetModal] = useState(false);
   const handleCloseDeleteWordModal = () => {
@@ -50,7 +52,11 @@ const ListWordComponent = ({
         dataSource={data}
         renderItem={(item) => (
           <List.Item key={item.name}>
-            <div className="w-full max-h-fit p-1 flex items-center justify-between ">
+            <div
+              className={`w-full max-h-fit p-1 flex items-center justify-between ${
+                theme === "light" ? "text-gray-dark" : "text-bg-main-light"
+              } `}
+            >
               <div className="flex flex-col items-start ">
                 <div className="flex items-center mb-2">
                   <span className="font-bold text-base">{item.name}</span>

@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import QuestionList from "../../utils/QuestionList";
 import axiosConfig from "../../services/axios/axiosConfig";
+import { useSelector } from "react-redux";
 const TestScreen = () => {
   const [startTime, setStartTime] = useState(null);
   const location = useLocation();
@@ -16,6 +17,8 @@ const TestScreen = () => {
   const [selectedAnswers, setSelectedAnswers] = React.useState(
     Array(lengthTest).fill(null)
   );
+  const theme = useSelector((state) => state.theme.theme);
+
   const [messageApi, contextHolder] = message.useMessage();
   const navigate = useNavigate();
   const myUUID = uuidv4();
@@ -144,7 +147,11 @@ const TestScreen = () => {
     }
   };
   return (
-    <div className="flex flex-col items-center w-full min-h-screen bg-[#F0F8FF]">
+    <div
+      className={`flex flex-col items-center w-full min-h-screen ${
+        theme === "light" ? "bg-[#fff]" : "bg-bg-main-dark"
+      }`}
+    >
       {contextHolder}
       <QuestionList
         questions={questions}
