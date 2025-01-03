@@ -4,12 +4,17 @@ import MemoryCard from "../cards/MemoryCard";
 import "./HomeScreen.css";
 import axiosConfig from "../../services/axios/axiosConfig";
 import TopicComponent from "../cards/TopicComponent";
+import SplashScreen from "./SplashScreen";
 
 const HomeScreen = () => {
   const token = localStorage.getItem("token");
   const [topics, setTopics] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [api, contextHolder] = notification.useNotification([]);
+  // const [showSplash, setShowSplash] = useState(true);
+  // const handleSplashScreen = () => {
+  //   setShowSplash(false);
+  // };
 
   const openNotification = (placement, message) => {
     api.info({
@@ -41,6 +46,10 @@ const HomeScreen = () => {
     }
     getAllTopic();
   }, [token]);
+
+  // if (showSplash) {
+  //   return <SplashScreen onFinish={handleSplashScreen} />;
+  // }
 
   if (isLoading) {
     return (

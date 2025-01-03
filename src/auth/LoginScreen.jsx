@@ -3,12 +3,13 @@ import animationFile from "./../assets/images/animation_login.lottie";
 import { notification } from "antd";
 import { FrownOutlined } from "@ant-design/icons";
 import LoginForm from "../components/auth/LoginForm";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../providers/AuthProvider";
 
 const LoginScreen = () => {
   // const token = localStorage.getItem("token");
+
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   useEffect(() => {
@@ -39,6 +40,7 @@ const LoginScreen = () => {
   return (
     <>
       {contextHolder}
+
       <div className="flex flex-col md:flex-row items-center justify-center w-full h-screen p-4 bg-bg-main">
         <div className="hidden md:block md:w-1/2 p-4">
           <DotLottieReact src={animationFile} loop autoplay />

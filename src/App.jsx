@@ -32,7 +32,7 @@ import UpgradeScreen from "./components/screens/UpgradeScreen";
 import EditSetScreen from "./components/screens/EditSetScreen";
 import ChatBoxScreen from "./components/screens/ChatBoxScreen";
 import { jwtDecode } from "jwt-decode";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import SetsScreen from "./components/screens/SetsScreen";
 import VocabularyScreen from "./components/screens/VocabularyScreen";
 import { message } from "antd";
@@ -40,8 +40,10 @@ import ForgotPassword from "./components/modals/user/ForgotPassword";
 import VerifyAccountScreen from "./auth/VerifyAccountScreen";
 import ResetPassword from "./auth/ResetPassword";
 import HistoryExamsScreen from "./components/screens/HistoryExamsScreen";
+import SplashScreen from "./components/screens/SplashScreen";
 
 function App() {
+  const [showSplash, setShowSplash] = useState(true);
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -57,8 +59,19 @@ function App() {
           window.location.href = "/login";
         }, 700);
       }
+
+      // const splashTimer = setTimeout(() => {
+      //   setShowSplash(false);
+      // }, 1000);
+
+      // return () => clearTimeout(splashTimer);
     }
   }, []);
+
+  // Hiển thị Splash Screen
+  if (showSplash) {
+    return <SplashScreen onFinish={() => setShowSplash(false)} />;
+  }
   const AuthLayout = () => {
     console.log("AuthLayout");
     const token = localStorage.getItem("token");
