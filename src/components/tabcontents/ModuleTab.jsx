@@ -8,6 +8,33 @@ const ModuleTab = ({
   openDeleteSetModal,
   setTopic,
 }) => {
+  const [filteredSets, setFilteredSets] = React.useState(topics);
+
+  const debounce = (func, wait) => {
+    let timeout;
+    return function (...args) {
+      const context = this;
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(context, args), wait);
+    };
+  };
+  const handleSearch = debounce((value) => {
+    if (value === "") {
+      setFilteredSets(topics);
+    } else {
+      const filteredList = topics.filter(
+        (item) =>
+          item.title.toLowerCase().includes(value) ||
+          item.description.toLowerCase().includes(value)
+      );
+      setFilteredSets(filteredList);
+    }
+  }, 300);
+
+  const handleChange = (event) => {
+    const value = event.target.value.toLowerCase();
+    handleSearch(value);
+  };
   // const handleChange = (value) => {
   //   console.log(`selected ${value}`);
   // };
@@ -31,11 +58,12 @@ const ModuleTab = ({
           size="large"
           placeholder="Tìm kiếm thẻ nhớ"
           enterButton
+          onChange={handleChange}
         />
       </div>
       <Divider />
 
-      {topics.map((topic, idx) => (
+      {filteredSets.map((topic, idx) => (
         <MemoryCard
           key={idx}
           topic={topic}

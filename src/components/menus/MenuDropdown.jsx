@@ -13,7 +13,7 @@ const MenuDropdown = () => {
   const navigate = useNavigate();
   const theme = useSelector((state) => state.theme);
   const handleOpenSet = () => {
-    navigate("/create-set");
+    navigate("/sets");
   };
 
   const handleOpenFolder = () => {

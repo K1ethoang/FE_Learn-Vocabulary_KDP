@@ -128,7 +128,8 @@ const LayoutPage = ({ children }) => {
         />
         <div className=" w-full bg-slate-500 p-4 flex text-center justify-between items-center">
           <Image src="/src/assets/images/logo.png" width={45} preview={false} />
-          <div className="w-3/6  flex items-center">
+          <div className="w-3/6"></div>
+          {/* <div className="w-3/6  flex items-center">
             <Search
               value={keySearch}
               allowClear
@@ -138,7 +139,7 @@ const LayoutPage = ({ children }) => {
               enterButton
               onSearch={handleSearch}
             />
-          </div>
+          </div> */}
           <MenuDropdown />
           <MenuProfileExpend />
         </div>
