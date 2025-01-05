@@ -140,7 +140,7 @@ const LayoutPage = ({ children }) => {
               onSearch={handleSearch}
             />
           </div> */}
-          <MenuDropdown />
+
           <MenuProfileExpend />
         </div>
       </Header>

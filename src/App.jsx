@@ -25,10 +25,8 @@ import SearchScreen from "./components/screens/SearchScreen";
 import FolderScreen from "./components/screens/FolderScreen";
 import ClassroomScreen from "./components/screens/ClassroomScreen";
 import SettingScreen from "./components/screens/SettingScreen";
-import AchievementScreen from "./components/screens/AchievementScreen";
 import PrivacyScreen from "./components/screens/PrivacyScreen";
 import SupportScreen from "./components/screens/SupportScreen";
-import UpgradeScreen from "./components/screens/UpgradeScreen";
 import EditSetScreen from "./components/screens/EditSetScreen";
 import ChatBoxScreen from "./components/screens/ChatBoxScreen";
 import { jwtDecode } from "jwt-decode";
@@ -106,10 +104,8 @@ function App() {
             <Route path="/vocabulary" element={<VocabularyScreen />} />
             <Route path="/library" element={<LibraryScreen />} />
             <Route path="/setting" element={<SettingScreen />} />
-            <Route path="/achievements" element={<AchievementScreen />} />
             <Route path="/privacy" element={<PrivacyScreen />} />
             <Route path="/support" element={<SupportScreen />} />
-            <Route path="/upgrade" element={<UpgradeScreen />} />
             <Route path="/chat-bot" element={<ChatBoxScreen />} />
             <Route path="/create-set" element={<CreateTermsScreen />} />
             <Route path="/studies/:id" element={<StudyScreen />} />

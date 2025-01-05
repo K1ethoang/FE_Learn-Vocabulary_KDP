@@ -34,9 +34,15 @@ const CreateSetsModal = ({
       console.log("res:", res.data);
       if (res.data?.statusCode === 201) {
         handleOpenNotification("topRight", "Đã tạo thành công học phần");
-        setTopics((prev) => [...prev, res.data?.result]);
+        setTopics((prev) => [...prev, res?.data?.result]);
       }
     } catch (error) {
+      if (
+        error?.response?.status === 400 &&
+        error?.response?.data?.errors[0]?.message === "Topic is already exist"
+      ) {
+        handleOpenNotification("topRight", "Tên học phần đã tồn tại!");
+      }
       handleOpenNotification(
         "topRight",
         "Có lỗi xảy ra trong quá trình tạo mới học phần!"

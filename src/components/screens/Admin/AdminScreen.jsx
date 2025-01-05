@@ -8,6 +8,7 @@ import axiosConfig from "../../../services/axios/axiosConfig";
 import { FiLock, FiUnlock, FiUser } from "react-icons/fi";
 import DeleteUserModal from "../../modals/user/DeleteUserModal";
 import LockUserModal from "../../modals/user/LockUserModal";
+import UploadFile from "../../../services/UploadFile";
 
 const AdminScreen = () => {
   const [users, setUsers] = useState([]);
@@ -67,6 +68,9 @@ const AdminScreen = () => {
     <div className="p-8">
       <div className="flex justify-between items-center mb-4 ">
         <h1 className="text-2xl font-semibold">Quản lí người dùng</h1>
+        <div className="w-">
+          <UploadFile />
+        </div>
       </div>
       <p className="text-gray mb-4">Tổng người dùng: {users.length}</p>
       <div className="bg-[#fff] shadow rounded-lg">

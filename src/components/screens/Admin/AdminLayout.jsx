@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../../providers/AuthProvider";
-import { Avatar } from "antd";
+import { Avatar, Button } from "antd";
+import UploadFile from "../../../services/UploadFile";
 
 const AdminLayout = ({ children }) => {
   const location = useLocation();
@@ -10,6 +11,7 @@ const AdminLayout = ({ children }) => {
     localStorage.clear();
     window.location.reload();
   };
+
   return (
     <div className="w-full min-h-screen flex flex-col">
       <header className="bg-[#000] text-[#fff] p-4 flex justify-between items-center h-20">
@@ -23,16 +25,9 @@ const AdminLayout = ({ children }) => {
             >
               Quản lí người dùng
             </Link>
-            <Link
-              to="/admin/statistics"
-              className={`text-lg ${
-                pathName === "/admin/statistics" ? "text-blue" : ""
-              }`}
-            >
-              Thống kê{" "}
-            </Link>
           </nav>
         </div>
+
         <div className="flex items-center space-x-4">
           <Avatar src={user?.avatar} className="bg-[#626161]" shape="circle">
             {user?.avatar ? "" : user?.fullName?.charAt(0).toUpperCase()}

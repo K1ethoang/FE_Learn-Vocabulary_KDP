@@ -119,6 +119,11 @@ const TestScreen = () => {
           "The number of results is not enough"
       ) {
         message.warning("Vui lòng không bỏ trống câu hỏi!");
+      } else if (
+        error?.response?.data?.statusCode === 400 &&
+        error?.response?.data?.errors[0]?.message === "Required"
+      ) {
+        message.warning("Vui lòng không bỏ trống câu hỏi!");
       } else {
         console.log("error:", error);
         message.error("Có lỗi xảy ra!");

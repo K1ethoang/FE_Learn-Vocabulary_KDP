@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import MemoryCard from "../cards/MemoryCard";
 import { Select, Divider, Input } from "antd";
 
@@ -8,8 +8,14 @@ const ModuleTab = ({
   openDeleteSetModal,
   setTopic,
 }) => {
-  const [filteredSets, setFilteredSets] = React.useState(topics);
+  const [filteredSets, setFilteredSets] = useState(topics);
 
+  // Cập nhật `filteredSets` mỗi khi `topics` thay đổi
+  useEffect(() => {
+    setFilteredSets(topics);
+  }, [topics]);
+
+  // Debounce function
   const debounce = (func, wait) => {
     let timeout;
     return function (...args) {
@@ -18,9 +24,11 @@ const ModuleTab = ({
       timeout = setTimeout(() => func.apply(context, args), wait);
     };
   };
+
+  // Xử lý tìm kiếm
   const handleSearch = debounce((value) => {
     if (value === "") {
-      setFilteredSets(topics);
+      setFilteredSets(topics); // Hiển thị tất cả khi không nhập gì
     } else {
       const filteredList = topics.filter(
         (item) =>
@@ -35,24 +43,11 @@ const ModuleTab = ({
     const value = event.target.value.toLowerCase();
     handleSearch(value);
   };
-  // const handleChange = (value) => {
-  //   console.log(`selected ${value}`);
-  // };
 
   return (
     <div>
       <div className="flex justify-between items-center">
         <div></div>
-        {/* <Select
-          defaultValue="Gần đây"
-          style={{ width: 160 }}
-          onChange={handleChange}
-          options={[
-            { value: "created", label: "Đã tạo" },
-            { value: "current", label: "Gần đây" },
-            { value: "studied", label: "Đã học" },
-          ]}
-        /> */}
         <Input
           style={{ width: 400 }}
           size="large"
@@ -63,15 +58,19 @@ const ModuleTab = ({
       </div>
       <Divider />
 
-      {filteredSets.map((topic, idx) => (
-        <MemoryCard
-          key={idx}
-          topic={topic}
-          openEditSetModal={openEditSetModal}
-          openDeleteSetModal={openDeleteSetModal}
-          setTopic={setTopic}
-        />
-      ))}
+      {filteredSets.length > 0 ? (
+        filteredSets.map((topic, idx) => (
+          <MemoryCard
+            key={idx}
+            topic={topic}
+            openEditSetModal={openEditSetModal}
+            openDeleteSetModal={openDeleteSetModal}
+            setTopic={setTopic}
+          />
+        ))
+      ) : (
+        <div>Không tìm thấy học phần nào!</div>
+      )}
     </div>
   );
 };

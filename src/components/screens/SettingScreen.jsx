@@ -4,10 +4,15 @@ import { useAuth } from "../../providers/AuthProvider";
 import EditProfileModal from "../modals/user/EditProfileModal";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../../redux/themeSlice";
+import EditUserName from "../modals/user/EditUserName";
+import ChangePassword from "../modals/user/ChangePassword";
 
 const SettingScreen = () => {
   const { user } = useAuth();
   const [openEditProfileModal, setOpenEditProfileModal] = React.useState(false);
+  const [openChangePassword, setOpenChangePassword] = React.useState(false);
+  const [openEditUsernameModal, setOpenEditUsernameModal] =
+    React.useState(false);
   const theme = useSelector((state) => state.theme.theme);
   const dispatch = useDispatch();
   const handleChange = (value) => {
@@ -18,8 +23,25 @@ const SettingScreen = () => {
   const handleEditProfile = () => {
     setOpenEditProfileModal(true);
   };
+
   const handleEditProfileModalClose = () => {
     setOpenEditProfileModal(false);
+  };
+
+  const handleEditUsername = () => {
+    setOpenEditUsernameModal(true);
+  };
+
+  const handleEditUsernameModalClose = () => {
+    setOpenEditUsernameModal(false);
+  };
+
+  const handleChangePassword = () => {
+    setOpenChangePassword(true);
+  };
+
+  const handleChangePasswordCLose = () => {
+    setOpenChangePassword(false);
   };
 
   return (
@@ -36,6 +58,11 @@ const SettingScreen = () => {
             <div className=" flex flex-col justify-center p-4">
               <span className="font-semibold">Tên người dùng</span>
               <span className="font-medium text-gray">{user?.fullName}</span>
+            </div>
+            <div className="pr-2">
+              <Button type="primary" onClick={handleEditUsername}>
+                Sửa
+              </Button>
             </div>
           </div>
           <Divider
@@ -69,6 +96,24 @@ const SettingScreen = () => {
               }`}
             >
               <span>Người dùng</span>
+            </div>
+          </div>
+
+          <Divider
+            orientation="left"
+            style={{
+              borderColor: "#d4d5d5",
+              margin: 0,
+            }}
+          />
+          <div className="text-base w-full h-24  p-2  flex items-center justify-between">
+            <div className=" w-full flex items-center justify-between p-4">
+              <span className="font-semibold">Đổi mật khẩu</span>
+              <div>
+                <Button type="primary" onClick={handleChangePassword}>
+                  Đổi mật khẩu
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -132,55 +177,21 @@ const SettingScreen = () => {
         </div>
       </div>
 
-      {/* Acc */}
-      <div className="mt-12">
-        <span className="text-xl font-semibold text-gray">Tài khoản</span>
-        <div className="w-full h-3/5 border rounded-lg mt-2">
-          <div className="text-base w-full h-24  p-2  flex items-center justify-between">
-            <div className=" flex flex-col justify-center p-4">
-              <span className="font-semibold">
-                Thông tin tài khoản chi tiết
-              </span>
-            </div>
-
-            <div
-              className="w-28 h-9 flex items-center justify-center bg-[#fff] font-bold text-[#473dd9] cursor-pointer hover:bg-[#e0deff] rounded-lg"
-              onClick={handleEditProfile}
-            >
-              <span>Xem</span>
-            </div>
-          </div>
-          <Divider
-            orientation="left"
-            style={{
-              borderColor: "#d4d5d5",
-              margin: 0,
-            }}
-          />
-          <div className="text-base h-24 w-full p-2 flex items-center justify-between">
-            <div className=" flex flex-col justify-center p-4">
-              <span className="font-semibold">Xóa tài khoản của bạn</span>
-              <span className="font-medium text-gray">
-                Thao tác này sẽ xóa tất cả dữ liệu của bạn và không thể hoàn
-                tác.
-              </span>
-            </div>
-            <div
-              className={`w-14 h-9 flex items-center justify-center  font-bold mr-8 ${
-                theme === "light" ? "bg-[#fff]" : "bg-bg-main-dark"
-              }`}
-            >
-              <Button danger title="Xóa tài khoản" type="primary">
-                Xóa tài khoản
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <EditProfileModal
         openEditProfileModal={openEditProfileModal}
         handleEditProfileModalClose={handleEditProfileModalClose}
+        user={user}
+      />
+
+      <EditUserName
+        openEditUsernameModal={openEditUsernameModal}
+        handleEditUsernameModalClose={handleEditUsernameModalClose}
+        user={user}
+      />
+
+      <ChangePassword
+        openChangePassword={openChangePassword}
+        handleChangePasswordCLose={handleChangePasswordCLose}
         user={user}
       />
     </div>

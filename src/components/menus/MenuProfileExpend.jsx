@@ -55,18 +55,7 @@ const MenuProfileExpend = () => {
     {
       type: "divider",
     },
-    {
-      label: (
-        <span
-          onClick={handleAchievement}
-          className="w-36 h-8 flex items-center justify-start"
-        >
-          Thành tựu
-        </span>
-      ),
-      key: "2",
-      icon: <TrophyOutlined style={{ fontSize: 15 }} />,
-    },
+
     {
       label: (
         <span
@@ -76,14 +65,14 @@ const MenuProfileExpend = () => {
           Cài đặt
         </span>
       ),
-      key: "3",
+      key: "2",
       icon: <SettingOutlined style={{ fontSize: 15 }} />,
     },
     {
       type: "divider",
     },
     {
-      key: "4",
+      key: "3",
       label: (
         <span
           className="w-36 h-8 flex items-center justify-start"
@@ -97,7 +86,7 @@ const MenuProfileExpend = () => {
       type: "divider",
     },
     {
-      key: "5",
+      key: "4",
       label: (
         <span
           onClick={handlePrivacy}
@@ -108,24 +97,13 @@ const MenuProfileExpend = () => {
       ),
     },
     {
-      key: "6",
+      key: "5",
       label: (
         <span
           onClick={handleSupport}
           className="w-36 h-8 flex items-center justify-start"
         >
           Giúp đỡ và phản hồi
-        </span>
-      ),
-    },
-    {
-      key: "7",
-      label: (
-        <span
-          onClick={handleUpgarde}
-          className="w-36 h-8 flex items-center justify-start"
-        >
-          Nâng cấp
         </span>
       ),
     },

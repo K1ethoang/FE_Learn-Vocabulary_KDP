@@ -14,7 +14,7 @@ export default {
       "gray-light": "#d3dce6",
       "bg-light": "#ffffff",
       "bg-black": "#000",
-      "bg-main": "#0a5823",
+      "bg-main": "#6a9fc3",
       "bg-main-dark": "#001529",
       "bg-main-light": "#fff",
     },

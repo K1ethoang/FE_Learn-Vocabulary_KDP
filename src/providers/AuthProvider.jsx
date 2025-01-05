@@ -1,6 +1,5 @@
 import { jwtDecode } from "jwt-decode";
 import { createContext, useContext, useState, useEffect } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
 import axiosConfig from "../services/axios/axiosConfig";
 import { message } from "antd";
 
@@ -16,7 +15,7 @@ export const AuthProvider = ({ children }) => {
       const user = {
         fullName: userData?.result?.fullName,
         email: userData?.result?.email,
-
+        id: userData?.result?.id,
         role: userData?.result?.role,
         avatar: userData?.result?.avatar,
       };
@@ -63,7 +62,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user, login, logout }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, user, setUser, login, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -17,7 +17,17 @@ const HistoryExamsScreen = () => {
       const res = await axiosConfig.get(`/exams?topicId=${idTopic}`);
 
       if (res?.data?.statusCode === 200) {
-        setExams(res?.data?.result);
+        const exams = res?.data?.result;
+        console.log(exams);
+        setExams((prev) => {
+          const filteredExams = exams.filter((ex) => ex.startAt !== null);
+
+          const sortedExams = filteredExams.sort(
+            (a, b) => new Date(b.startAt) - new Date(a.startAt) // lon -> nho
+          );
+
+          return sortedExams.slice(0, 10);
+        });
       }
     } catch (error) {
       console.log("error:", error);
@@ -75,6 +85,9 @@ const HistoryExamsScreen = () => {
         <div></div>
       </div>
       <div className="w-2/3  ml-auto mr-auto mt-10">
+        <div className="w-full text-xl align-middle ml-auto mr-auto mb-2 text-gray-dark">
+          Top 10 bài kiểm tra gần đây
+        </div>
         <Table
           className="shadow-xl"
           bordered

@@ -36,7 +36,7 @@ const RegisterScreen = () => {
               Xin chào đến KDP
             </span>
           </div>
-          <div className=" bg-[rgba(92,192,79,0.4)] p-8 rounded-lg shadow-lg w-full max-w-md">
+          <div className=" bg-[#02020266] p-8 rounded-lg shadow-lg w-full max-w-md">
             <h2 className="text-2xl font-semibold text-center mb-6 text-bg-light">
               Đăng kí
             </h2>

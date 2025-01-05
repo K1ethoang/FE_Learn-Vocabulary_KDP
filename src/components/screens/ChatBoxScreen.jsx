@@ -1,4 +1,4 @@
-import { Avatar, Divider, Input, message } from "antd";
+import { Avatar, Divider, Input } from "antd";
 import { useEffect, useRef, useState } from "react";
 import { FaArrowAltCircleUp } from "react-icons/fa";
 import "../chatbox/ChatBox.css";
@@ -7,6 +7,7 @@ import animation_loading_dots from "../../assets/images/animation_loading_dots.l
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { useAuth } from "../../providers/AuthProvider";
 import axios from "axios";
+import { formatText } from "../../utils/formatResponseChatbot.jsx";
 
 const ChatBoxScreen = () => {
   const { user } = useAuth();
@@ -71,7 +72,7 @@ const ChatBoxScreen = () => {
         const updatedChat = [...prev];
 
         const lastIndex = updatedChat.findIndex(
-          (chat) => chat.role === "assistant" && chat.content === "Đang chờ..."
+          (chat) => chat.role === "assistant" && chat.content === "loading"
         );
         if (lastIndex !== -1) {
           updatedChat[lastIndex] = {
@@ -87,7 +88,7 @@ const ChatBoxScreen = () => {
       setHistoryChat((prev) => {
         const updatedChat = [...prev];
         const lastIndex = updatedChat.findIndex(
-          (chat) => chat.role === "assistant" && chat.content === "Đang chờ..."
+          (chat) => chat.role === "assistant" && chat.content === "loading"
         );
         if (lastIndex !== -1) {
           updatedChat[lastIndex] = {
@@ -142,10 +143,10 @@ const ChatBoxScreen = () => {
                   />
                 )}
                 <div
-                  className={`ml-2 p-2 rounded ${
+                  className={`ml-2 p-3 rounded shadow-md ${
                     message.role === "user"
                       ? "bg-blue text-bg-light"
-                      : "bg-gray-light text-gray-dark"
+                      : "bg-[#f0efef] text-gray-dark"
                   }`}
                 >
                   {message.content === "loading" ? (
@@ -158,7 +159,9 @@ const ChatBoxScreen = () => {
                     />
                   ) : (
                     // </div>
-                    <p className="max-w-lg  break-words">{message.content}</p>
+                    <p className="max-w-lg  break-words  font-roboto">
+                      {formatText(message?.content)}
+                    </p>
                   )}
                 </div>
                 {message.role === "user" && (

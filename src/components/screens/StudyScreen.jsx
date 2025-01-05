@@ -132,7 +132,7 @@ const StudyScreen = () => {
         </div>
         <div
           onClick={handleExportExcel}
-          className={`flex  items-center justify-center bg-[#61ff53] p-2 font-medium cursor-pointer hover:bg-[#69f057] rounded-lg border border-[#fff] shadow-lg `}
+          className={`flex  items-center justify-center bg-[#37c52a] p-2 font-medium cursor-pointer hover:bg-[#3cb82b] rounded-lg border border-[#fff] shadow-lg `}
         >
           <CiExport size={28} className="mr-1" />
           <span

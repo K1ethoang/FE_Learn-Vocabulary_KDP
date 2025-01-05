@@ -80,6 +80,8 @@ const SetsScreen = () => {
     );
   }
 
+  console.log("topics", topics);
+
   return (
     <div className="p-3 w-full ">
       {contextHolder}
@@ -91,37 +93,38 @@ const SetsScreen = () => {
       </div>
 
       {topics && topics?.length > 0 ? (
-        <ModuleTab
-          topics={topics}
-          openEditSetModal={openEditSetModal}
-          openDeleteSetModal={openDeleteSetModal}
-          setTopic={setTopic}
-        />
+        <>
+          <ModuleTab
+            topics={topics}
+            openEditSetModal={openEditSetModal}
+            openDeleteSetModal={openDeleteSetModal}
+            setTopic={setTopic}
+          />
+          <CreateSetsModal
+            openCreateSet={openCreateSet}
+            handleCreateSetModalClose={handleCreateSetModalClose}
+            setTopics={setTopics}
+            openNotification={openNotification}
+          />
+
+          <DeleteSetModal
+            openDeleteSetModal={isOpenDeleteSetModal}
+            handleCloseDeleteSetModal={handleCloseDeleteSetModal}
+            topic={topic}
+            handleOpenNotifi={handleOpenNotifi}
+            setTopics={setTopics}
+          />
+          <EditSetModal
+            openEditSetModal={isOpenEditSetModal}
+            handleCloseEditModal={handleCloseEditModal}
+            topic={topic}
+            setTopics={setTopics}
+            handleOpenNotifi={handleOpenNotifi}
+          />
+        </>
       ) : (
         <EmtySets message="Bạn chưa có học phần nào!" />
       )}
-
-      <CreateSetsModal
-        openCreateSet={openCreateSet}
-        handleCreateSetModalClose={handleCreateSetModalClose}
-        setTopics={setTopics}
-        openNotification={openNotification}
-      />
-
-      <DeleteSetModal
-        openDeleteSetModal={isOpenDeleteSetModal}
-        handleCloseDeleteSetModal={handleCloseDeleteSetModal}
-        topic={topic}
-        handleOpenNotifi={handleOpenNotifi}
-        setTopics={setTopics}
-      />
-      <EditSetModal
-        openEditSetModal={isOpenEditSetModal}
-        handleCloseEditModal={handleCloseEditModal}
-        topic={topic}
-        setTopics={setTopics}
-        handleOpenNotifi={handleOpenNotifi}
-      />
     </div>
   );
 };
