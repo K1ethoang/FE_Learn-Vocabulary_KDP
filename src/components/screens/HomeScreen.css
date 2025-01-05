@@ -1,0 +1,16 @@
+.ant-carousel .slick-prev,
+.ant-carousel .slick-next {
+
+    /* Set the size of the arrows */
+    color: rgb(21, 1, 82);
+
+    /* Change arrow color */
+    z-index: 1;
+    /* Ensure arrows are visible */
+}
+
+.ant-carousel .slick-prev:hover,
+.ant-carousel .slick-next:hover {
+    color: rgb(53, 0, 160);
+    /* Change arrow color on hover */
+}

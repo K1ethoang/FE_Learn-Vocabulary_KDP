@@ -2,18 +2,33 @@
   "name": "fe-learn-vocabulary-kdp",
   "private": true,
   "version": "0.0.0",
+  "author": "entidi",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "echo 'Fontend is designed by [Entidi] - Running...' && vite --port=3001",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.5.1",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@lottiefiles/dotlottie-react": "^0.11.0",
+    "@reduxjs/toolkit": "^2.5.0",
     "antd": "^5.21.3",
+    "axios": "^1.7.9",
+    "blob": "^0.1.0",
+    "dotenv": "^16.4.7",
+    "js-cookie": "^3.0.5",
+    "jwt-decode": "^4.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.27.0"
+    "react-icons": "^5.4.0",
+    "react-infinite-scroll-component": "^6.1.0",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^6.27.0",
+    "uuid": "^11.0.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
